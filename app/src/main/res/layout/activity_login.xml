@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.sfr.dbuttonapplication.activity.login.LoginActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_extra" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/please_input_phone_number"
+            android:textSize="@dimen/title_size" />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/login_phone"/>
+
+
+        <LinearLayout
+            android:id="@+id/login_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_account_number"
+                android:layout_width="match_parent"
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:background="@mipmap/edittext_phone"
+                android:inputType="number"
+                android:text="15989380185"
+                android:singleLine="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:maxLength="20"
+                android:paddingLeft="10dp"
+                android:textSize="16dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="34dp"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/btn_send_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/send_sms_btn_selector"
+                    android:text="@string/get_sms_code"
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
+                <EditText
+                    android:id="@+id/et_account_sms_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/btn_send_sms"
+                    android:background="@mipmap/edittext_sms_code"
+                    android:layout_centerVertical="true"
+                    android:hint="@string/sms_code"
+                    android:text="666666"
+                    android:paddingLeft="10dp"
+                    android:inputType="number"
+                    android:layout_marginRight="10dp"
+                    android:singleLine="true"
+                    android:maxLength="6"
+                    android:textSize="16dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/login_hint"
+            android:textColor="@color/login_hint"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/learn_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/learn_detail"
+            android:textSize="@dimen/title_extra_size"
+            android:paddingLeft="@dimen/title_left_padding"
+            android:paddingRight="@dimen/title_left_padding"
+            android:textColor="@color/new_user" />
+
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="26dp"
+        android:textColor="@color/white"
+        android:text="@string/login"
+        android:background="@drawable/login_btn_selector"/>
+</RelativeLayout>

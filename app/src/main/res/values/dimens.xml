@@ -1,0 +1,41 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- 翻译界面编辑框内，内容与边框的边距 -->
+    <dimen name="translate_shape_et_bg_padding">8dp</dimen>
+    <!-- 翻译界面编辑框与父布局的距离 -->
+    <dimen name="translate_et_margin">8dp</dimen>
+    <!-- 翻译界面编辑框高度 -->
+    <dimen name="translate_et_height">120dp</dimen>
+    <!-- 翻译界面自定义翻译按钮内容与边框的距离 -->
+    <dimen name="shape_btn_padding">5dp</dimen>
+
+    <!-- 分割线高度 -->
+    <dimen name="cut_line">0.5dp</dimen>
+
+    <dimen name="margin_">10dp</dimen>
+    <dimen name="pading_">5dp</dimen>
+    <dimen name="btn_size">22sp</dimen>
+    <dimen name="txt_size">18sp</dimen>
+
+    <!-- 分割线高度 -->
+    <dimen name="line_height">1dp</dimen>
+    <dimen name="title_height">60dp</dimen>
+    <dimen name="title_left_padding">15dp</dimen>
+    <dimen name="spacing_distance">1px</dimen>
+    <dimen name="title_size">18dp</dimen>
+    <dimen name="title_extra_size">15sp</dimen>
+    <dimen name="bottom_menu_size">10sp</dimen>
+
+    <dimen name="shared_bar_padding_bottom">20dp</dimen>
+    <dimen name="shared_bar_padding_left">16dp</dimen>
+    <dimen name="shared_bar_padding_right">16dp</dimen>
+
+    <dimen name="user_data_hint_text">14dp</dimen>
+    <dimen name="my_user_data_hint_text">16dp</dimen>
+    <dimen name="contact_user_data_hint_text">16dp</dimen>
+    <dimen name="alarm_list_name">12dp</dimen>
+    <dimen name="contact_text">16dp</dimen>
+</resources>

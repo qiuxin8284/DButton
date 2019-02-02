@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/dialog_address_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape"
+        android:orientation="vertical"
+        android:padding="0dp" >
+
+        <TextView
+            android:id="@+id/dialog_delete_confirm_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="40dp"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/dialog_delete_confirm_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:maxLength="100"
+            android:text="@string/delete_hint"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/dialog_delete_confirm_view"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#d9d9d9" />
+
+        <LinearLayout
+            android:id="@+id/fragment_search_by_grade_rl0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/delete_confirm_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/abondon"
+                android:textColor="@color/new_user"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/dialog_address_view"
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#d9d9d9" />
+
+            <TextView
+                android:id="@+id/delete_confirm_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/delete"
+                android:textColor="@color/new_user"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

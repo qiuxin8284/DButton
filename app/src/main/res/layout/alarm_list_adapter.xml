@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="64dp">
+
+        <LinearLayout
+            android:id="@+id/ll_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical">
+
+            <com.sfr.dbuttonapplication.activity.widget.CircleImageView
+                android:id="@+id/iv_your_head"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/img_default_head" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="刘潇潇"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ll_head"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户ID:1251312414141"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+            <TextView
+                android:id="@+id/tv_alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="报警时间:2012-08-01  AM 6:00"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+            <TextView
+                android:id="@+id/tv_alarm_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="报警地址：22.494002,113.927882"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/img_right" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

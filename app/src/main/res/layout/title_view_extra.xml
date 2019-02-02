@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true" >
+
+        <ImageButton
+            android:id="@+id/title_back_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="title_extra"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/title_extra_size"
+            android:paddingLeft="@dimen/title_left_padding"
+            android:paddingRight="@dimen/title_left_padding"
+            android:visibility="gone"
+            android:textColor="@color/new_user" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/title_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="title_info"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/title_size" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/title_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="title_save_button"
+            android:background="#00ffffff"
+            android:paddingLeft="@dimen/title_left_padding"
+            android:paddingRight="@dimen/title_left_padding"
+            android:textColor="@color/black"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/title_extra"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="title_extra"
+            android:textSize="@dimen/title_extra_size"
+            android:paddingLeft="@dimen/title_left_padding"
+            android:paddingRight="@dimen/title_left_padding"
+            android:textColor="@color/new_user" />
+    </RelativeLayout>
+
+</RelativeLayout>

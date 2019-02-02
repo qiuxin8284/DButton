@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RadioGroup
+            android:id="@+id/menu_panel_rg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/menu_alarm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_back_bottom"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/menu_alarm"
+                android:textColor="@drawable/bottom_menu_color"
+                android:textSize="@dimen/bottom_menu_size" />
+
+
+            <RadioButton
+                android:id="@+id/menu_contact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_back_bottom"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/menu_contact"
+                android:textColor="@drawable/bottom_menu_color"
+                android:textSize="@dimen/bottom_menu_size" />
+
+            <RadioButton
+                android:id="@+id/menu_my"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/menu_my"
+                android:textColor="@drawable/bottom_menu_color"
+                android:background="@drawable/ripple_back_bottom"
+                android:textSize="@dimen/bottom_menu_size" />
+        </RadioGroup>
+
+        <View
+            android:id="@+id/main_line_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/menu_panel_rg"
+            android:background="@color/background" />
+
+        <com.sfr.dbuttonapplication.activity.widget.CustomViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/main_line_view"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

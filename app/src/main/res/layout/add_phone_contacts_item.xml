@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_contacts_item_catalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingTop="5dip" >
+
+        <TextView
+            android:id="@+id/tv_contacts_item_catalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="A"
+            android:textSize="22dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_message_item_top"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:layout_below="@id/rl_contacts_item_catalog" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true" >
+
+            <RelativeLayout
+                android:id="@+id/rl_add_phone_contacts_item"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp" >
+
+                <ImageView
+                    android:id="@+id/iv_add_phone_contacts_item_head"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_friend_state"
+                android:layout_width="55dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:text="@string/add"
+                android:background="@drawable/add_phone_contact_btn_selector" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/btn_friend_state"
+                android:layout_toRightOf="@id/rl_add_phone_contacts_item" >
+
+                <TextView
+                    android:id="@+id/tv_add_phone_contacts_item_friendname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="这是昵称8个字"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_add_phone_contacts_item_lastmessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_add_phone_contacts_item_friendname"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="验证消息"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_message_item_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/rl_message_item_top" >
+
+        <RelativeLayout
+            android:id="@+id/rl_message_item_head_length"
+            android:layout_width="10dp"
+            android:layout_height="1dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_message_item_top_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_message_item_head_length"
+            android:background="@color/black" >
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

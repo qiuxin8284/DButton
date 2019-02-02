@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_extra" />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:background="@color/white"
+            android:layout_marginBottom="21dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/contact_us"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="电话：0755-12345678"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_logout_account"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="13dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/logout_account"
+                android:textColor="@color/login_hint"
+                android:textSize="16dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/title"
+        android:layout_marginTop="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_user_data_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:text="百川"
+                android:textSize="22dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.sfr.dbuttonapplication.activity.widget.CircleImageView
+                    android:id="@+id/iv_input_your_head"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="45dp"
+                    android:background="@mipmap/img_default_head" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_sex"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="男"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_age"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="23"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_blood"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_blood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="A"
+                            android:textAllCaps="true"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_phone_number"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15989380185"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/my_user_data_hint_text" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/white">
+
+                <Button
+                    android:id="@+id/btn_edit_user_data"
+                    android:layout_width="160dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/white"
+                    android:text="@string/edit_user_data"
+                    android:background="@drawable/edit_data_btn_selector" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/background"/>
+            <RelativeLayout
+                android:id="@+id/rl_my_alarm_list"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+
+                <ImageView
+                    android:id="@+id/iv_img_my_alarm"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/img_my_alarm" />
+
+                <TextView
+                    android:id="@+id/tv_my_alarm_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/iv_img_my_alarm"
+                    android:text="@string/my_alarm_list"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="@dimen/contact_text" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/img_right" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <include layout="@layout/item_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_my_dbutton"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+
+                <ImageView
+                    android:id="@+id/iv_img_my_dbutton"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/img_my_dbutton" />
+
+                <TextView
+                    android:id="@+id/tv_my_dbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/iv_img_my_dbutton"
+                    android:text="@string/my_dbutton"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="@dimen/contact_text" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/img_right" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <include layout="@layout/item_line"/>
+            <RelativeLayout
+                android:id="@+id/rl_ota_update"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+
+                <ImageView
+                    android:id="@+id/iv_img_ota_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:background="@mipmap/img_ota_update" />
+
+                <TextView
+                    android:id="@+id/tv_ota_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/iv_img_ota_update"
+                    android:text="@string/version_update"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="@dimen/contact_text" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_ota_update_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:text=""
+                        android:textColor="@color/user_data_text"
+                        android:textSize="@dimen/contact_text" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/img_right" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

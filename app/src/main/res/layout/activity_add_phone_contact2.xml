@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.sfr.dbuttonapplication.activity.contact.AddPhoneContactActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_extra" />
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_below="@id/title"
+        android:background="@color/white"
+        android:layout_marginTop="2dp">
+
+        <ImageView
+            android:id="@+id/common_search_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:background="@mipmap/img_search" />
+
+        <com.sfr.dbuttonapplication.activity.widget.ClearEditText
+            android:id="@+id/action_bar_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:layout_marginRight="21dp"
+            android:layout_toRightOf="@id/common_search_iv"
+            android:hint="@string/add_phone_contact_search_hint"
+            android:singleLine="true" />
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl_search" >
+
+        <ListView
+            android:id="@+id/lv_add_phone_contact"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:divider="@null"
+            android:listSelector="#00000000"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/tv_add_phone_contact"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@color/user_data_text"
+            android:textSize="30.0dip"
+            android:visibility="invisible" />
+
+        <com.sfr.dbuttonapplication.activity.widget.SideBar
+            android:id="@+id/sb_add_phone_contact"
+            android:layout_width="20.0dip"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right|center" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_add_phone_contact_show_reason"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title" >
+
+        <TextView
+            android:id="@+id/tv_add_phone_contact_show_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="正在获取手机联系人"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.sfr.dbuttonapplication.activity.MyDButtonActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_view_extra" />
+
+    <RelativeLayout
+        android:id="@+id/rl_no_dbutton"
+        android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:text="@string/dbutton_no_bind"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size" />
+
+            <ImageView
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@mipmap/img_dbutton_logo" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rl_dbutton_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_dbutton_buy"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/dbutton_buy"
+                    android:textColor="@color/login_hint"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_dbutton_bind"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/dbutton_bind"
+                    android:textColor="@color/login_hint"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rl_dbutton_bottom"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/dbutton_no_bind_hint"
+            android:textSize="10dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_has_dbutton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:layout_below="@id/title">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:text="@string/dbutton_detail"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size" />
+
+            <ImageView
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@mipmap/img_dbutton_logo" />
+
+            <TextView
+                android:id="@+id/my_dbutton_id_connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="36dp"
+                android:text="宝珠ID：888-888888888"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+
+            <TextView
+                android:id="@+id/tv_battrty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="宝珠电量："
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="60dp"
+                android:text="@string/dbutton_unbind_hint"
+                android:textSize="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_dbutton_unbind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/dbutton_unbind"
+                    android:textColor="@color/login_hint"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_explain"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/dbutton_explain_button"
+            android:textColor="@color/white"
+            android:background="@drawable/login_btn_selector" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_has_dbutton_no_connect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_below="@id/title">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="48dp"
+                android:text="@string/no_connection"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_size" />
+
+            <ImageView
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:background="@mipmap/img_dbutton_logo" />
+
+            <TextView
+                android:id="@+id/my_dbutton_id_no_connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="36dp"
+                android:text="宝珠ID：888-888888888"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="宝珠电量：N/A"
+                android:textColor="@color/user_data_text"
+                android:textSize="@dimen/alarm_list_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="60dp"
+                android:text="@string/dbutton_no_connect_hint"
+                android:textSize="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_dbutton_unbind_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/dbutton_unbind"
+                    android:textColor="@color/login_hint"
+                    android:textSize="16dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="28dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/go_to_connect"
+            android:textColor="@color/white"
+            android:background="@drawable/login_btn_selector" />
+    </RelativeLayout>
+</RelativeLayout>
