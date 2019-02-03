@@ -33,7 +33,6 @@
     <!-- 如需使用人脸识别，还要添加：摄相头权限，拍照需要用到 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    //读取系统信息，包含系统版本等信息，用作统计
     <application
         android:name=".DButtonApplication"
         android:allowBackup="true"
