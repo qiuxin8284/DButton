@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/activity/contact/PhoneContactSortAdapter.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/activity/widget/SideBar.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/entity/ContactsData.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/entity/SortModel.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/CharacterParser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/CommunityNames.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/LogUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/LogUtils.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/PhoneContactsUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/PictureUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/PinyinComparator.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/sfr/dbuttonapplication/utils/Tools.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/sidebar_background.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/add_phone_contacts_item.xml" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
