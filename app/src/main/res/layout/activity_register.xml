@@ -28,23 +28,39 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true">
 
+        <ImageView
+            android:id="@+id/img_left"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/img_left"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_common_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/img_left"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="5dp"
             android:text="@string/common_cancel"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
+        <ImageView
+            android:id="@+id/img_right"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@mipmap/img_right"
+            android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/tv_common_accpet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@id/img_right"
+            android:layout_marginRight="5dp"
             android:text="@string/common_accpet"
             android:textColor="@color/black"
             android:textSize="16sp" />

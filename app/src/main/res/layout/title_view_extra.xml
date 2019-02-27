@@ -12,9 +12,10 @@
 
         <ImageButton
             android:id="@+id/title_back_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="gone"
+            android:background="@mipmap/img_left"
             android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/title_back"

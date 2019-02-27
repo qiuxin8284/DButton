@@ -33,7 +33,7 @@
     <dimen name="shared_bar_padding_left">16dp</dimen>
     <dimen name="shared_bar_padding_right">16dp</dimen>
 
-    <dimen name="user_data_hint_text">14dp</dimen>
+    <dimen name="user_data_hint_text">16sp</dimen>
     <dimen name="my_user_data_hint_text">16dp</dimen>
     <dimen name="contact_user_data_hint_text">16dp</dimen>
     <dimen name="alarm_list_name">12dp</dimen>

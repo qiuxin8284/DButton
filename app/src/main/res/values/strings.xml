@@ -22,6 +22,7 @@
     <string name="add_phone_hint">注意：\n系统默认添加的第一位联系人具有紧急情况下电话呼叫功能，此设置可在“紧急联系人”中重新指定"</string>
     <string name="network_connection_failed">网络连接失败</string>
     <string name="failed_to_obtain_network_information">获取网络信息失败</string>
+    <string name="please_add_user_info">请添加用户信息</string>
 
     <string name="my_alarm_list">我的警报记录</string>
     <string name="my_dbutton">我的宝珠</string>
@@ -60,7 +61,7 @@
     <string name="login">登录</string>
     <string name="logout_account">退出登录</string>
 
-    <string name="new_user_register">新用户注册</string>
+    <string name="new_user_register">注册新用户</string>
     <string name="go_next">下一步</string>
     <string name="go_up">上一步</string>
     <string name="common_accpet">同意</string>
@@ -79,7 +80,7 @@
 
     <string name="please_bind_your_dbutton">如您手上有宝珠请绑定</string>
     <string name="please_bind_your_dbutton_hint">(也可以完成注册后去个人中心绑定）</string>
-    <string name="register_over">完成注册</string>
+    <string name="register_over">注册</string>
     <string name="sex_man">男</string>
     <string name="sex_woman">女</string>
     <string name="blood_other">未知</string>

@@ -18,7 +18,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,10 +57,9 @@ import java.util.Date;
 public class RegisterDataActivity extends AppCompatActivity implements OnClickListener {
 
     private Button mBtnRegisterOver;
-    private String mPhone, mCode;
-    private static final int UPLOAD_SUCCESS = 1;
-    private static final int UPLOAD_FALSE = 2;
-    private static final int REGISTER_SUCCESS = 3;
+    private static final int UPLOAD_SUCCESS = 7;
+    private static final int UPLOAD_FALSE = 8;
+    private static final int REGISTER_SUCCESS = 9;
     private static final int REGISTER_FALSE = 4;
     private static final int N0_PERMISSION = 5;
     private static final int NO_PIC = 6;;
@@ -72,6 +73,14 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private RelativeLayout mRlBorthDay;
     String file_full_path = "";
     Bitmap photo;
+
+    private String mPhone, mSmsCode;
+    private EditText mEtPhone, mEtSmsCode;
+    private TextView mBtnSendSms;
+    private static final int SEND_SMS_SUCCESS = 1;
+    private static final int SEND_SMS_FALSE = 2;
+    private static final int SEND_SMS_TIME = 3;
+    private int time = 60;
 
 
 
@@ -101,6 +110,33 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                     break;
                 case N0_PERMISSION:
                     ToastUtils.shortToast(RegisterDataActivity.this, getResources().getString(R.string.please_open_permission));
+                    break;
+
+                case SEND_SMS_SUCCESS:
+                    mBtnSendSms.setClickable(false);
+                    mBtnSendSms.setTextColor(0XFFAEAEAE);
+                    time = 60;
+                    mBtnSendSms.setText("验证码已发送..."+time+"s");
+                    sendEmptyMessageDelayed(SEND_SMS_TIME,1000);
+                    break;
+                case SEND_SMS_FALSE:
+                    ToastUtils.shortToast(RegisterDataActivity.this, HttpAnalyJsonManager.lastError);
+                    break;
+                case SEND_SMS_TIME:
+                    time = time - 1;
+                    if(time == 0){
+                        mBtnSendSms.setText(R.string.get_sms_code);
+                        if (mEtPhone.getText().toString().length() == 11) {
+                            mBtnSendSms.setClickable(true);
+                            mBtnSendSms.setTextColor(0XFF2CA349);
+                        }else{
+                            mBtnSendSms.setClickable(false);
+                            mBtnSendSms.setTextColor(0XFFAEAEAE);
+                        }
+                    }else{
+                        mBtnSendSms.setText("验证码已发送..."+time+"s");
+                        sendEmptyMessageDelayed(SEND_SMS_TIME,1000);
+                    }
                     break;
             }
         }
@@ -137,8 +173,9 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     }
 
     private void setView() {
-        mPhone = getIntent().getStringExtra("phone");
-        mCode = getIntent().getStringExtra("code");
+        mEtPhone = (EditText) findViewById(R.id.et_account_number);
+        mEtSmsCode = (EditText) findViewById(R.id.et_account_sms_code);
+        mBtnSendSms = (TextView) findViewById(R.id.btn_send_sms);
         mBtnRegisterOver = (Button) findViewById(R.id.btn_register_over);
 
         mEtName = (EditText) findViewById(R.id.et_input_your_name);
@@ -159,12 +196,62 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     }
 
     private void setListener() {
-
+        mBtnSendSms.setOnClickListener(this);
         mBtnRegisterOver.setOnClickListener(this);
         mIvHead.setOnClickListener(this);
         mRlBorthDay.setOnClickListener(this);
         mEtBorthDay.setKeyListener(null);
         mIvTime.setOnClickListener(this);
+        mEtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mEtPhone.getText().toString().length() == 11) {
+                    mBtnSendSms.setClickable(true);
+                    mBtnSendSms.setTextColor(0XFF2CA349);
+                }else{
+                    mBtnSendSms.setClickable(false);
+                    mBtnSendSms.setTextColor(0XFFAEAEAE);
+                }
+                if (mEtPhone.getText().toString().length() == 11&&mEtSmsCode.getText().toString().length() == 6) {
+                    mBtnRegisterOver.setClickable(true);
+                    mBtnRegisterOver.setBackgroundResource(R.drawable.login_btn_selector);
+                }else{
+                    mBtnRegisterOver.setClickable(false);
+                    mBtnRegisterOver.setBackgroundResource(R.mipmap.btn_login_none);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mEtSmsCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mEtPhone.getText().toString().length() == 11&&mEtSmsCode.getText().toString().length() == 6) {
+                    mBtnRegisterOver.setClickable(true);
+                    mBtnRegisterOver.setBackgroundResource(R.drawable.login_btn_selector);
+                }else{
+                    mBtnRegisterOver.setClickable(false);
+                    mBtnRegisterOver.setBackgroundResource(R.mipmap.btn_login_none);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         mCBSexMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -239,16 +326,16 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack;
 
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.new_user_register));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,6 +349,21 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btn_send_sms:
+                mPhone = mEtPhone.getText().toString();
+                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
+                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (mPhone.length() != 11) {
+                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    //计时置灰色不可点击
+                    //除非传递false
+                    mSendSMSTask = new SendSMSTask();
+                    mSendSMSTask.execute("");
+                }
+                break;
             case R.id.btn_register_over:
                 //参数判定
                 mName = mEtName.getText().toString();
@@ -276,7 +378,22 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 if(mCBBloodO.isChecked()) mBlood=HttpSendJsonManager.BLOOD_O;
                 if(mCBBloodOther.isChecked()) mBlood=HttpSendJsonManager.BLOOD_OTHER;
 
-                if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
+
+                mPhone = mEtPhone.getText().toString();
+                mSmsCode = mEtSmsCode.getText().toString();
+                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
+                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (mPhone.length() != 11) {
+                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
+                    Toast.makeText(this, R.string.code_empty, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (mPhone.length() != 11) {
+                    Toast.makeText(this, R.string.code_no_right, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
                     Toast.makeText(this, R.string.please_input_your_name, Toast.LENGTH_LONG).show();
                     return;
                 }else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
@@ -417,7 +534,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 
         @Override
         protected Void doInBackground(String... params) {
-            mRegisterData = HttpSendJsonManager.registerAccount(RegisterDataActivity.this, mPhone, mCode ,mName, mGender, mBirth, mBlood, mImg);
+            mRegisterData = HttpSendJsonManager.registerAccount(RegisterDataActivity.this, mPhone, mSmsCode ,mName, mGender, mBirth, mBlood, mImg);
             if (mRegisterData.isOK()) {
                 mHandler.sendEmptyMessage(REGISTER_SUCCESS);
             } else {
@@ -487,5 +604,21 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
             mHandler.sendEmptyMessage(NO_PIC);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private SendSMSTask mSendSMSTask;
+
+    private class SendSMSTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            if (HttpSendJsonManager.sendSMS(RegisterDataActivity.this, mPhone, HttpSendJsonManager.SEND_SMS_TYPE_REGISTER)) {
+                mHandler.sendEmptyMessage(SEND_SMS_SUCCESS);
+            } else {
+                mHandler.sendEmptyMessage(SEND_SMS_FALSE);
+            }
+            return null;
+        }
     }
 }

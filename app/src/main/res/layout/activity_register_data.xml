@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/white"
     tools:context="com.sfr.dbuttonapplication.activity.login.RegisterDataActivity">
 
     <include
@@ -19,367 +19,507 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="@color/background"
-                android:layout_height="39dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="13dp"
-                    android:text="@string/user_data_input_hint"
-                    android:textSize="@dimen/title_size" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:layout_marginTop="50dp">
 
                 <TextView
-                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="60dp"
-                    android:text="@string/please_input_your_name"
-                    android:textSize="@dimen/user_data_hint_text" />
-
-                <EditText
-                    android:id="@+id/et_input_your_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/edittext_sms_code"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="5dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="75dp"
-                    android:layout_toRightOf="@id/user_name"
-                    android:singleLine="true"
-                    android:textSize="@dimen/user_data_hint_text" />
-
-            </RelativeLayout>
-
-            <include layout="@layout/item_line"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
+                    android:text="@string/please_input_phone_number_login"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60dp"
-                    android:text="@string/please_input_your_head"
-                    android:textSize="@dimen/user_data_hint_text" />
-
-                <com.sfr.dbuttonapplication.activity.widget.CircleImageView
-                    android:id="@+id/iv_input_your_head"
-                    android:layout_width="53dp"
-                    android:layout_height="53dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="86dp"
-                    android:background="@mipmap/img_default_head" />
-
+                    android:layout_marginRight="20dp"
+                    android:text="@string/only_support_china_phone_number"
+                    android:textColor="@color/text_gray_hint"
+                    android:textSize="12sp" />
             </RelativeLayout>
 
-            <include layout="@layout/item_line"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/please_choies_your_sex"
-                android:textSize="@dimen/user_data_hint_text" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/sex_man" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_sex_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/sex_man"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:src="@mipmap/sex_woman" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_sex_woman"
-                        android:layout_width="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/sex_woman"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <include layout="@layout/item_line"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/please_input_your_date_of_birth"
-                android:textSize="@dimen/user_data_hint_text" />
-
-            <RelativeLayout
-                android:id="@+id/rl_input_your_bor"
+                android:id="@+id/register_main"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/img_cake"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="60dp"
-                    android:background="@mipmap/img_cake" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="+86>"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="38dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/black" />
+
+                    <com.sfr.dbuttonapplication.activity.widget.ClearEditText
+                        android:id="@+id/et_account_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="@string/phone_number"
+                        android:inputType="number"
+                        android:maxLength="11"
+                        android:singleLine="true"
+                        android:textColorHint="@color/edit_hint"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black" />
 
                 <RelativeLayout
-                    android:id="@+id/rl_input_your_bors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_toRightOf="@id/img_cake"
-                    android:background="@mipmap/edittext_sms_code">
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
-                        android:id="@+id/et_input_your_bor"
+                        android:id="@+id/btn_send_sms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:focusable="false"
+                        android:clickable="false"
+                        android:text="@string/get_sms_code"
+                        android:textColor="@color/edit_hint"
+                        android:textSize="16dp" />
+
+                    <com.sfr.dbuttonapplication.activity.widget.ClearEditText
+                        android:id="@+id/et_account_sms_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/btn_send_sms"
+                        android:background="@null"
+                        android:hint="@string/sms_code"
+                        android:inputType="number"
+                        android:maxLength="6"
                         android:singleLine="true"
-                        android:textSize="@dimen/user_data_hint_text" />
+                        android:textColorHint="@color/edit_hint"
+                        android:textSize="16dp" />
+
                 </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/iv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/rl_input_your_bors"
-                    android:src="@mipmap/img_time" />
-
-            </RelativeLayout>
-
-            <include layout="@layout/item_line"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/please_input_your_blood_group"
-                android:textSize="@dimen/user_data_hint_text" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="60dp"
-                    android:src="@mipmap/img_blood_group" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_blood_a"
-                        android:layout_width="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="A"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="25dp"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_blood_b"
-                        android:layout_width="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="B"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_blood_ab"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="AB"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="25dp"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_blood_o"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="O"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/cb_blood_other"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:button="@drawable/check_box_button"
-                        android:layout_gravity="center_horizontal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/blood_other"
-                        android:textSize="@dimen/user_data_hint_text" />
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black" />
             </LinearLayout>
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background">
+                android:layout_height="10dp"
+                android:layout_marginTop="18dp">
 
-                <Button
-                    android:id="@+id/btn_register_over"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/register_over"
-                    android:textColor="@color/white"
-                    android:background="@drawable/login_btn_selector" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/black" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/please_add_user_info"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/black"
+                        android:text="@string/please_input_your_name"
+                        android:textSize="@dimen/user_data_hint_text" />
+
+                    <EditText
+                        android:id="@+id/et_input_your_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="75dp"
+                        android:layout_toRightOf="@id/user_name"
+                        android:background="@mipmap/edittext_sms_code"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textSize="@dimen/user_data_hint_text" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/item_line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="@color/black"
+                        android:text="@string/please_input_your_head"
+                        android:textSize="@dimen/user_data_hint_text" />
+
+                    <com.sfr.dbuttonapplication.activity.widget.CircleImageView
+                        android:id="@+id/iv_input_your_head"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="86dp"
+                        android:background="@mipmap/img_default_head" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/item_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/please_choies_your_sex"
+                    android:textSize="@dimen/user_data_hint_text" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/sex_man" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_sex_man"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sex_man"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:src="@mipmap/sex_woman" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_sex_woman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sex_woman"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <include layout="@layout/item_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/please_input_your_date_of_birth"
+                    android:textSize="@dimen/user_data_hint_text" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_input_your_bor"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/img_cake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="60dp"
+                        android:background="@mipmap/img_cake" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_input_your_bors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_toRightOf="@id/img_cake"
+                        android:background="@mipmap/edittext_sms_code">
+
+                        <TextView
+                            android:id="@+id/et_input_your_bor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:focusable="false"
+                            android:singleLine="true"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/rl_input_your_bors"
+                        android:src="@mipmap/img_time" />
+
+                </RelativeLayout>
+
+                <include layout="@layout/item_line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/please_input_your_blood_group"
+                    android:textSize="@dimen/user_data_hint_text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="60dp"
+                        android:src="@mipmap/img_blood_group" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_blood_a"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="A"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_blood_b"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="B"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_blood_ab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="AB"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_blood_o"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="O"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="25dp"
+                        android:orientation="vertical">
+
+                        <CheckBox
+                            android:id="@+id/cb_blood_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:button="@drawable/check_box_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/blood_other"
+                            android:textSize="@dimen/user_data_hint_text" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background">
+
+                    <Button
+                        android:id="@+id/btn_register_over"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@mipmap/btn_login_none"
+                        android:text="@string/register_over"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

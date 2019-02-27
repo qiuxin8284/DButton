@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tv_common_accpet:
                 Intent intent = new Intent(RegisterActivity.this,RegisterDataActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.tv_common_cancel:
                 finish();
