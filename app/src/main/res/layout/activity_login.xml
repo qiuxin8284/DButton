@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/white"
     tools:context="com.sfr.dbuttonapplication.activity.login.LoginActivity">
 
     <include
@@ -17,114 +17,155 @@
         android:layout_below="@id/title"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/please_input_phone_number"
-            android:textSize="@dimen/title_size" />
+            android:layout_marginTop="50dp">
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/login_phone"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="@string/please_input_phone_number_login"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/text_gray_hint"
+                android:text="@string/only_support_china_phone_number"
+                android:textSize="12sp" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/login_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_account_number"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/phone_number"
-                android:background="@mipmap/edittext_phone"
-                android:inputType="number"
-                android:text="15989380185"
-                android:singleLine="true"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:maxLength="20"
-                android:paddingLeft="10dp"
-                android:textSize="16dp" />
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="+86>"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/black" />
+
+                <com.sfr.dbuttonapplication.activity.widget.ClearEditText
+                    android:id="@+id/et_account_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:textColorHint="@color/edit_hint"
+                    android:hint="@string/phone_number"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="34dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="10dp">
 
-                <Button
+                <TextView
                     android:id="@+id/btn_send_sms"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/send_sms_btn_selector"
+                    android:layout_centerVertical="true"
                     android:text="@string/get_sms_code"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />
-                <EditText
+                    android:textColor="@color/edit_hint"
+                    android:clickable="false"
+                    android:textSize="16dp" />
+
+                <com.sfr.dbuttonapplication.activity.widget.ClearEditText
                     android:id="@+id/et_account_sms_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/btn_send_sms"
-                    android:background="@mipmap/edittext_sms_code"
                     android:layout_centerVertical="true"
-                    android:hint="@string/sms_code"
-                    android:text="666666"
-                    android:paddingLeft="10dp"
-                    android:inputType="number"
+                    android:background="@null"
                     android:layout_marginRight="10dp"
-                    android:singleLine="true"
+                    android:textColorHint="@color/edit_hint"
+                    android:layout_toLeftOf="@id/btn_send_sms"
+                    android:hint="@string/sms_code"
+                    android:inputType="number"
                     android:maxLength="6"
+                    android:singleLine="true"
                     android:textSize="16dp" />
 
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/login_hint"
-            android:textColor="@color/login_hint"
-            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/learn_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/learn_detail"
-            android:textSize="@dimen/title_extra_size"
+            android:layout_marginTop="5dp"
             android:paddingLeft="@dimen/title_left_padding"
             android:paddingRight="@dimen/title_left_padding"
-            android:textColor="@color/new_user" />
+            android:text="@string/learn_detail"
+            android:textColor="@color/new_user"
+            android:textSize="@dimen/title_extra_size"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="38dp"
+            android:background="@mipmap/btn_login_none"
+            android:clickable="false"
+            android:text="@string/login"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp"
+            android:text="@string/new_user"
+            android:textColor="@color/text_green"
+            android:textSize="@dimen/title_extra_size" />
 
     </LinearLayout>
-    
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="26dp"
-        android:textColor="@color/white"
-        android:text="@string/login"
-        android:background="@drawable/login_btn_selector"/>
+
 </RelativeLayout>

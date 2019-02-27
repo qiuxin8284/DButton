@@ -49,10 +49,11 @@
     <string name="cancel_choice_all">取消全选</string>
 
     <string name="user_login">用户登录</string>
-    <string name="new_user">新用户</string>
+    <string name="register_hint_protect">注册须知</string>
+    <string name="new_user">注册账户</string>
     <string name="please_phone_number_login">请使用手机号码登录</string>
-    <string name="phone_number">手机号码</string>
-    <string name="sms_code">验证码</string>
+    <string name="phone_number">请输入手机号</string>
+    <string name="sms_code">短信验证码</string>
     <string name="get_sms_code">获取验证码</string>
     <string name="login_hint">本APP需要"宝珠"的支持才可正常工作，点击"了解详情"</string>
     <string name="learn_detail">了解详情</string>
@@ -62,6 +63,7 @@
     <string name="new_user_register">新用户注册</string>
     <string name="go_next">下一步</string>
     <string name="go_up">上一步</string>
+    <string name="common_accpet">同意</string>
     <string name="common_confirm">确定</string>
     <string name="common_cancel">取消</string>
     <string name="register_hint">请慎重使用注册的电话号码，注册成功后号码将不可以修改</string>
@@ -124,6 +126,8 @@
     <string name="call_phone_ring">手机响铃</string>
     <string name="location_locus">定位轨迹</string>
     <string name="speech_assistant">语音助手</string>
+    <string name="please_input_phone_number_login">请输入手机号码登录</string>
+    <string name="only_support_china_phone_number">仅支持国内手机号</string>
     <string name="please_input_phone_number">请输入手机号码</string>
     <string name="please_input_sms_text">请输入短信内容</string>
 

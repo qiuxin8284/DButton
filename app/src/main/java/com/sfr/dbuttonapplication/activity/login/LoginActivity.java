@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int SEND_SMS_TIME = 5;
     private String mPhone, mSmsCode;
     private EditText mEtPhone, mEtSmsCode;
-    private Button mBtnSendSms;
+    private TextView mBtnSendSms,mTvRegister;
     private int time = 60;
     private TextView mTvMoreDetai;
 
@@ -46,10 +49,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.handleMessage(msg);
             switch (msg.what) {
                 case SEND_SMS_SUCCESS:
-                    mBtnSendSms.setBackgroundResource(R.mipmap.btn_sms_code_no);
+                    //mBtnSendSms.setBackgroundResource(R.mipmap.btn_sms_code_no);
                     mBtnSendSms.setClickable(false);
+                    mBtnSendSms.setTextColor(0XFFAEAEAE);
                     time = 60;
-                    mBtnSendSms.setText("再次获取"+time+"s");
+                    mBtnSendSms.setText("验证码已发送..."+time+"s");
                     sendEmptyMessageDelayed(SEND_SMS_TIME,1000);
                     break;
                 case SEND_SMS_FALSE:
@@ -76,10 +80,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     time = time - 1;
                     if(time == 0){
                         mBtnSendSms.setText(R.string.get_sms_code);
-                        mBtnSendSms.setBackgroundResource(R.drawable.send_sms_btn_selector);
-                        mBtnSendSms.setClickable(true);
+                        if (mEtPhone.getText().toString().length() == 11) {
+                            mBtnSendSms.setClickable(true);
+                            mBtnSendSms.setTextColor(0XFF2CA349);
+                        }else{
+                            mBtnSendSms.setClickable(false);
+                            mBtnSendSms.setTextColor(0XFFAEAEAE);
+                        }
                     }else{
-                        mBtnSendSms.setText("再次获取"+time+"s");
+                        mBtnSendSms.setText("验证码已发送..."+time+"s");
                         sendEmptyMessageDelayed(SEND_SMS_TIME,1000);
                     }
                     break;
@@ -101,14 +110,73 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mBtnLogin = (Button) findViewById(R.id.btn_login);
         mEtPhone = (EditText) findViewById(R.id.et_account_number);
         mEtSmsCode = (EditText) findViewById(R.id.et_account_sms_code);
-        mBtnSendSms = (Button) findViewById(R.id.btn_send_sms);
+        mBtnSendSms = (TextView) findViewById(R.id.btn_send_sms);
         mTvMoreDetai = (TextView) findViewById(R.id.learn_detail);
+        mTvRegister = (TextView) findViewById(R.id.tv_register);
+        mTvRegister.setText(getResources().getString(R.string.new_user));
+        mTvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setLister() {
         mBtnLogin.setOnClickListener(this);
         mBtnSendSms.setOnClickListener(this);
         mTvMoreDetai.setOnClickListener(this);
+        mEtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mEtPhone.getText().toString().length() == 11) {
+                    mBtnSendSms.setClickable(true);
+                    mBtnSendSms.setTextColor(0XFF2CA349);
+                }else{
+                    mBtnSendSms.setClickable(false);
+                    mBtnSendSms.setTextColor(0XFFAEAEAE);
+                }
+                if (mEtPhone.getText().toString().length() == 11&&mEtSmsCode.getText().toString().length() == 6) {
+                    mBtnLogin.setClickable(true);
+                    mBtnLogin.setBackgroundResource(R.drawable.login_btn_selector);
+                }else{
+                    mBtnLogin.setClickable(false);
+                    mBtnLogin.setBackgroundResource(R.mipmap.btn_login_none);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mEtSmsCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (mEtPhone.getText().toString().length() == 11&&mEtSmsCode.getText().toString().length() == 6) {
+                    mBtnLogin.setClickable(true);
+                    mBtnLogin.setBackgroundResource(R.drawable.login_btn_selector);
+                }else{
+                    mBtnLogin.setClickable(false);
+                    mBtnLogin.setBackgroundResource(R.mipmap.btn_login_none);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -126,7 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }  else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
                     Toast.makeText(LoginActivity.this, R.string.code_empty, Toast.LENGTH_LONG).show();
                     return;
-                } else if (mPhone.length() != 11) {
+                } else if (mSmsCode.length() != 6) {
                     Toast.makeText(LoginActivity.this, R.string.code_no_right, Toast.LENGTH_LONG).show();
                     return;
                 } else {
@@ -163,15 +231,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mActivityTitle.setText(getResources().getString(R.string.user_login));
-        mTitleExtra.setText(getResources().getString(R.string.new_user));
-        mTitleExtra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+        mActivityTitle.setText(getResources().getString(R.string.login));
+        mTitleExtra.setVisibility(View.GONE);
     }
     private SendSMSTask mSendSMSTask;
 
