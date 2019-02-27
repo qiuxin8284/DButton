@@ -24,7 +24,6 @@
     <color name="driver_line">#CCCCCC</color>
     <color name="new_user">#007AFF</color>
     <color name="login_hint">#D0021B</color>
-    <color name="user_data_text">#4A4A4A</color>
     <item name="gray_holo_dark" type="color">#ff464646</item>
     <item name="gray_holo_light" type="color">#ffd0d0d0</item>
 
@@ -34,4 +33,5 @@
     <color name="background">#F0F0F0</color>
     <color name="menu_text">#F56C23</color>
     <color name="menu_text_no">#9B9B9B</color>
+    <color name="user_data_text">#4A4A4A</color>
 </resources>
