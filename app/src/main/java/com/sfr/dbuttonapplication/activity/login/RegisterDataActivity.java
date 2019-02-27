@@ -92,8 +92,11 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private static final int SEND_SMS_SUCCESS = 1;
     private static final int SEND_SMS_FALSE = 2;
     private static final int SEND_SMS_TIME = 3;
+    private static final int UPDATE_SEX = 10;
+    private static final int UPDATE_BLOOD = 11;
     private int time = 60;
     private View mPhoneNumLine,mSmsCodeLine;
+    private TextView mTvName,mTvBlood,mTvSex,mTvBorthDay;
 
 
 
@@ -150,6 +153,16 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                         mBtnSendSms.setText("验证码已发送..."+time+"s");
                         sendEmptyMessageDelayed(SEND_SMS_TIME,1000);
                     }
+                    break;
+                case UPDATE_SEX:
+                    String text = (String) msg.obj;
+                    mTvSex.setText(text);
+                    mChooesListDialog.dismiss();
+                    break;
+                case UPDATE_BLOOD:
+                    text = (String) msg.obj;
+                    mTvBlood.setText(text);
+                    mChooesListDialog.dismiss();
                     break;
             }
         }
@@ -210,6 +223,20 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 //        mCBBloodAB = (CheckBox) findViewById(R.id.cb_blood_ab);
 //        mCBBloodO = (CheckBox) findViewById(R.id.cb_blood_o);
 //        mCBBloodOther = (CheckBox) findViewById(R.id.cb_blood_other);
+        mTvName = (TextView) findViewById(R.id.tv_user_name);
+        mTvBlood = (TextView) findViewById(R.id.tv_user_blood_group);
+        mTvSex = (TextView) findViewById(R.id.tv_user_sex);
+        mTvBorthDay = (TextView) findViewById(R.id.tv_user_date_of_birth);
+
+        bloodList = new ArrayList<String>();
+        bloodList.add("A型");
+        bloodList.add("B型");
+        bloodList.add("O型");
+        bloodList.add("AB型");
+        bloodList.add("保密");
+        sexList = new ArrayList<String>();
+        sexList.add("男");
+        sexList.add("女");
     }
 
     private void setListener() {
@@ -413,55 +440,55 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 break;
             case R.id.btn_register_over:
                 //参数判定
-//                mName = mEtName.getText().toString();
-//                mBirth = mEtBorthDay.getText().toString();
-//                mGender = "";
-//                if(mCBSexMan.isChecked()) mGender=HttpSendJsonManager.SEX_MAN;
-//                if(mCbSexWoman.isChecked()) mGender=HttpSendJsonManager.SEX_WOMAN;
-//                mBlood = "";
-//                if(mCBBloodA.isChecked()) mBlood=HttpSendJsonManager.BLOOD_A;
-//                if(mCBBloodB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_B;
-//                if(mCBBloodAB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_AB;
-//                if(mCBBloodO.isChecked()) mBlood=HttpSendJsonManager.BLOOD_O;
-//                if(mCBBloodOther.isChecked()) mBlood=HttpSendJsonManager.BLOOD_OTHER;
-//
-//
-//                mPhone = mEtPhone.getText().toString();
-//                mSmsCode = mEtSmsCode.getText().toString();
-//                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
-//                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
-//                    return;
-//                } else if (mPhone.length() != 11) {
-//                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
-//                    return;
-//                } else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
-//                    Toast.makeText(this, R.string.code_empty, Toast.LENGTH_LONG).show();
-//                    return;
-//                } else if (mPhone.length() != 11) {
-//                    Toast.makeText(this, R.string.code_no_right, Toast.LENGTH_LONG).show();
-//                    return;
-//                } else if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
-//                    Toast.makeText(this, R.string.please_input_your_name, Toast.LENGTH_LONG).show();
-//                    return;
-//                }else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
-//                    Toast.makeText(this, R.string.please_choies_your_sex, Toast.LENGTH_LONG).show();
-//                    return;
-//                }else if (TextUtils.isEmpty(mBlood) || TextUtils.isEmpty(mBlood)) {
-//                    Toast.makeText(this, R.string.please_input_your_blood_group, Toast.LENGTH_LONG).show();
-//                    return;
-//                }else if (TextUtils.isEmpty(mBirth) || TextUtils.isEmpty(mBirth)) {
-//                    Toast.makeText(this, R.string.please_input_your_date_of_birth, Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                else if (TextUtils.isEmpty(mImg) || TextUtils.isEmpty(mImg)) {
-//                    Toast.makeText(this, R.string.please_input_your_head, Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                else{
-//                    LoadingProgressDialog.show(RegisterDataActivity.this, false, true, 30000);
-//                    mRegisterAccountTask = new RegisterAccountTask();
-//                    mRegisterAccountTask.execute("");
-//                }
+                mName = mTvName.getText().toString();
+                mBirth = mTvBorthDay.getText().toString();
+                mGender = "";
+                if(mTvSex.getText().toString().equals(sexList.get(0))) mGender=HttpSendJsonManager.SEX_MAN;
+                if(mTvSex.getText().toString().equals(sexList.get(1))) mGender=HttpSendJsonManager.SEX_WOMAN;
+                mBlood = "";
+                if(mTvBlood.getText().toString().equals(bloodList.get(0)))  mBlood=HttpSendJsonManager.BLOOD_A;
+                if(mTvBlood.getText().toString().equals(bloodList.get(1)))  mBlood=HttpSendJsonManager.BLOOD_B;
+                if(mTvBlood.getText().toString().equals(bloodList.get(2)))  mBlood=HttpSendJsonManager.BLOOD_AB;
+                if(mTvBlood.getText().toString().equals(bloodList.get(3)))  mBlood=HttpSendJsonManager.BLOOD_O;
+                if(mTvBlood.getText().toString().equals(bloodList.get(4)))  mBlood=HttpSendJsonManager.BLOOD_OTHER;
+
+
+                mPhone = mEtPhone.getText().toString();
+                mSmsCode = mEtSmsCode.getText().toString();
+                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
+                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (mPhone.length() != 11) {
+                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
+                    Toast.makeText(this, R.string.code_empty, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (mPhone.length() != 11) {
+                    Toast.makeText(this, R.string.code_no_right, Toast.LENGTH_LONG).show();
+                    return;
+                } else if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
+                    Toast.makeText(this, R.string.please_input_your_name_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
+                    Toast.makeText(this, R.string.please_choies_your_sex_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }else if (TextUtils.isEmpty(mBlood) || TextUtils.isEmpty(mBlood)) {
+                    Toast.makeText(this, R.string.please_input_your_blood_group_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }else if (TextUtils.isEmpty(mBirth) || TextUtils.isEmpty(mBirth)) {
+                    Toast.makeText(this, R.string.please_input_your_date_of_birth_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if (TextUtils.isEmpty(mImg) || TextUtils.isEmpty(mImg)) {
+                    Toast.makeText(this, R.string.please_input_your_head_hint, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else{
+                    LoadingProgressDialog.show(RegisterDataActivity.this, false, true, 30000);
+                    mRegisterAccountTask = new RegisterAccountTask();
+                    mRegisterAccountTask.execute("");
+                }
                 break;
             case R.id.rl_input_your_head:
                 //调用Dialog 拍照或者相册
@@ -482,19 +509,10 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 showInputDialog("昵称");
                 break;
             case R.id.rl_user_blood_group:
-                bloodList = new ArrayList<String>();
-                bloodList.add("A型");
-                bloodList.add("B型");
-                bloodList.add("O型");
-                bloodList.add("AB型");
-                bloodList.add("保密");
-                showListDialog(bloodList,"设置血型");
+                showListDialog(bloodList,"设置血型",UPDATE_BLOOD);
                 break;
             case R.id.rl_user_sex:
-                sexList = new ArrayList<String>();
-                sexList.add("男");
-                sexList.add("女");
-                showListDialog(sexList,"选择性别");
+                showListDialog(sexList,"选择性别",UPDATE_SEX);
                 break;
         }
     }
@@ -516,7 +534,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 startcal.set(Calendar.YEAR,year);
                 startcal.set(Calendar.MONTH,month);
                 startcal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                //mEtBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                mTvBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
 
 //                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
 //                    @Override
@@ -696,7 +714,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private LinearLayout mLlCancel;
     private ListView mLvChooes;
 
-    public void showListDialog(ArrayList<String> list,String title) {
+    public void showListDialog(ArrayList<String> list,String title,int what) {
         mChooesListDialog = new ChooesListDialog(RegisterDataActivity.this,
                 R.style.share_dialog);
         mChooesListDialog.show();
@@ -717,7 +735,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
             }
         });
         mLvChooes = (ListView) window.findViewById(R.id.lv_chooes_list);
-        ChooesListAdapter mChooesListAdapter = new ChooesListAdapter(RegisterDataActivity.this,list,mHandler,0);
+        ChooesListAdapter mChooesListAdapter = new ChooesListAdapter(RegisterDataActivity.this,list,mHandler,what);
         mLvChooes.setAdapter(mChooesListAdapter);
     }
     private InputDialog mInputDialog;
@@ -749,6 +767,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         mLlNameOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mTvName.setText(mEtNickName.getText().toString());
                 mInputDialog.dismiss();
             }
         });

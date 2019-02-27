@@ -78,6 +78,14 @@
     <string name="please_input_your_date_of_birth">出生日期</string>
     <string name="please_input_your_blood_group">血型</string>
 
+
+    <string name="please_input_your_name_hint">请输入您的姓名</string>
+    <string name="please_input_your_head_hint">请设置您的头像</string>
+    <string name="please_choies_your_sex_hint">请选择您的性别</string>
+    <string name="please_input_your_date_of_birth_hint">请输入出生日期</string>
+    <string name="please_input_your_blood_group_hint">请输入您的血型</string>
+
+
     <string name="please_bind_your_dbutton">如您手上有宝珠请绑定</string>
     <string name="please_bind_your_dbutton_hint">(也可以完成注册后去个人中心绑定）</string>
     <string name="register_over">注册</string>

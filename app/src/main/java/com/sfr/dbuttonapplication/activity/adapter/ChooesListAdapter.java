@@ -3,6 +3,7 @@ package com.sfr.dbuttonapplication.activity.adapter;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,6 +76,17 @@ public class ChooesListAdapter extends BaseAdapter {
             holder = (HolderView) v.getTag();
         }
         holder.tvName.setText(mList.get(position));
+        holder.cbChooes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Message message = new Message();
+                    message.what = mWhat;
+                    message.obj = mList.get(position);
+                    mHandler.sendMessage(message);
+                }
+            }
+        });
         return v;
     }
 
