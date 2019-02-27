@@ -3,6 +3,7 @@ package com.sfr.dbuttonapplication.activity.login;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -37,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.jordan.httplibrary.utils.CommonUtils;
@@ -73,12 +75,11 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 //    private EditText mEtName;
 //    private TextView mEtBorthDay;//et_input_your_name,et_input_your_bor
     private ImageView mIvHead;//iv_input_your_head
-    private RelativeLayout mRlHead;
 //    private ImageView mIvTime;
 //    private CheckBox mCBSexMan,mCbSexWoman;//cb_sex_man,cb_sex_woman涉及分组
 //    private CheckBox mCBBloodA,mCBBloodB,mCBBloodAB,mCBBloodO,mCBBloodOther;//cb_blood_a，cb_blood_b，cb_blood_ab,cb_blood_o,cb_blood_other涉及分组
     private boolean mIsGrant;
-    //private RelativeLayout mRlBorthDay;
+    private RelativeLayout mRlHead,mRlName,mRlBlood,mRlSex,mRlBorthDay;
     String file_full_path = "";
     Bitmap photo;
 
@@ -161,7 +162,6 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         setListener();
         mIsGrant = false;
         checkCameraPermission();
-        showListDialog(new ArrayList<String>(),"选择性别");
     }
 
 
@@ -189,10 +189,12 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         mBtnRegisterOver = (Button) findViewById(R.id.btn_register_over);
         mPhoneNumLine = (View) findViewById(R.id.phone_num_line);
         mSmsCodeLine = (View) findViewById(R.id.sms_code_line);
-
+        mRlName = (RelativeLayout)findViewById(R.id.rl_user_name);
+        mRlBlood = (RelativeLayout)findViewById(R.id.rl_user_blood_group);
+        mRlSex = (RelativeLayout)findViewById(R.id.rl_user_sex);
 //        mEtName = (EditText) findViewById(R.id.et_input_your_name);
 //        mEtBorthDay = (TextView) findViewById(R.id.et_input_your_bor);
-//        mRlBorthDay = (RelativeLayout)findViewById(R.id.rl_input_your_bor);
+        mRlBorthDay = (RelativeLayout)findViewById(R.id.rl_input_your_bor);
 //
         mIvHead = (ImageView) findViewById(R.id.iv_input_your_head);
         mRlHead = (RelativeLayout) findViewById(R.id.rl_input_your_head);
@@ -210,8 +212,11 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private void setListener() {
         mBtnSendSms.setOnClickListener(this);
         mBtnRegisterOver.setOnClickListener(this);
-//        mRlBorthDay.setOnClickListener(this);
+        mRlBorthDay.setOnClickListener(this);
         mRlHead.setOnClickListener(this);
+        mRlName.setOnClickListener(this);
+        mRlBlood.setOnClickListener(this);
+        mRlSex.setOnClickListener(this);
 //        mEtBorthDay.setKeyListener(null);
 //        mIvTime.setOnClickListener(this);
 
@@ -463,12 +468,22 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                     mHandler.sendEmptyMessage(N0_PERMISSION);
                 }
                 break;
-//            case R.id.rl_input_your_bor:
-//                //initTimeDialog();
-//                break;
+            case R.id.rl_input_your_bor:
+                initTimeDialog();
+                break;
 //            case R.id.iv_time:
 //                initTimeDialog();
 //                break;
+
+            case R.id.rl_user_name:
+                showListDialog(new ArrayList<String>(),"昵称");
+                break;
+            case R.id.rl_user_blood_group:
+                showListDialog(new ArrayList<String>(),"设置血型");
+                break;
+            case R.id.rl_user_sex:
+                showListDialog(new ArrayList<String>(),"选择性别");
+                break;
         }
     }
 
@@ -489,18 +504,18 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 startcal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                 //mEtBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
 
-//                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//
-//                        startcal.set(Calendar.HOUR_OF_DAY,hourOfDay);
-//                        startcal.set(Calendar.MINUTE, minute);
-//
-//                        String date = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm").format(new java.util.Date(startcal.getTimeInMillis()));
-//
-//                    }
-//                },0,0,false);
-//                dialog.show();
+                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        startcal.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        startcal.set(Calendar.MINUTE, minute);
+
+                        String date = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm").format(new java.util.Date(startcal.getTimeInMillis()));
+
+                    }
+                },0,0,false);
+                dialog.show();
 
             }
         },mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
