@@ -38,12 +38,8 @@
         <ListView
             android:id="@+id/lv_chooes_list"
             android:layout_width="match_parent"
+            android:divider="@null"
             android:layout_height="wrap_content" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#d9d9d9" />
 
         <LinearLayout
             android:id="@+id/chooes_list_cancel"

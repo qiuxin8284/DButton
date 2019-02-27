@@ -44,6 +44,7 @@ import android.widget.Toast;
 import com.jordan.httplibrary.utils.CommonUtils;
 import com.sfr.dbuttonapplication.BuildConfig;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.adapter.ChooesListAdapter;
 import com.sfr.dbuttonapplication.activity.widget.ChooesDialog;
 import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
 import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
@@ -479,13 +480,24 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 showListDialog(new ArrayList<String>(),"昵称");
                 break;
             case R.id.rl_user_blood_group:
-                showListDialog(new ArrayList<String>(),"设置血型");
+                bloodList = new ArrayList<String>();
+                bloodList.add("A型");
+                bloodList.add("B型");
+                bloodList.add("O型");
+                bloodList.add("AB型");
+                bloodList.add("保密");
+                showListDialog(bloodList,"设置血型");
                 break;
             case R.id.rl_user_sex:
-                showListDialog(new ArrayList<String>(),"选择性别");
+                sexList = new ArrayList<String>();
+                sexList.add("男");
+                sexList.add("女");
+                showListDialog(sexList,"选择性别");
                 break;
         }
     }
+    ArrayList<String> bloodList = new ArrayList<String>();
+    ArrayList<String> sexList = new ArrayList<String>();
 
     Calendar startcal;
     private void initTimeDialog() {
@@ -703,6 +715,8 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
             }
         });
         mLvChooes = (ListView) window.findViewById(R.id.lv_chooes_list);
+        ChooesListAdapter mChooesListAdapter = new ChooesListAdapter(RegisterDataActivity.this,list,mHandler,0);
+        mLvChooes.setAdapter(mChooesListAdapter);
     }
 
 }
