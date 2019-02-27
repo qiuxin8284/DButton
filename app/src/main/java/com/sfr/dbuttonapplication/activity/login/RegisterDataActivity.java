@@ -22,15 +22,19 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +43,8 @@ import com.jordan.httplibrary.utils.CommonUtils;
 import com.sfr.dbuttonapplication.BuildConfig;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.widget.ChooesDialog;
+import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
+import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
 import com.sfr.dbuttonapplication.entity.RegisterData;
 import com.sfr.dbuttonapplication.entity.UploadData;
@@ -51,6 +57,7 @@ import com.sfr.dbuttonapplication.utils.UploadPictureHasZoomUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -63,14 +70,15 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private static final int REGISTER_FALSE = 4;
     private static final int N0_PERMISSION = 5;
     private static final int NO_PIC = 6;;
-    private EditText mEtName;
-    private TextView mEtBorthDay;//et_input_your_name,et_input_your_bor
+//    private EditText mEtName;
+//    private TextView mEtBorthDay;//et_input_your_name,et_input_your_bor
     private ImageView mIvHead;//iv_input_your_head
-    private ImageView mIvTime;
-    private CheckBox mCBSexMan,mCbSexWoman;//cb_sex_man,cb_sex_woman涉及分组
-    private CheckBox mCBBloodA,mCBBloodB,mCBBloodAB,mCBBloodO,mCBBloodOther;//cb_blood_a，cb_blood_b，cb_blood_ab,cb_blood_o,cb_blood_other涉及分组
+    private RelativeLayout mRlHead;
+//    private ImageView mIvTime;
+//    private CheckBox mCBSexMan,mCbSexWoman;//cb_sex_man,cb_sex_woman涉及分组
+//    private CheckBox mCBBloodA,mCBBloodB,mCBBloodAB,mCBBloodO,mCBBloodOther;//cb_blood_a，cb_blood_b，cb_blood_ab,cb_blood_o,cb_blood_other涉及分组
     private boolean mIsGrant;
-    private RelativeLayout mRlBorthDay;
+    //private RelativeLayout mRlBorthDay;
     String file_full_path = "";
     Bitmap photo;
 
@@ -81,6 +89,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
     private static final int SEND_SMS_FALSE = 2;
     private static final int SEND_SMS_TIME = 3;
     private int time = 60;
+    private View mPhoneNumLine,mSmsCodeLine;
 
 
 
@@ -152,6 +161,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         setListener();
         mIsGrant = false;
         checkCameraPermission();
+        showListDialog(new ArrayList<String>(),"选择性别");
     }
 
 
@@ -177,31 +187,60 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         mEtSmsCode = (EditText) findViewById(R.id.et_account_sms_code);
         mBtnSendSms = (TextView) findViewById(R.id.btn_send_sms);
         mBtnRegisterOver = (Button) findViewById(R.id.btn_register_over);
+        mPhoneNumLine = (View) findViewById(R.id.phone_num_line);
+        mSmsCodeLine = (View) findViewById(R.id.sms_code_line);
 
-        mEtName = (EditText) findViewById(R.id.et_input_your_name);
-        mEtBorthDay = (TextView) findViewById(R.id.et_input_your_bor);
-        mRlBorthDay = (RelativeLayout)findViewById(R.id.rl_input_your_bor);
-
+//        mEtName = (EditText) findViewById(R.id.et_input_your_name);
+//        mEtBorthDay = (TextView) findViewById(R.id.et_input_your_bor);
+//        mRlBorthDay = (RelativeLayout)findViewById(R.id.rl_input_your_bor);
+//
         mIvHead = (ImageView) findViewById(R.id.iv_input_your_head);
-        mIvTime = (ImageView) findViewById(R.id.iv_time);
-
-        mCBSexMan = (CheckBox) findViewById(R.id.cb_sex_man);
-        mCbSexWoman = (CheckBox) findViewById(R.id.cb_sex_woman);
-
-        mCBBloodA = (CheckBox) findViewById(R.id.cb_blood_a);
-        mCBBloodB = (CheckBox) findViewById(R.id.cb_blood_b);
-        mCBBloodAB = (CheckBox) findViewById(R.id.cb_blood_ab);
-        mCBBloodO = (CheckBox) findViewById(R.id.cb_blood_o);
-        mCBBloodOther = (CheckBox) findViewById(R.id.cb_blood_other);
+        mRlHead = (RelativeLayout) findViewById(R.id.rl_input_your_head);
+//        mIvTime = (ImageView) findViewById(R.id.iv_time);
+//
+//        mCBSexMan = (CheckBox) findViewById(R.id.cb_sex_man);
+//        mCbSexWoman = (CheckBox) findViewById(R.id.cb_sex_woman);
+//        mCBBloodA = (CheckBox) findViewById(R.id.cb_blood_a);
+//        mCBBloodB = (CheckBox) findViewById(R.id.cb_blood_b);
+//        mCBBloodAB = (CheckBox) findViewById(R.id.cb_blood_ab);
+//        mCBBloodO = (CheckBox) findViewById(R.id.cb_blood_o);
+//        mCBBloodOther = (CheckBox) findViewById(R.id.cb_blood_other);
     }
 
     private void setListener() {
         mBtnSendSms.setOnClickListener(this);
         mBtnRegisterOver.setOnClickListener(this);
-        mIvHead.setOnClickListener(this);
-        mRlBorthDay.setOnClickListener(this);
-        mEtBorthDay.setKeyListener(null);
-        mIvTime.setOnClickListener(this);
+//        mRlBorthDay.setOnClickListener(this);
+        mRlHead.setOnClickListener(this);
+//        mEtBorthDay.setKeyListener(null);
+//        mIvTime.setOnClickListener(this);
+
+        mEtPhone.setOnFocusChangeListener(new android.view.View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    mPhoneNumLine.setBackgroundResource(R.color.line_two);
+                } else {
+                    // 此处为失去焦点时的处理内容
+                    mPhoneNumLine.setBackgroundResource(R.color.line_three);
+                }
+            }
+        });
+        mEtSmsCode.setOnFocusChangeListener(new android.view.View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    mSmsCodeLine.setBackgroundResource(R.color.line_two);
+                } else {
+                    // 此处为失去焦点时的处理内容
+                    mSmsCodeLine.setBackgroundResource(R.color.line_three);
+                }
+            }
+        });
         mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -252,77 +291,77 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 
             }
         });
-        mCBSexMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCbSexWoman.setChecked(false);
-                }
-            }
-        });
-        mCbSexWoman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBSexMan.setChecked(false);
-                }
-            }
-        });
-        mCBBloodA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBBloodA.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodAB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodO.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodOther.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                }
-            }
-        });
+//        mCBSexMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCbSexWoman.setChecked(false);
+//                }
+//            }
+//        });
+//        mCbSexWoman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBSexMan.setChecked(false);
+//                }
+//            }
+//        });
+//        mCBBloodA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBBloodB.setChecked(false);
+//                    mCBBloodAB.setChecked(false);
+//                    mCBBloodO.setChecked(false);
+//                    mCBBloodOther.setChecked(false);
+//                }
+//            }
+//        });
+//        mCBBloodB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBBloodA.setChecked(false);
+//                    mCBBloodAB.setChecked(false);
+//                    mCBBloodO.setChecked(false);
+//                    mCBBloodOther.setChecked(false);
+//                }
+//            }
+//        });
+//        mCBBloodAB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBBloodA.setChecked(false);
+//                    mCBBloodB.setChecked(false);
+//                    mCBBloodO.setChecked(false);
+//                    mCBBloodOther.setChecked(false);
+//                }
+//            }
+//        });
+//        mCBBloodO.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBBloodA.setChecked(false);
+//                    mCBBloodB.setChecked(false);
+//                    mCBBloodAB.setChecked(false);
+//                    mCBBloodOther.setChecked(false);
+//                }
+//            }
+//        });
+//        mCBBloodOther.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked){
+//                    mCBBloodA.setChecked(false);
+//                    mCBBloodB.setChecked(false);
+//                    mCBBloodAB.setChecked(false);
+//                    mCBBloodO.setChecked(false);
+//                }
+//            }
+//        });
 
     }
 
@@ -366,57 +405,57 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 break;
             case R.id.btn_register_over:
                 //参数判定
-                mName = mEtName.getText().toString();
-                mBirth = mEtBorthDay.getText().toString();
-                mGender = "";
-                if(mCBSexMan.isChecked()) mGender=HttpSendJsonManager.SEX_MAN;
-                if(mCbSexWoman.isChecked()) mGender=HttpSendJsonManager.SEX_WOMAN;
-                mBlood = "";
-                if(mCBBloodA.isChecked()) mBlood=HttpSendJsonManager.BLOOD_A;
-                if(mCBBloodB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_B;
-                if(mCBBloodAB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_AB;
-                if(mCBBloodO.isChecked()) mBlood=HttpSendJsonManager.BLOOD_O;
-                if(mCBBloodOther.isChecked()) mBlood=HttpSendJsonManager.BLOOD_OTHER;
-
-
-                mPhone = mEtPhone.getText().toString();
-                mSmsCode = mEtSmsCode.getText().toString();
-                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
-                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
-                    return;
-                } else if (mPhone.length() != 11) {
-                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
-                    return;
-                } else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
-                    Toast.makeText(this, R.string.code_empty, Toast.LENGTH_LONG).show();
-                    return;
-                } else if (mPhone.length() != 11) {
-                    Toast.makeText(this, R.string.code_no_right, Toast.LENGTH_LONG).show();
-                    return;
-                } else if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
-                    Toast.makeText(this, R.string.please_input_your_name, Toast.LENGTH_LONG).show();
-                    return;
-                }else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
-                    Toast.makeText(this, R.string.please_choies_your_sex, Toast.LENGTH_LONG).show();
-                    return;
-                }else if (TextUtils.isEmpty(mBlood) || TextUtils.isEmpty(mBlood)) {
-                    Toast.makeText(this, R.string.please_input_your_blood_group, Toast.LENGTH_LONG).show();
-                    return;
-                }else if (TextUtils.isEmpty(mBirth) || TextUtils.isEmpty(mBirth)) {
-                    Toast.makeText(this, R.string.please_input_your_date_of_birth, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                else if (TextUtils.isEmpty(mImg) || TextUtils.isEmpty(mImg)) {
-                    Toast.makeText(this, R.string.please_input_your_head, Toast.LENGTH_LONG).show();
-                    return;
-                }
-                else{
-                    LoadingProgressDialog.show(RegisterDataActivity.this, false, true, 30000);
-                    mRegisterAccountTask = new RegisterAccountTask();
-                    mRegisterAccountTask.execute("");
-                }
+//                mName = mEtName.getText().toString();
+//                mBirth = mEtBorthDay.getText().toString();
+//                mGender = "";
+//                if(mCBSexMan.isChecked()) mGender=HttpSendJsonManager.SEX_MAN;
+//                if(mCbSexWoman.isChecked()) mGender=HttpSendJsonManager.SEX_WOMAN;
+//                mBlood = "";
+//                if(mCBBloodA.isChecked()) mBlood=HttpSendJsonManager.BLOOD_A;
+//                if(mCBBloodB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_B;
+//                if(mCBBloodAB.isChecked()) mBlood=HttpSendJsonManager.BLOOD_AB;
+//                if(mCBBloodO.isChecked()) mBlood=HttpSendJsonManager.BLOOD_O;
+//                if(mCBBloodOther.isChecked()) mBlood=HttpSendJsonManager.BLOOD_OTHER;
+//
+//
+//                mPhone = mEtPhone.getText().toString();
+//                mSmsCode = mEtSmsCode.getText().toString();
+//                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mPhone)) {
+//                    Toast.makeText(this, R.string.phone_empty, Toast.LENGTH_LONG).show();
+//                    return;
+//                } else if (mPhone.length() != 11) {
+//                    Toast.makeText(this, R.string.phone_no_right, Toast.LENGTH_LONG).show();
+//                    return;
+//                } else if (TextUtils.isEmpty(mSmsCode) || TextUtils.isEmpty(mSmsCode)) {
+//                    Toast.makeText(this, R.string.code_empty, Toast.LENGTH_LONG).show();
+//                    return;
+//                } else if (mPhone.length() != 11) {
+//                    Toast.makeText(this, R.string.code_no_right, Toast.LENGTH_LONG).show();
+//                    return;
+//                } else if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
+//                    Toast.makeText(this, R.string.please_input_your_name, Toast.LENGTH_LONG).show();
+//                    return;
+//                }else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
+//                    Toast.makeText(this, R.string.please_choies_your_sex, Toast.LENGTH_LONG).show();
+//                    return;
+//                }else if (TextUtils.isEmpty(mBlood) || TextUtils.isEmpty(mBlood)) {
+//                    Toast.makeText(this, R.string.please_input_your_blood_group, Toast.LENGTH_LONG).show();
+//                    return;
+//                }else if (TextUtils.isEmpty(mBirth) || TextUtils.isEmpty(mBirth)) {
+//                    Toast.makeText(this, R.string.please_input_your_date_of_birth, Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                else if (TextUtils.isEmpty(mImg) || TextUtils.isEmpty(mImg)) {
+//                    Toast.makeText(this, R.string.please_input_your_head, Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                else{
+//                    LoadingProgressDialog.show(RegisterDataActivity.this, false, true, 30000);
+//                    mRegisterAccountTask = new RegisterAccountTask();
+//                    mRegisterAccountTask.execute("");
+//                }
                 break;
-            case R.id.iv_input_your_head:
+            case R.id.rl_input_your_head:
                 //调用Dialog 拍照或者相册
                 if (mIsGrant) {
                     showHeadDialog();
@@ -424,12 +463,12 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                     mHandler.sendEmptyMessage(N0_PERMISSION);
                 }
                 break;
-            case R.id.rl_input_your_bor:
-                //initTimeDialog();
-                break;
-            case R.id.iv_time:
-                initTimeDialog();
-                break;
+//            case R.id.rl_input_your_bor:
+//                //initTimeDialog();
+//                break;
+//            case R.id.iv_time:
+//                initTimeDialog();
+//                break;
         }
     }
 
@@ -448,7 +487,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 startcal.set(Calendar.YEAR,year);
                 startcal.set(Calendar.MONTH,month);
                 startcal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                mEtBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+                //mEtBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
 
 //                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
 //                    @Override
@@ -621,4 +660,34 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
             return null;
         }
     }
+
+
+    private ChooesListDialog mChooesListDialog;
+    private TextView mTvTitle;
+    private LinearLayout mLlCancel;
+    private ListView mLvChooes;
+
+    public void showListDialog(ArrayList<String> list,String title) {
+        mChooesListDialog = new ChooesListDialog(RegisterDataActivity.this,
+                R.style.share_dialog);
+        mChooesListDialog.show();
+        Window window = mChooesListDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvTitle = (TextView) window.findViewById(R.id.chooes_list_title);
+        mTvTitle.setText(title);
+        mLlCancel = (LinearLayout) window.findViewById(R.id.chooes_list_cancel);
+        mLlCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mChooesListDialog.dismiss();
+            }
+        });
+        mLvChooes = (ListView) window.findViewById(R.id.lv_chooes_list);
+    }
+
 }

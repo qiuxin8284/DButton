@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mBtnSendSms,mTvRegister;
     private int time = 60;
     private TextView mTvMoreDetai;
+    private View mPhoneNumLine,mSmsCodeLine;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -121,12 +122,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
             }
         });
+        mPhoneNumLine = (View) findViewById(R.id.phone_num_line);
+        mSmsCodeLine = (View) findViewById(R.id.sms_code_line);
     }
 
     private void setLister() {
         mBtnLogin.setOnClickListener(this);
         mBtnSendSms.setOnClickListener(this);
         mTvMoreDetai.setOnClickListener(this);
+        mEtPhone.setOnFocusChangeListener(new android.view.View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    mPhoneNumLine.setBackgroundResource(R.color.line_two);
+                } else {
+                    // 此处为失去焦点时的处理内容
+                    mPhoneNumLine.setBackgroundResource(R.color.line_three);
+                }
+            }
+        });
+        mEtSmsCode.setOnFocusChangeListener(new android.view.View.
+                OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 此处为得到焦点时的处理内容
+                    mSmsCodeLine.setBackgroundResource(R.color.line_two);
+                } else {
+                    // 此处为失去焦点时的处理内容
+                    mSmsCodeLine.setBackgroundResource(R.color.line_three);
+                }
+            }
+        });
         mEtPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

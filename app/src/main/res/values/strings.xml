@@ -72,11 +72,11 @@
     <string name="user_data_input_hint">用户信息关键填写</string>
     <string name="register_sucess_hint">恭喜你已成功注册</string>
 
-    <string name="please_input_your_name">请输入您的姓名</string>
-    <string name="please_input_your_head">请设置您的头像</string>
-    <string name="please_choies_your_sex">请选择您的性别</string>
-    <string name="please_input_your_date_of_birth">请输入出生日期</string>
-    <string name="please_input_your_blood_group">请输入您的血型</string>
+    <string name="please_input_your_name">昵称</string>
+    <string name="please_input_your_head">用户头像</string>
+    <string name="please_choies_your_sex">性别</string>
+    <string name="please_input_your_date_of_birth">出生日期</string>
+    <string name="please_input_your_blood_group">血型</string>
 
     <string name="please_bind_your_dbutton">如您手上有宝珠请绑定</string>
     <string name="please_bind_your_dbutton_hint">(也可以完成注册后去个人中心绑定）</string>

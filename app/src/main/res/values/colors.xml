@@ -30,8 +30,13 @@
     <color name="text_green">#2CA349</color>
     <color name="text_gray_hint">#B8B8B8</color>
     <color name="edit_hint">#AEAEAE</color>
-    <color name="background">#F0F0F0</color>
+    <color name="background">#F8F8F8</color>
     <color name="menu_text">#F56C23</color>
     <color name="menu_text_no">#9B9B9B</color>
     <color name="user_data_text">#4A4A4A</color>
+
+    <color name="line_one">#C0C0C0</color>
+    <color name="line_two">#808080</color>
+    <color name="line_three">#F2F1F1</color>
+    <color name="line_four">#E5E5E5</color>
 </resources>
