@@ -1,6 +1,7 @@
 package com.sfr.dbuttonapplication.activity.login;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -48,6 +49,7 @@ import com.sfr.dbuttonapplication.activity.adapter.ChooesListAdapter;
 import com.sfr.dbuttonapplication.activity.widget.ChooesDialog;
 import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
 import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
+import com.sfr.dbuttonapplication.activity.widget.InputDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
 import com.sfr.dbuttonapplication.entity.RegisterData;
 import com.sfr.dbuttonapplication.entity.UploadData;
@@ -477,7 +479,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
 //                break;
 
             case R.id.rl_user_name:
-                showListDialog(new ArrayList<String>(),"昵称");
+                showInputDialog("昵称");
                 break;
             case R.id.rl_user_blood_group:
                 bloodList = new ArrayList<String>();
@@ -506,7 +508,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         mCalendar.setTimeInMillis(time);
 
         Date date = new Date();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterDataActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(RegisterDataActivity.this, AlertDialog.THEME_HOLO_LIGHT,new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -516,18 +518,18 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                 startcal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                 //mEtBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
 
-                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                        startcal.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                        startcal.set(Calendar.MINUTE, minute);
-
-                        String date = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm").format(new java.util.Date(startcal.getTimeInMillis()));
-
-                    }
-                },0,0,false);
-                dialog.show();
+//                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//                    @Override
+//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//
+//                        startcal.set(Calendar.HOUR_OF_DAY,hourOfDay);
+//                        startcal.set(Calendar.MINUTE, minute);
+//
+//                        String date = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm").format(new java.util.Date(startcal.getTimeInMillis()));
+//
+//                    }
+//                },0,0,false);
+//                dialog.show();
 
             }
         },mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
@@ -717,6 +719,40 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
         mLvChooes = (ListView) window.findViewById(R.id.lv_chooes_list);
         ChooesListAdapter mChooesListAdapter = new ChooesListAdapter(RegisterDataActivity.this,list,mHandler,0);
         mLvChooes.setAdapter(mChooesListAdapter);
+    }
+    private InputDialog mInputDialog;
+    private TextView mTvNameTitle;
+    private LinearLayout mLlNameCancel,mLlNameOK;
+    private EditText mEtNickName;
+
+    public void showInputDialog(String title) {
+        mInputDialog = new InputDialog(RegisterDataActivity.this,
+                R.style.share_dialog);
+        mInputDialog.show();
+        Window window = mInputDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvNameTitle = (TextView) window.findViewById(R.id.input_title);
+        mTvNameTitle.setText(title);
+        mLlNameCancel = (LinearLayout) window.findViewById(R.id.input_cancel);
+        mLlNameCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInputDialog.dismiss();
+            }
+        });
+        mLlNameOK = (LinearLayout) window.findViewById(R.id.input_ok);
+        mLlNameOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInputDialog.dismiss();
+            }
+        });
+        mEtNickName = (EditText) window.findViewById(R.id.et_input_your_name);
     }
 
 }
