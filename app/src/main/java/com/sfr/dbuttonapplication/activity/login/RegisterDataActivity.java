@@ -45,12 +45,14 @@ import android.widget.Toast;
 import com.jordan.httplibrary.utils.CommonUtils;
 import com.sfr.dbuttonapplication.BuildConfig;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.BindDButtonActivity;
 import com.sfr.dbuttonapplication.activity.adapter.ChooesListAdapter;
 import com.sfr.dbuttonapplication.activity.widget.ChooesDialog;
 import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
 import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.InputDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
+import com.sfr.dbuttonapplication.activity.widget.RegisterOverDialog;
 import com.sfr.dbuttonapplication.entity.RegisterData;
 import com.sfr.dbuttonapplication.entity.UploadData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
@@ -113,9 +115,10 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                     break;
                 case REGISTER_SUCCESS:
                     LoadingProgressDialog.Dissmiss();
-                    Intent intent = new Intent(RegisterDataActivity.this, RegisterSucessActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(RegisterDataActivity.this, RegisterSucessActivity.class);
+//                    startActivity(intent);
+//                    finish();
+                    showRegisterSuccessDialog("完成注册",mName+"您好！恭喜您已完成新用户注册！！");
                     break;
                 case REGISTER_FALSE:
                     LoadingProgressDialog.Dissmiss();
@@ -772,6 +775,47 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
             }
         });
         mEtNickName = (EditText) window.findViewById(R.id.et_input_your_name);
+    }
+
+    private RegisterOverDialog mRegisterOverDialog;
+    private TextView mTvRegisterTitle,mTvRegisterText;
+    private LinearLayout mLlRegisterBind,mLlRegisterLogin;
+
+    public void showRegisterSuccessDialog(String title,String text) {
+        mRegisterOverDialog = new RegisterOverDialog(RegisterDataActivity.this,
+                R.style.share_dialog);
+        mRegisterOverDialog.show();
+        Window window = mRegisterOverDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        //window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvRegisterTitle = (TextView) window.findViewById(R.id.register_over_title);
+        mTvRegisterTitle.setText(title);
+        mTvRegisterText = (TextView) window.findViewById(R.id.register_over_text);
+        mTvRegisterText.setText(text);
+        mLlRegisterBind = (LinearLayout) window.findViewById(R.id.register_over_bind);
+        mLlRegisterBind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterDataActivity.this, BindDButtonActivity.class);
+                startActivity(intent);
+                mRegisterOverDialog.dismiss();
+                finish();
+            }
+        });
+        mLlRegisterLogin = (LinearLayout) window.findViewById(R.id.register_over_login);
+        mLlRegisterLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(RegisterDataActivity.this, LoginActivity.class);
+//                startActivity(intent);
+                mRegisterOverDialog.dismiss();
+                finish();
+            }
+        });
     }
 
 }

@@ -124,6 +124,9 @@
 要重新进行配置请先“解除绑定”，否则可以尝试“手动连接”</string>
     <string name="go_to_connect">手动连接</string>
     <string name="dbutton_explain_button">宝珠使用说明及测试</string>
+    <string name="register_over_hint">如您已购买了小贝可以点“绑定小贝”完成操作了</string>
+    <string name="register_over_bind">绑定小贝</string>
+    <string name="register_over_login">进入登录页</string>
 
 
     <string name="call_phone">拨打号码</string><!-- 预设电话 预设录音 是否播报当前定位 -->
