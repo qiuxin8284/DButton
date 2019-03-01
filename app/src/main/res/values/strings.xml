@@ -4,6 +4,7 @@
     <string name="alarm_up_ing">警报生效中…!!</string>
     <string name="dbutton_explain">按钮说明</string>
     <string name="my_alarm_detail">我的警报详情</string>
+    <string name="detail">详情</string>
     <string name="menu_alarm">警报</string>
     <string name="menu_contact">联系人</string>
     <string name="contact_data">联系人信息</string>

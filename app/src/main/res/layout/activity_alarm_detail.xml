@@ -11,47 +11,115 @@
         android:id="@+id/title"
         layout="@layout/title_view_extra" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginTop="54dp">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/alarm_detail_map_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/ll_alarm_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="2dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_marginTop="1dp"
+        android:background="@mipmap/alarm_frame">
 
-        <TextView
-            android:id="@+id/tv_begin_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:textSize="@dimen/title_extra_size" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
 
-        <TextView
-            android:id="@+id/tv_end_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:textSize="@dimen/title_extra_size" />
+            <com.sfr.dbuttonapplication.activity.widget.CircleImageView
+                android:id="@+id/iv_your_head"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:background="@mipmap/img_default_head" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="17dp"
+                android:layout_toRightOf="@id/iv_your_head"
+                android:text="丹尼"
+                android:textColor="@color/user_data_text"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_begin_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/user_data_text"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/user_data_text"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/rl_alarm_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/background"
         android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rl_start_voice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:background="@mipmap/voice_frame">
+
+            <ImageView
+                android:id="@+id/iv_voice_start"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="27dp"
+                android:background="@mipmap/img_voice_start" />
+
+            <SeekBar
+                android:id="@+id/sb_voice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="29dp"
+                android:layout_toRightOf="@id/iv_voice_start" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_alarm_address"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="2dp"
-            android:background="@color/white">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="24dp"
+            android:background="@mipmap/address_frame">
 
             <ImageView
                 android:id="@+id/iv_go_map"
@@ -59,7 +127,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="15dp"
                 android:background="@mipmap/img_go_map" />
 
             <LinearLayout
@@ -67,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/iv_go_map"
                 android:orientation="vertical">
@@ -78,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="2"
                     android:textColor="@color/user_data_text"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tv_alarm_address_detail"
@@ -90,43 +158,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_start_voice"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/iv_voice_start"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
-                android:background="@mipmap/img_voice_start" />
-
-            <SeekBar
-                android:id="@+id/sb_voice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="40dp"
-                android:layout_toRightOf="@id/iv_voice_start" />
-        </RelativeLayout>
-
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/rl_alarm_bottom"
-        android:layout_below="@id/ll_alarm_time">
-
-        <com.baidu.mapapi.map.MapView
-            android:id="@+id/alarm_detail_map_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:clickable="true" />
-    </RelativeLayout>
 </RelativeLayout>

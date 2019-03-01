@@ -88,7 +88,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     String lastAddress = "";//地址
     Double lastLa;//纬度
     Double lastLo;//经度
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -282,6 +282,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         //普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         mBaiduMap.setMyLocationEnabled(true);
+        mMapView.showZoomControls(false);
         MapViewUtil.goneMap(mMapView);
         //如果已经有权限了直接初始化，否则再请求一次权限，并且成功的时候触发此方法
         BaiduLocationUtils.initLocation(AlarmDetailActivity.this);
@@ -293,20 +294,28 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         mIvGoMap.setOnClickListener(this);
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
-
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack,mIvUpdate;
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
-        mActivityTitle.setText(getResources().getString(R.string.my_alarm_detail));
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
+        mIvUpdate = (ImageView) findViewById(R.id.title_right_btn);
+        mIvUpdate.setVisibility(View.VISIBLE);
+        mIvUpdate.setBackgroundResource(R.mipmap.img_update);
+        mActivityTitle.setText(getResources().getString(R.string.detail));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mIvUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //刷新界面update
             }
         });
     }
