@@ -170,17 +170,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="41dp"
-                    android:layout_height="34dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:background="@mipmap/call_contact" />
+                    android:background="@mipmap/call_contact_big" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:text="@string/set_phone_contact"
+                    android:textColor="@color/text_green"
                     android:textSize="14dp" />
             </LinearLayout>
         </LinearLayout>

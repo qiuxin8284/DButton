@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.AlarmListAdapter;
 import com.sfr.dbuttonapplication.activity.alarm.AlarmDetailActivity;
+import com.sfr.dbuttonapplication.activity.contact.AddPhoneContactActivity;
 import com.sfr.dbuttonapplication.entity.AlarmListData;
 import com.sfr.dbuttonapplication.entity.AlarmResultData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
@@ -97,12 +99,16 @@ public class AlarmFragment extends Fragment {
 
     private TextView mActivityTitle, mTitleExtra;
 
+    private ImageView mIvRigth;
     private void initTitle(View view) {
         mActivityTitle = (TextView) view.findViewById(R.id.title_info);
         mTitleExtra = (TextView) view.findViewById(R.id.title_extra);
+        mIvRigth = (ImageView) view.findViewById(R.id.title_right_btn);
+        mIvRigth.setVisibility(View.VISIBLE);
         mActivityTitle.setText(getResources().getString(R.string.menu_alarm));
-        mTitleExtra.setVisibility(View.VISIBLE);
+        mTitleExtra.setVisibility(View.GONE);
         mTitleExtra.setText(R.string.no_connection);
+        mIvRigth.setBackgroundResource(R.mipmap.no_connection);
     }
 
     public void setView(View view) {
@@ -165,8 +171,10 @@ public class AlarmFragment extends Fragment {
                 boolean is_success = intent.getBooleanExtra("is_success", false);
                 if(is_success){
                     mTitleExtra.setText(R.string.connection_ing);
+                    mIvRigth.setBackgroundResource(R.mipmap.has_connection);
                 }else{
                     mTitleExtra.setText(R.string.no_connection);
+                    mIvRigth.setBackgroundResource(R.mipmap.no_connection);
                 }
             } else if (action.equals(DButtonApplication.ACTION_ALARM_LIST_UPDATE)) {
                 mAlarmListTask = new AlarmListTask();

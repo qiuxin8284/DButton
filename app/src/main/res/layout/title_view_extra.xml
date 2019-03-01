@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_marginLeft="15dp"
             android:background="@mipmap/img_left"
             android:layout_centerVertical="true"/>
         <TextView
@@ -68,6 +69,16 @@
             android:paddingLeft="@dimen/title_left_padding"
             android:paddingRight="@dimen/title_left_padding"
             android:textColor="@color/new_user" />
+
+        <ImageButton
+            android:id="@+id/title_right_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/title_left_padding"
+            android:background="@mipmap/img_left"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

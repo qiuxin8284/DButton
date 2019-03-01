@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.ContactListAdapter;
 import com.sfr.dbuttonapplication.activity.contact.AddPhoneContactActivity;
 import com.sfr.dbuttonapplication.activity.contact.ContactDetailActivity;
+import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
 import com.sfr.dbuttonapplication.entity.ContactData;
 import com.sfr.dbuttonapplication.entity.UserData;
@@ -94,14 +98,17 @@ public class ContactFragment extends Fragment {
         return view;
     }
     private TextView mActivityTitle,mTitleExtra;
+    private ImageView mIvRigth;
     private void initTitle(View view) {
         mActivityTitle = (TextView) view.findViewById(R.id.title_info);
         mTitleExtra = (TextView) view.findViewById(R.id.title_extra);
+        mIvRigth = (ImageView) view.findViewById(R.id.title_right_btn);
+        mIvRigth.setVisibility(View.VISIBLE);
+        mIvRigth.setBackgroundResource(R.mipmap.img_add);
         mActivityTitle.setText(getResources().getString(R.string.menu_contact));
-        mTitleExtra.setText(getResources().getString(R.string.menu_contact));
-        mTitleExtra.setVisibility(View.VISIBLE);
         mTitleExtra.setText(getResources().getString(R.string.add_contact));
-        mTitleExtra.setOnClickListener(new View.OnClickListener() {
+        mTitleExtra.setVisibility(View.GONE);
+        mIvRigth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddPhoneContactActivity.class);
@@ -138,6 +145,14 @@ public class ContactFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        mLvContact.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mIDS = mContactList.get(position).getId();
+                showDeleteConfirmDialog(mContactList.get(position).getName());
+                return true;
+            }
+        });
     }
 
     private ContactListTask mContactListTask;
@@ -165,6 +180,62 @@ public class ContactFragment extends Fragment {
             LoadingProgressDialog.show(getActivity(), false, true, 30000);
             mContactListTask = new ContactListTask();
             mContactListTask.execute("");
+        }
+    }
+
+
+    private DeleteConfirmDialog mDeleteConfirmDialog;
+
+    private TextView mTVDeleteText;
+    private TextView mTVCancel;
+    private TextView mTVOK;
+
+    public void showDeleteConfirmDialog(String name) {
+        mDeleteConfirmDialog = new DeleteConfirmDialog(getActivity(),
+                R.style.share_dialog);
+        mDeleteConfirmDialog.show();
+        Window window = mDeleteConfirmDialog.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTVDeleteText = (TextView) window.findViewById(R.id.dialog_delete_confirm_text);
+        mTVDeleteText.setText("真的要删除 "+name+" 吗？");
+        mTVCancel = (TextView) window.findViewById(R.id.delete_confirm_cancel);
+        mTVCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDeleteConfirmDialog.dismiss();
+            }
+        });
+        mTVOK = (TextView) window.findViewById(R.id.delete_confirm_ok);
+        mTVOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadingProgressDialog.show(getActivity(), false, true, 30000);
+                //调用删除接口
+                mContactDelTask = new ContactDelTask();
+                mContactDelTask.execute("");
+                //删除这条记录
+                mDeleteConfirmDialog.dismiss();
+            }
+        });
+    }
+
+    private String mIDS = "";//调用赋值
+    private ContactDelTask mContactDelTask;
+
+    private class ContactDelTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            if (HttpSendJsonManager.contactDelete(getActivity(), mIDS)) {
+                //直接记录删除position提示即可-或者list刷新
+                mHandler.sendEmptyMessage(ContactFragment.CONTACT_DEL_SUCCESS);
+            } else {
+                //弹出错误提示
+                mHandler.sendEmptyMessage(ContactFragment.CONTACT_DEL_FALSE);
+            }
+            return null;
         }
     }
 }
