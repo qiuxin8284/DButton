@@ -13,11 +13,11 @@
 
     <LinearLayout
         android:id="@+id/ll_ota"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:background="@color/white"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="1dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
@@ -27,7 +27,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ota_update_detail" />
+            android:background="@mipmap/ota_update_detail_big" />
 
         <TextView
             android:id="@+id/tv_now_ver"
@@ -81,6 +81,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginRight="30dp"
             android:textColor="@color/white"
             android:text="@string/update"
