@@ -24,7 +24,7 @@ public class AlarmListAdapter extends BaseAdapter {
     private ArrayList<AlarmResultData> mList = new ArrayList<AlarmResultData>();
     protected LayoutInflater mInflater;
     protected Context cxt;
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd日 HH:mm");// HH:mm:ss
 
     public AlarmListAdapter(Context context, ArrayList<AlarmResultData> list) {
         cxt = context;
@@ -69,9 +69,9 @@ public class AlarmListAdapter extends BaseAdapter {
         }
         AlarmResultData alarmResultData = mList.get(position);
         holder.tvName.setText(alarmResultData.getUserData().getName());
-        holder.tvID.setText("手机号码:"+alarmResultData.getUserData().getPhone());
-        holder.tvAddress.setText("报警地址:"+alarmResultData.getAlarmData().getAddress());
-        holder.tvTime.setText("报警时间:"+ simpleDateFormat.format(new Date(Long.valueOf(alarmResultData.getAlarmData().getBeginTime()))));
+        holder.tvID.setText(alarmResultData.getUserData().getPhone());
+        holder.tvAddress.setText(alarmResultData.getAlarmData().getAddress());
+        holder.tvTime.setText(simpleDateFormat.format(new Date(Long.valueOf(alarmResultData.getAlarmData().getBeginTime()))));
 
 //        if(!TextUtils.isEmpty(alarmResultData.getUserData().getImg())){
 //            ImageLoader.getInstance().displayImage(alarmResultData.getUserData().getImg(),holder.ivHead);

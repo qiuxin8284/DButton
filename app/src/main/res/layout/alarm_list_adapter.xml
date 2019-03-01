@@ -6,21 +6,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="64dp">
+        android:layout_height="147dp"
+        android:layout_margin="7dp"
+        android:background="@drawable/alarm_shape">
 
         <LinearLayout
             android:id="@+id/ll_head"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="23dp"
             android:orientation="vertical">
 
             <com.sfr.dbuttonapplication.activity.widget.CircleImageView
                 android:id="@+id/iv_your_head"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="51dp"
+                android:layout_height="51dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@mipmap/img_default_head" />
 
@@ -29,46 +30,94 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
                 android:text="刘潇潇"
                 android:textColor="@color/user_data_text"
-                android:textSize="@dimen/alarm_list_name" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="45dp"
             android:layout_toRightOf="@id/ll_head"
-            android:layout_marginLeft="30dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_user_id"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户ID:1251312414141"
-                android:textColor="@color/user_data_text"
-                android:textSize="@dimen/alarm_list_name" />
-            <TextView
-                android:id="@+id/tv_alarm_time"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:background="@mipmap/alarm_phone" />
+
+                <TextView
+                    android:id="@+id/tv_user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:text="1251312414141"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="报警时间:2012-08-01  AM 6:00"
-                android:textColor="@color/user_data_text"
-                android:textSize="@dimen/alarm_list_name" />
-            <TextView
-                android:id="@+id/tv_alarm_address"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/alarm_time" />
+
+                <TextView
+                    android:id="@+id/tv_alarm_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:text="2012-08-01  AM 6:00"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="报警地址：22.494002,113.927882"
-                android:textColor="@color/user_data_text"
-                android:textSize="@dimen/alarm_list_name" />
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/alarm_gps" />
+
+                <TextView
+                    android:id="@+id/tv_alarm_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:text="22.494002,113.927882"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:textColor="@color/user_data_text"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:orientation="vertical">
 
