@@ -27,7 +27,7 @@ public class MyAlarmListAdapter extends BaseAdapter {
     protected Context cxt;
     private boolean mIsMulMode = false;
     private HashMap<Integer, AlarmResultData> mSelectedMap = new HashMap<Integer, AlarmResultData>();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
     private int mSelectedCount;
 
     public MyAlarmListAdapter(Context context, ArrayList<AlarmResultData> list) {
@@ -71,8 +71,8 @@ public class MyAlarmListAdapter extends BaseAdapter {
         }
 
         AlarmResultData alarmResultData = mList.get(position);
-        holder.tvTime.setText("报警时间:"+ simpleDateFormat.format(new Date(Long.valueOf(alarmResultData.getAlarmData().getBeginTime()))));
-        holder.tvAddress.setText("报警地址:"+alarmResultData.getAlarmData().getAddress());
+        holder.tvTime.setText(simpleDateFormat.format(new Date(Long.valueOf(alarmResultData.getAlarmData().getBeginTime()))));
+        holder.tvAddress.setText(alarmResultData.getAlarmData().getAddress());
 
 
         if (mIsMulMode) {

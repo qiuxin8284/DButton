@@ -11,46 +11,99 @@
         android:id="@+id/title"
         layout="@layout/title_view_extra" />
 
-    <LinearLayout
-        android:id="@+id/ll_edit_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/white"
-        android:visibility="gone"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/btn_choice_all"
-            android:layout_width="160dp"
-            android:layout_height="36dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/white"
-            android:text="@string/choice_all"
-            android:background="@drawable/edit_data_btn_selector" />
-
-        <Button
-            android:id="@+id/btn_delete"
-            android:layout_width="160dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/white"
-            android:text="@string/delete"
-            android:background="@drawable/edit_data_btn_selector" />
-    </LinearLayout>
     <ListView
         android:id="@+id/lv_alarm"
-        android:layout_below="@id/title"
         android:layout_width="match_parent"
-        android:layout_above="@id/ll_edit_bottom"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
         android:layout_marginTop="2dp"
-        android:layout_height="match_parent">
+        android:divider="@null">
 
     </ListView>
+
+    <RelativeLayout
+        android:id="@+id/ll_edit_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="70dp"
+        android:background="@mipmap/voice_frame"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_choice_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="56dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/edit_chooes" />
+
+            <TextView
+                android:id="@+id/tv_choice_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="@string/choice_all"
+                android:textColor="@color/text_green" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/edit_delete" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="@string/delete"
+                android:textColor="@color/login_hint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="56dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/edit_cancel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:text="@string/common_cancel"
+                android:textColor="@color/user_data_text" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_alarm_empty_hint"

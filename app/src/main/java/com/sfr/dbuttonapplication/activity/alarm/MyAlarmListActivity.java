@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sfr.dbuttonapplication.DButtonApplication;
@@ -39,8 +41,9 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
     private static final int ALARM_LIST_FALSE = 2;
     private static final int ALARM_DEL_SUCCESS = 3;
     private static final int ALARM_DEL_FALSE = 4;
-    private LinearLayout mLlEditBottom;
-    private Button mBtnChoice, mBtnDelete;
+    private RelativeLayout mLlEditBottom;
+    private LinearLayout mBtnChoice, mBtnDelete ,mBtnCancel;
+    private TextView mTvChoice;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,7 +75,7 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
 //                        mTvEmptyHint.setVisibility(View.GONE);
 //                    }
 //                    mAlarmListAdapter.setServiceList(mAlarmList);
-                    mBtnChoice.setText(R.string.choice_all);
+                    mTvChoice.setText(R.string.choice_all);
                     mLlEditBottom.setVisibility(View.GONE);
                     mTitleExtra.setText(getResources().getString(R.string.edit));
                     mAlarmListAdapter.changeSelectMode();
@@ -106,14 +109,15 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
         unregisterReceiver(mAlarmReceiver);
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack;
 
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.my_alarm_list));
-        mTitleExtra.setVisibility(View.VISIBLE);
+        mTitleExtra.setVisibility(View.GONE);
         mTitleExtra.setText(getResources().getString(R.string.edit));
         mTitleExtra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,14 +127,13 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
                     mLlEditBottom.setVisibility(View.VISIBLE);
                     mTitleExtra.setText(getResources().getString(R.string.abondon));
                 } else {
-                    mBtnChoice.setText(R.string.choice_all);
+                    mTvChoice.setText(R.string.choice_all);
                     mLlEditBottom.setVisibility(View.GONE);
                     mTitleExtra.setText(getResources().getString(R.string.edit));
                 }
             }
         });
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,9 +143,11 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void setView() {
-        mLlEditBottom = (LinearLayout) findViewById(R.id.ll_edit_bottom);
-        mBtnChoice = (Button) findViewById(R.id.btn_choice_all);
-        mBtnDelete = (Button) findViewById(R.id.btn_delete);
+        mLlEditBottom = (RelativeLayout) findViewById(R.id.ll_edit_bottom);
+        mBtnChoice = (LinearLayout) findViewById(R.id.btn_choice_all);
+        mBtnDelete = (LinearLayout) findViewById(R.id.btn_delete);
+        mBtnCancel = (LinearLayout) findViewById(R.id.btn_cancel);
+        mTvChoice = (TextView) findViewById(R.id.tv_choice_all);
         mAlarmList = new ArrayList<AlarmResultData>();
         mLvAlarm = (ListView) findViewById(R.id.lv_alarm);
         mAlarmListAdapter = new MyAlarmListAdapter(MyAlarmListActivity.this, mAlarmList);
@@ -166,9 +171,9 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
                     LogUtil.println("setListener mAlarmListAdapter.isMulMode():" + mAlarmListAdapter.isMulMode());
                     mAlarmListAdapter.setSelecte(position);
                     if (mAlarmListAdapter.getSelectSize() == mAlarmList.size()) {
-                        mBtnChoice.setText(R.string.cancel_choice_all);
+                        mTvChoice.setText(R.string.cancel_choice_all);
                     } else {
-                        mBtnChoice.setText(R.string.choice_all);
+                        mTvChoice.setText(R.string.choice_all);
                     }
                 } else {
                     Intent intent = new Intent(MyAlarmListActivity.this, AlarmDetailActivity.class);
@@ -187,11 +192,16 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
 //                    mAlarmDelTask = new AlarmDelTask();
 //                    mAlarmDelTask.execute(mAlarmList.get(position).getAlarmId());
 //                }
-                return false;
+
+                mLlEditBottom.setVisibility(View.VISIBLE);
+                mTitleExtra.setText(getResources().getString(R.string.abondon));
+                mAlarmListAdapter.changeSelectMode();
+                return true;
             }
         });
         mBtnChoice.setOnClickListener(this);
         mBtnDelete.setOnClickListener(this);
+        mBtnCancel.setOnClickListener(this);
     }
 
     private AlarmListTask mAlarmListTask;
@@ -203,9 +213,9 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_choice_all:
                 mAlarmListAdapter.setSelecteAll();
                 if (mAlarmListAdapter.getSelectSize() == mAlarmList.size()) {
-                    mBtnChoice.setText(R.string.cancel_choice_all);
+                    mTvChoice.setText(R.string.cancel_choice_all);
                 } else {
-                    mBtnChoice.setText(R.string.choice_all);
+                    mTvChoice.setText(R.string.choice_all);
                 }
                 break;
             case R.id.btn_delete:
@@ -222,6 +232,12 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
                 LoadingProgressDialog.show(MyAlarmListActivity.this, false, true, 30000);
                 mAlarmDelTask = new AlarmDelTask();
                 mAlarmDelTask.execute(ids);
+                break;
+            case R.id.btn_cancel:
+                mTvChoice.setText(R.string.choice_all);
+                mLlEditBottom.setVisibility(View.GONE);
+                mTitleExtra.setText(getResources().getString(R.string.edit));
+                mAlarmListAdapter.changeSelectMode();
                 break;
         }
     }
