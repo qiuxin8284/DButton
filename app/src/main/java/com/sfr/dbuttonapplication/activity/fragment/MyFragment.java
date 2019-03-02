@@ -26,7 +26,7 @@ import com.sfr.dbuttonapplication.utils.SettingSharedPerferencesUtil;
 
 
 public class MyFragment extends Fragment implements View.OnClickListener{
-    private Button mBtnEditData;
+    private LinearLayout mBtnEditData;
     private RelativeLayout mRLMyAlarmList,mRLOTAUpdate,mRLDButton;
     private TextView mTvID, mTvSex, mTvAge, mTvBlood, mTvPhoneNumber;
     private ImageView mIvHead;
@@ -101,7 +101,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     }
 
     public void setView(View view) {
-        mBtnEditData = (Button)view.findViewById(R.id.btn_edit_user_data);
+        mBtnEditData = (LinearLayout)view.findViewById(R.id.btn_edit_user_data);
         mRLMyAlarmList = (RelativeLayout)view.findViewById(R.id.rl_my_alarm_list);
         mRLOTAUpdate = (RelativeLayout)view.findViewById(R.id.rl_ota_update);
         mRLDButton = (RelativeLayout)view.findViewById(R.id.rl_my_dbutton);
