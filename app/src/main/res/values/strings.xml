@@ -93,6 +93,7 @@
     <string name="sex_man">男</string>
     <string name="sex_woman">女</string>
     <string name="blood_other">未知</string>
+    <string name="edit_over">完成修改</string>
 
     <string name="no_photo">获取图片失败，请重新选取图片</string>
     <string name="upload_photo_success">文件上传成功</string>

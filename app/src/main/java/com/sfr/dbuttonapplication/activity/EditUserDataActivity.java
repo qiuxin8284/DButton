@@ -20,14 +20,18 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +41,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.BuildConfig;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.adapter.ChooesListAdapter;
+import com.sfr.dbuttonapplication.activity.login.RegisterDataActivity;
 import com.sfr.dbuttonapplication.activity.widget.ChooesDialog;
+import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
+import com.sfr.dbuttonapplication.activity.widget.InputDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
+import com.sfr.dbuttonapplication.activity.widget.RegisterOverDialog;
 import com.sfr.dbuttonapplication.entity.RegisterData;
 import com.sfr.dbuttonapplication.entity.UploadData;
 import com.sfr.dbuttonapplication.entity.UserData;
@@ -52,6 +61,7 @@ import com.sfr.dbuttonapplication.utils.UploadPictureHasZoomUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -67,17 +77,24 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
     ;
     private static final int USER_INFO_SUCCESS = 7;
     private static final int USER_INFO_FALSE = 8;
-    private EditText mEtName;//et_input_your_name,et_input_your_bor
-    private TextView mTvBorthDay;
+//    private EditText mEtName;//et_input_your_name,et_input_your_bor
+//    private TextView mTvBorthDay;
     private ImageView mIvHead;//iv_input_your_head
-    private CheckBox mCBSexMan, mCbSexWoman;//cb_sex_man,cb_sex_woman涉及分组
-    private CheckBox mCBBloodA, mCBBloodB, mCBBloodAB, mCBBloodO, mCBBloodOther;//cb_blood_a，cb_blood_b，cb_blood_ab,cb_blood_o,cb_blood_other涉及分组
+//    private ImageView mIvTime;
+//    private CheckBox mCBSexMan, mCbSexWoman;//cb_sex_man,cb_sex_woman涉及分组
+//    private CheckBox mCBBloodA, mCBBloodB, mCBBloodAB, mCBBloodO, mCBBloodOther;//cb_blood_a，cb_blood_b，cb_blood_ab,cb_blood_o,cb_blood_other涉及分组
+
+    private RelativeLayout mRlHead,mRlName,mRlBlood,mRlSex,mRlBorthDay;
     private boolean mIsGrant;
-    private ImageView mIvTime;
-    private RelativeLayout mRlBorthDay;
     String file_full_path = "";
     Bitmap photo;
+    private static final int UPDATE_SEX = 10;
+    private static final int UPDATE_BLOOD = 11;
+    private TextView mTvName,mTvBlood,mTvSex,mTvBorthDay;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    ArrayList<String> bloodList = new ArrayList<String>();
+    ArrayList<String> sexList = new ArrayList<String>();
+
 
     private Handler mHandler = new Handler() {
         @Override
@@ -118,6 +135,16 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
                     mUserInfoTask = new UserInfoTask();
                     mUserInfoTask.execute("");
                     break;
+                case UPDATE_SEX:
+                    String text = (String) msg.obj;
+                    mTvSex.setText(text);
+                    mChooesListDialog.dismiss();
+                    break;
+                case UPDATE_BLOOD:
+                    text = (String) msg.obj;
+                    mTvBlood.setText(text);
+                    mChooesListDialog.dismiss();
+                    break;
             }
         }
     };
@@ -154,43 +181,51 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
     private void setView() {
         mBtnEditOver = (Button) findViewById(R.id.btn_edit_over);
 
-        mEtName = (EditText) findViewById(R.id.et_input_your_name);
-        mTvBorthDay = (TextView) findViewById(R.id.et_input_your_bor);
-        mRlBorthDay = (RelativeLayout) findViewById(R.id.rl_input_your_bor);
+        mIvHead = (ImageView) findViewById(R.id.iv_input_your_head);
+
+        mRlName = (RelativeLayout)findViewById(R.id.rl_user_name);
+        mRlBlood = (RelativeLayout)findViewById(R.id.rl_user_blood_group);
+        mRlSex = (RelativeLayout)findViewById(R.id.rl_user_sex);
+        mRlBorthDay = (RelativeLayout)findViewById(R.id.rl_input_your_bor);
 
         mIvHead = (ImageView) findViewById(R.id.iv_input_your_head);
-        mIvTime = (ImageView) findViewById(R.id.iv_time);
+        mRlHead = (RelativeLayout) findViewById(R.id.rl_input_your_head);
+        mTvName = (TextView) findViewById(R.id.tv_user_name);
+        mTvBlood = (TextView) findViewById(R.id.tv_user_blood_group);
+        mTvSex = (TextView) findViewById(R.id.tv_user_sex);
+        mTvBorthDay = (TextView) findViewById(R.id.tv_user_date_of_birth);
 
-        mCBSexMan = (CheckBox) findViewById(R.id.cb_sex_man);
-        mCbSexWoman = (CheckBox) findViewById(R.id.cb_sex_woman);
-
-        mCBBloodA = (CheckBox) findViewById(R.id.cb_blood_a);
-        mCBBloodB = (CheckBox) findViewById(R.id.cb_blood_b);
-        mCBBloodAB = (CheckBox) findViewById(R.id.cb_blood_ab);
-        mCBBloodO = (CheckBox) findViewById(R.id.cb_blood_o);
-        mCBBloodOther = (CheckBox) findViewById(R.id.cb_blood_other);
+        bloodList = new ArrayList<String>();
+        bloodList.add("A型");
+        bloodList.add("B型");
+        bloodList.add("O型");
+        bloodList.add("AB型");
+        bloodList.add("保密");
+        sexList = new ArrayList<String>();
+        sexList.add("男");
+        sexList.add("女");
 
         if (DButtonApplication.mUserData != null) {
-            mEtName.setText(DButtonApplication.mUserData.getName());
+            mTvName.setText(DButtonApplication.mUserData.getName());
             if(!TextUtils.isEmpty(DButtonApplication.mUserData.getGender())) {
                 if (DButtonApplication.mUserData.getGender().equals("1")) {
-                    mCBSexMan.setChecked(true);
+                    mTvSex.setText(sexList.get(0));
                 } else if (DButtonApplication.mUserData.getGender().equals("2")) {
-                    mCbSexWoman.setChecked(true);
+                    mTvSex.setText(sexList.get(1));
                 }
             }
             //mTvAge.setText(DButtonApplication.mUserData.getAge());
             if(!TextUtils.isEmpty(DButtonApplication.mUserData.getGender())) {
                 if (DButtonApplication.mUserData.getBlood().equalsIgnoreCase("a")) {
-                    mCBBloodA.setChecked(true);
+                    mTvBlood.setText(bloodList.get(0));
                 } else if (DButtonApplication.mUserData.getBlood().equalsIgnoreCase("ab")) {
-                    mCBBloodAB.setChecked(true);
+                    mTvBlood.setText(bloodList.get(1));
                 } else if (DButtonApplication.mUserData.getBlood().equalsIgnoreCase("b")) {
-                    mCBBloodB.setChecked(true);
+                    mTvBlood.setText(bloodList.get(2));
                 } else if (DButtonApplication.mUserData.getBlood().equalsIgnoreCase("o")) {
-                    mCBBloodO.setChecked(true);
+                    mTvBlood.setText(bloodList.get(3));
                 } else if (DButtonApplication.mUserData.getBlood().equalsIgnoreCase("other")) {
-                    mCBBloodOther.setChecked(true);
+                    mTvBlood.setText(bloodList.get(4));
                 }
             }
             //mTvBlood.setText(DButtonApplication.mUserData.getBlood());
@@ -209,93 +244,23 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
 
     private void setListener() {
         mBtnEditOver.setOnClickListener(this);
-        mIvHead.setOnClickListener(this);
         mRlBorthDay.setOnClickListener(this);
-        mTvBorthDay.setKeyListener(null);
-        mIvTime.setOnClickListener(this);
-        mCBSexMan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCbSexWoman.setChecked(false);
-                }
-            }
-        });
-        mCbSexWoman.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBSexMan.setChecked(false);
-                }
-            }
-        });
-        mCBBloodA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBBloodA.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodAB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodO.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodOther.setChecked(false);
-                }
-            }
-        });
-        mCBBloodOther.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    mCBBloodA.setChecked(false);
-                    mCBBloodB.setChecked(false);
-                    mCBBloodAB.setChecked(false);
-                    mCBBloodO.setChecked(false);
-                }
-            }
-        });
+        mRlHead.setOnClickListener(this);
+        mRlName.setOnClickListener(this);
+        mRlBlood.setOnClickListener(this);
+        mRlSex.setOnClickListener(this);
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack;
 
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.edit_user_data));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -318,36 +283,34 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
                     mHandler.sendEmptyMessage(N0_PERMISSION);
                 }
                 break;
-            case R.id.rl_input_your_bor:
-                //initTimeDialog();
-                break;
             case R.id.btn_edit_over:
-                mName = mEtName.getText().toString();
+                mName = mTvName.getText().toString();
                 mBirth = mTvBorthDay.getText().toString();
                 mGender = "";
-                if (mCBSexMan.isChecked()) mGender = HttpSendJsonManager.SEX_MAN;
-                if (mCbSexWoman.isChecked()) mGender = HttpSendJsonManager.SEX_WOMAN;
+                if(mTvSex.getText().toString().equals(sexList.get(0))) mGender=HttpSendJsonManager.SEX_MAN;
+                if(mTvSex.getText().toString().equals(sexList.get(1))) mGender=HttpSendJsonManager.SEX_WOMAN;
                 mBlood = "";
-                if (mCBBloodA.isChecked()) mBlood = HttpSendJsonManager.BLOOD_A;
-                if (mCBBloodB.isChecked()) mBlood = HttpSendJsonManager.BLOOD_B;
-                if (mCBBloodAB.isChecked()) mBlood = HttpSendJsonManager.BLOOD_AB;
-                if (mCBBloodO.isChecked()) mBlood = HttpSendJsonManager.BLOOD_O;
-                if (mCBBloodOther.isChecked()) mBlood = HttpSendJsonManager.BLOOD_OTHER;
+                if(mTvBlood.getText().toString().equals(bloodList.get(0)))  mBlood=HttpSendJsonManager.BLOOD_A;
+                if(mTvBlood.getText().toString().equals(bloodList.get(1)))  mBlood=HttpSendJsonManager.BLOOD_B;
+                if(mTvBlood.getText().toString().equals(bloodList.get(2)))  mBlood=HttpSendJsonManager.BLOOD_AB;
+                if(mTvBlood.getText().toString().equals(bloodList.get(3)))  mBlood=HttpSendJsonManager.BLOOD_O;
+                if(mTvBlood.getText().toString().equals(bloodList.get(4)))  mBlood=HttpSendJsonManager.BLOOD_OTHER;
+
 
                 if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mName)) {
-                    Toast.makeText(this, R.string.please_input_your_name, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.please_input_your_name_hint, Toast.LENGTH_LONG).show();
                     return;
                 } else if (TextUtils.isEmpty(mGender) || TextUtils.isEmpty(mGender)) {
-                    Toast.makeText(this, R.string.please_choies_your_sex, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.please_choies_your_sex_hint, Toast.LENGTH_LONG).show();
                     return;
                 } else if (TextUtils.isEmpty(mBlood) || TextUtils.isEmpty(mBlood)) {
-                    Toast.makeText(this, R.string.please_input_your_blood_group, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.please_input_your_blood_group_hint, Toast.LENGTH_LONG).show();
                     return;
                 } else if (TextUtils.isEmpty(mBirth) || TextUtils.isEmpty(mBirth)) {
-                    Toast.makeText(this, R.string.please_input_your_date_of_birth, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.please_input_your_date_of_birth_hint, Toast.LENGTH_LONG).show();
                     return;
                 } else if (TextUtils.isEmpty(mImg) || TextUtils.isEmpty(mImg)) {
-                    Toast.makeText(this, R.string.please_input_your_head, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.please_input_your_head_hint, Toast.LENGTH_LONG).show();
                     return;
                 } else {
                     LoadingProgressDialog.show(EditUserDataActivity.this, false, true, 30000);
@@ -355,8 +318,29 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
                     mSetUserInfoTask.execute("");
                 }
                 break;
-            case R.id.iv_time:
+            case R.id.rl_input_your_head:
+                //调用Dialog 拍照或者相册
+                if (mIsGrant) {
+                    showHeadDialog();
+                } else {
+                    mHandler.sendEmptyMessage(N0_PERMISSION);
+                }
+                break;
+            case R.id.rl_input_your_bor:
                 initTimeDialog();
+                break;
+//            case R.id.iv_time:
+//                initTimeDialog();
+//                break;
+
+            case R.id.rl_user_name:
+                showInputDialog("昵称");
+                break;
+            case R.id.rl_user_blood_group:
+                showListDialog(bloodList,"设置血型",UPDATE_BLOOD);
+                break;
+            case R.id.rl_user_sex:
+                showListDialog(sexList,"选择性别",UPDATE_SEX);
                 break;
         }
     }
@@ -553,5 +537,111 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
             }
             return null;
         }
+    }
+
+
+    private ChooesListDialog mChooesListDialog;
+    private TextView mTvTitle;
+    private LinearLayout mLlCancel;
+    private ListView mLvChooes;
+
+    public void showListDialog(ArrayList<String> list,String title,int what) {
+        mChooesListDialog = new ChooesListDialog(EditUserDataActivity.this,
+                R.style.share_dialog);
+        mChooesListDialog.show();
+        Window window = mChooesListDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvTitle = (TextView) window.findViewById(R.id.chooes_list_title);
+        mTvTitle.setText(title);
+        mLlCancel = (LinearLayout) window.findViewById(R.id.chooes_list_cancel);
+        mLlCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mChooesListDialog.dismiss();
+            }
+        });
+        mLvChooes = (ListView) window.findViewById(R.id.lv_chooes_list);
+        ChooesListAdapter mChooesListAdapter = new ChooesListAdapter(EditUserDataActivity.this,list,mHandler,what);
+        mLvChooes.setAdapter(mChooesListAdapter);
+    }
+    private InputDialog mInputDialog;
+    private TextView mTvNameTitle;
+    private LinearLayout mLlNameCancel,mLlNameOK;
+    private EditText mEtNickName;
+
+    public void showInputDialog(String title) {
+        mInputDialog = new InputDialog(EditUserDataActivity.this,
+                R.style.share_dialog);
+        mInputDialog.show();
+        Window window = mInputDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvNameTitle = (TextView) window.findViewById(R.id.input_title);
+        mTvNameTitle.setText(title);
+        mLlNameCancel = (LinearLayout) window.findViewById(R.id.input_cancel);
+        mLlNameCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInputDialog.dismiss();
+            }
+        });
+        mLlNameOK = (LinearLayout) window.findViewById(R.id.input_ok);
+        mLlNameOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTvName.setText(mEtNickName.getText().toString());
+                mInputDialog.dismiss();
+            }
+        });
+        mEtNickName = (EditText) window.findViewById(R.id.et_input_your_name);
+    }
+    private RegisterOverDialog mRegisterOverDialog;
+    private TextView mTvRegisterTitle,mTvRegisterText;
+    private LinearLayout mLlRegisterBind,mLlRegisterLogin;
+
+    public void showRegisterSuccessDialog(String title,String text) {
+        mRegisterOverDialog = new RegisterOverDialog(EditUserDataActivity.this,
+                R.style.share_dialog);
+        mRegisterOverDialog.show();
+        Window window = mRegisterOverDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        //window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvRegisterTitle = (TextView) window.findViewById(R.id.register_over_title);
+        mTvRegisterTitle.setText(title);
+        mTvRegisterText = (TextView) window.findViewById(R.id.register_over_text);
+        mTvRegisterText.setText(text);
+        mLlRegisterBind = (LinearLayout) window.findViewById(R.id.register_over_bind);
+        mLlRegisterBind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditUserDataActivity.this, BindDButtonActivity.class);
+                startActivity(intent);
+                mRegisterOverDialog.dismiss();
+                finish();
+            }
+        });
+        mLlRegisterLogin = (LinearLayout) window.findViewById(R.id.register_over_login);
+        mLlRegisterLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(RegisterDataActivity.this, LoginActivity.class);
+//                startActivity(intent);
+                mRegisterOverDialog.dismiss();
+                finish();
+            }
+        });
     }
 }
