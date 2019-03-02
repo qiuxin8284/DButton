@@ -26,8 +26,8 @@
     <string name="please_add_user_info">请添加用户信息</string>
 
     <string name="my_alarm_list">我的警报记录</string>
-    <string name="my_dbutton">我的宝珠</string>
-    <string name="dbutton_to_bind">宝珠绑定</string>
+    <string name="my_dbutton">我的小贝</string>
+    <string name="dbutton_to_bind">小贝绑定</string>
     <string name="bind_success">绑定成功</string>
     <string name="ota_update">固件升级</string>
     <string name="version_update">软件升级</string>
@@ -39,10 +39,10 @@
     <string name="contact_us">联系我们</string>
 
     <string name="dbutton_to_bind_search_hint_title">搜索中…</string>
-    <string name="dbutton_to_bind_search_hint_text">请将需要配对的宝珠靠近手机，以便找到它……</string>
+    <string name="dbutton_to_bind_search_hint_text">请将需要配对的小贝靠近手机，以便找到它……</string>
     <string name="dbutton_to_bind_search_over_hint_title">搜索已完成</string>
-    <string name="dbutton_to_bind_search_over_hint_text">如有多个宝珠，请照宝珠的ID号确认绑定</string>
-    <string name="dbutton_empty_hint">暂时没有发现任何宝珠！</string>
+    <string name="dbutton_to_bind_search_over_hint_text">如有多个小贝，请照小贝的ID号确认绑定</string>
+    <string name="dbutton_empty_hint">暂时没有发现任何小贝！</string>
 
     <string name="delete_hint">删除后不可返回，必须再次通过增加联系人再可恢复</string>
     <string name="abondon">放弃</string>
@@ -57,7 +57,7 @@
     <string name="phone_number">请输入手机号</string>
     <string name="sms_code">短信验证码</string>
     <string name="get_sms_code">获取验证码</string>
-    <string name="login_hint">本APP需要"宝珠"的支持才可正常工作，点击"了解详情"</string>
+    <string name="login_hint">本APP需要"小贝"的支持才可正常工作，点击"了解详情"</string>
     <string name="learn_detail">了解详情</string>
     <string name="login">登录</string>
     <string name="logout_account">退出登录</string>
@@ -87,7 +87,7 @@
     <string name="please_input_your_blood_group_hint">请输入您的血型</string>
 
 
-    <string name="please_bind_your_dbutton">如您手上有宝珠请绑定</string>
+    <string name="please_bind_your_dbutton">如您手上有小贝请绑定</string>
     <string name="please_bind_your_dbutton_hint">(也可以完成注册后去个人中心绑定）</string>
     <string name="register_over">注册</string>
     <string name="sex_man">男</string>
@@ -108,24 +108,24 @@
     <string name="user_data_age">年龄：</string>
     <string name="user_data_blood">血型：</string>
     <string name="user_data_phone_number">手机：</string>
-    <string name="user_data_dbutton_id">宝珠ID：</string>
-    <string name="dbutton_detail">宝珠详情</string>
-    <string name="dbutton_electricity">宝珠电量</string>
+    <string name="user_data_dbutton_id">小贝ID：</string>
+    <string name="dbutton_detail">小贝详情</string>
+    <string name="dbutton_electricity">小贝电量</string>
     <string name="dbutton_unbind">解除绑定</string>
-    <string name="dbutton_unbind_hint">您的宝珠已完成绑定，可以正常使用。如您丢失了宝珠或需
+    <string name="dbutton_unbind_hint">您的小贝已完成绑定，可以正常使用。如您丢失了小贝或需
     要重新进行配置请先“解除绑定</string>
-    <string name="dbutton_no_bind">未绑定宝珠</string>
-    <string name="dbutton_no_bind_hint">您的需要绑定宝珠才可以正常使用。如您还没有宝珠请点以
-“购买宝珠”链接。如您手上已有宝珠请点进行绑定</string>
-    <string name="dbutton_buy">购买宝珠</string>
+    <string name="dbutton_no_bind">未绑定小贝</string>
+    <string name="dbutton_no_bind_hint">您的需要绑定小贝才可以正常使用。如您还没有小贝请点以
+“购买小贝”链接。如您手上已有小贝请点进行绑定</string>
+    <string name="dbutton_buy">购买小贝</string>
     <string name="dbutton_bind">进行绑定</string>
     <string name="bind">绑定</string>
     <string name="no_connection">未连接</string>
     <string name="connection_ing">连接中</string>
-    <string name="dbutton_no_connect_hint">您的宝珠已完成绑定，但连接丢失。如您丢失了宝珠或需
+    <string name="dbutton_no_connect_hint">您的小贝已完成绑定，但连接丢失。如您丢失了小贝或需
 要重新进行配置请先“解除绑定”，否则可以尝试“手动连接”</string>
     <string name="go_to_connect">手动连接</string>
-    <string name="dbutton_explain_button">宝珠使用说明及测试</string>
+    <string name="dbutton_explain_button">小贝使用说明及测试</string>
     <string name="register_over_hint">如您已购买了小贝可以点“绑定小贝”完成操作了</string>
     <string name="register_over_bind">绑定小贝</string>
     <string name="register_over_login">进入登录页</string>

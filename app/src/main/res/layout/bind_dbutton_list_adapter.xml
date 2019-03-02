@@ -6,23 +6,30 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="46dp">
+        android:background="@drawable/alarm_shape"
+        android:layout_margin="7dp"
+        android:layout_height="64dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_mac"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_marginLeft="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/bind_dbutton"/>
+            <TextView
+                android:id="@+id/tv_mac"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="XXXXXXXXXXXXXX"
-                android:textColor="@color/user_data_text"
-                android:textSize="@dimen/user_data_hint_text" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_bind"
@@ -38,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/bind"
-                android:textColor="@color/login_hint"
-                android:textSize="@dimen/user_data_hint_text" />
+                android:textColor="@color/text_green"
+                android:textSize="15sp" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
