@@ -203,8 +203,8 @@
 
                 <ImageView
                     android:id="@+id/iv_img_my_alarm"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="20dp"
@@ -247,8 +247,8 @@
 
                 <ImageView
                     android:id="@+id/iv_img_my_dbutton"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="20dp"
