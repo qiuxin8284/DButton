@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:background="@color/white"
-        android:layout_marginTop="2dp">
+        android:layout_marginTop="2dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,143 +29,161 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
-                android:textColor="@color/black"
                 android:text=""
+                android:textColor="@color/black"
                 android:textSize="@dimen/title_size" />
 
-            <com.sfr.dbuttonapplication.activity.widget.CircleImageView
-                android:id="@+id/iv_input_your_head"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                android:background="@mipmap/img_default_head" />
-
-            <include layout="@layout/item_line"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginLeft="90dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_data_id"
-                    android:textColor="@color/user_data_text"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-
-                <TextView
-                    android:id="@+id/tv_user_data_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="90dp"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_user_data_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_data_sex"
-                    android:textColor="@color/user_data_text"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-
-                <TextView
-                    android:id="@+id/tv_user_data_sex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginLeft="5dp"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_user_data_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_data_age"
-                    android:textColor="@color/user_data_text"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-
-                <TextView
-                    android:id="@+id/tv_user_data_age"
-                    android:layout_width="wrap_content"
-                    android:text=""
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_user_data_blood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_data_blood"
-                    android:textColor="@color/user_data_text"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-
-                <TextView
-                    android:id="@+id/tv_user_data_blood"
-                    android:layout_width="wrap_content"
-                    android:text=""
-                    android:textAllCaps="true"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
 
-                <TextView
+                <com.sfr.dbuttonapplication.activity.widget.ZQImageViewRoundOval
+                    android:id="@+id/iv_input_your_head"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/img_default_head_rect" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_data_phone_number"
-                    android:textColor="@color/user_data_text"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_user_data_phone_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:layout_marginLeft="5dp"
-                    android:textSize="@dimen/contact_user_data_hint_text" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_phone_number"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text=""
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="3dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_id"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="90dp"
+                            android:text=""
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_user_data_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_sex"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text=""
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_user_data_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_age"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text=""
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_user_data_blood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="3dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_data_blood"
+                            android:textColor="@color/user_data_text"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+
+                        <TextView
+                            android:id="@+id/tv_user_data_blood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text=""
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/contact_user_data_hint_text" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
-            <include layout="@layout/item_line"/>
+
+
+            <include layout="@layout/item_line" />
+
             <LinearLayout
                 android:id="@+id/btn_contact_detail_sucess"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="2dp"
                 android:orientation="vertical">
 
@@ -175,14 +193,32 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:background="@mipmap/call_contact_big" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="8dp"
                     android:text="@string/set_phone_contact"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/text_green"
                     android:textSize="14dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="37dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginRight="37dp"
+                        android:text="@string/set_main_phone_contact"
+                        android:textColor="@color/menu_text_no"
+                        android:textSize="14sp" />
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

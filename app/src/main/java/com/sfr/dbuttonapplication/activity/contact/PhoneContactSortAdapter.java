@@ -156,7 +156,7 @@ public class PhoneContactSortAdapter extends BaseAdapter implements SectionIndex
         });
         if (DButtonApplication.mContactMap.containsKey(list.get(position).getNameId())) {
             viewHolder.btnAdd.setText(R.string.has_add);
-            viewHolder.btnAdd.setBackgroundResource(R.mipmap.btn_add_phone_contact_none);
+            viewHolder.btnAdd.setBackgroundResource(R.mipmap.btn_login_none);
         } else {
             viewHolder.btnAdd.setText(R.string.add);
             viewHolder.btnAdd.setBackgroundResource(R.drawable.add_phone_contact_btn_selector);

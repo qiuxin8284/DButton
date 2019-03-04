@@ -330,7 +330,7 @@ public class DButtonApplication extends BleBaseApplication {
             LogUtil.println("DButtonApplication::onLEScan::mDButtonMap.size= " + mDButtonMap.size());
             //-------------------发广播----------------
             if (BleLibsConfig.LE_SCAN_PROCESS_BEGIN == scan_process) {//指示扫描开始
-                Toast.makeText(this, "LE Scan begin", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "扫描开始", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
                 intent.putExtra("scan_process", scan_process);
@@ -346,7 +346,7 @@ public class DButtonApplication extends BleBaseApplication {
                 intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
                 intent.putExtra("scan_process", scan_process);
                 sendBroadcast(intent);
-                Toast.makeText(this, "Scan finished", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "扫描结束", Toast.LENGTH_LONG).show();
                 LogUtil.println("DButtonApplication::onLEScan::mNowMac= " + mNowMac);
                 //判断是否包含mNowMac
                 if (mDButtonMap.containsKey(mNowMac)) {

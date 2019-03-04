@@ -22,10 +22,13 @@ import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.AlarmListAdapter;
 import com.sfr.dbuttonapplication.activity.alarm.AlarmDetailActivity;
 import com.sfr.dbuttonapplication.activity.contact.AddPhoneContactActivity;
+import com.sfr.dbuttonapplication.activity.login.LoginActivity;
 import com.sfr.dbuttonapplication.entity.AlarmListData;
 import com.sfr.dbuttonapplication.entity.AlarmResultData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
+import com.sfr.dbuttonapplication.utils.LogUtil;
+import com.sfr.dbuttonapplication.utils.SettingSharedPerferencesUtil;
 import com.sfr.dbuttonapplication.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -109,6 +112,26 @@ public class AlarmFragment extends Fragment {
         mTitleExtra.setVisibility(View.GONE);
         mTitleExtra.setText(R.string.no_connection);
         mIvRigth.setBackgroundResource(R.mipmap.no_connection);
+        mIsConnection = false;
+        mIvRigth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mIsConnection){
+                    startService();
+                }else{
+                    //可以尝试断开操作
+                    DButtonApplication.mInstance.disconnect();
+                }
+            }
+        });
+    }
+
+    private boolean mIsConnection = false;
+    private void startService(){
+        DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
+                getActivity(), DButtonApplication.mUserData.getPhone());
+        LogUtil.println("DButtonApplication::Login::mNowMac= " + DButtonApplication.mNowMac);
+        DButtonApplication.mInstance.startScanDevice();
     }
 
     public void setView(View view) {
@@ -172,9 +195,11 @@ public class AlarmFragment extends Fragment {
                 if(is_success){
                     mTitleExtra.setText(R.string.connection_ing);
                     mIvRigth.setBackgroundResource(R.mipmap.has_connection);
+                    mIsConnection = true;
                 }else{
                     mTitleExtra.setText(R.string.no_connection);
                     mIvRigth.setBackgroundResource(R.mipmap.no_connection);
+                    mIsConnection = false;
                 }
             } else if (action.equals(DButtonApplication.ACTION_ALARM_LIST_UPDATE)) {
                 mAlarmListTask = new AlarmListTask();

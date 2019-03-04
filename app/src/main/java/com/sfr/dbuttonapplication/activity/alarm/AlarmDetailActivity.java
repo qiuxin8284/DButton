@@ -316,6 +316,9 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 //刷新界面update
+                LoadingProgressDialog.show(AlarmDetailActivity.this, false, true, 30000);
+                mAlarmDetailTask = new AlarmDetailTask();
+                mAlarmDetailTask.execute("");
             }
         });
     }

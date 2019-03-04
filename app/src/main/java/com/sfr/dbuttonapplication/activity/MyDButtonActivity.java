@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +32,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
     private RelativeLayout mRLBindDButton, mRLBuyDButton;//rl_dbutton_bind
     private RelativeLayout mRLNoBind, mRLHasBind, mRLNoConnect;
     private RelativeLayout mRLUnbindOne,mRLUnbindTwo;
-    private Button mBtnExplain,mBtnConnect; //btn_explain
+    private RelativeLayout mBtnExplain;
+    private RelativeLayout mBtnConnect; //btn_explain
     private static final int LAYER_LIST_SUCCESS = 1;
     private static final int LAYER_LIST_FALSE = 2;
     private static final int LAYER_DEL_SUCCESS = 3;
@@ -75,8 +77,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                             mRLHasBind.setVisibility(View.GONE);
                             mRLNoConnect.setVisibility(View.VISIBLE);
                         }
-                        mTvDButtonIDConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
-                        mTvDButtonIDNoConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
+                        mTvDButtonIDConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
+                        mTvDButtonIDNoConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
 //                        mLayerListTask = new LayerListTask();
 //                        mLayerListTask.execute("");
                     }
@@ -139,8 +141,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
         mTvDButtonIDConnect = (TextView) findViewById(R.id.my_dbutton_id_connect);
         mTvDButtonIDNoConnect = (TextView) findViewById(R.id.my_dbutton_id_no_connect);
         mTvBattery = (TextView) findViewById(R.id.tv_battrty);
-        mBtnExplain = (Button) findViewById(R.id.btn_explain);
-        mBtnConnect = (Button) findViewById(R.id.btn_connect);
+        mBtnExplain = (RelativeLayout) findViewById(R.id.btn_explain);
+        mBtnConnect = (RelativeLayout) findViewById(R.id.btn_connect);
 
         DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
                 MyDButtonActivity.this, DButtonApplication.mUserData.getPhone());
@@ -162,8 +164,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                 mRLHasBind.setVisibility(View.GONE);
                 mRLNoConnect.setVisibility(View.VISIBLE);
             }
-            mTvDButtonIDConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
-            mTvDButtonIDNoConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
+            mTvDButtonIDConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
+            mTvDButtonIDNoConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
         }
         LoadingProgressDialog.show(MyDButtonActivity.this, false, true, 30000);
         mLayerListTask = new LayerListTask();
@@ -192,8 +194,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                     mRLHasBind.setVisibility(View.GONE);
                     mRLNoConnect.setVisibility(View.VISIBLE);
                 }
-                mTvDButtonIDConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
-                mTvDButtonIDNoConnect.setText("宝珠ID：" + DButtonApplication.mNowMac);
+                mTvDButtonIDConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
+                mTvDButtonIDNoConnect.setText("小贝ID：" + DButtonApplication.mNowMac);
                 LoadingProgressDialog.show(MyDButtonActivity.this, false, true, 30000);
                 mLayerListTask = new LayerListTask();
                 mLayerListTask.execute("");
@@ -201,16 +203,16 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack;
 
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.my_dbutton));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -412,7 +414,7 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                 }
             }else if(action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
                 String battery = intent.getStringExtra("battery");
-                mTvBattery.setText("宝珠电量："+battery+"%");
+                mTvBattery.setText("小贝电量："+battery+"%");
             }
         }
     }

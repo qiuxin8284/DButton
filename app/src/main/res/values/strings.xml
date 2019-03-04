@@ -118,10 +118,11 @@
     <string name="dbutton_unbind">解除绑定</string>
     <string name="dbutton_unbind_hint">您的小贝已完成绑定，可以正常使用。如您丢失了小贝或需
     要重新进行配置请先“解除绑定</string>
-    <string name="dbutton_no_bind">未绑定小贝</string>
-    <string name="dbutton_no_bind_hint">您的需要绑定小贝才可以正常使用。如您还没有小贝请点以
-“购买小贝”链接。如您手上已有小贝请点进行绑定</string>
-    <string name="dbutton_buy">购买小贝</string>
+    <string name="dbutton_no_bind">没有小贝</string>
+    <string name="dbutton_no_bind_hint">您的一个小贝，如果没有小贝就没有办法向他人录求
+帮助，在危急时刻小贝是您的忠实守护神，所以请认领一个小贝吧！</string>
+    <string name="dbutton_has_bind_hint">如您手上已有小贝请点进行绑定，以便可以正常使用</string>
+    <string name="dbutton_buy">认领小贝</string>
     <string name="dbutton_bind">进行绑定</string>
     <string name="bind">绑定</string>
     <string name="no_connection">未连接</string>
@@ -129,10 +130,11 @@
     <string name="dbutton_no_connect_hint">您的小贝已完成绑定，但连接丢失。如您丢失了小贝或需
 要重新进行配置请先“解除绑定”，否则可以尝试“手动连接”</string>
     <string name="go_to_connect">手动连接</string>
-    <string name="dbutton_explain_button">小贝使用说明及测试</string>
+    <string name="dbutton_explain_button">小贝说明</string>
     <string name="register_over_hint">如您已购买了小贝可以点“绑定小贝”完成操作了</string>
     <string name="register_over_bind">绑定小贝</string>
     <string name="register_over_login">进入登录页</string>
+    <string name="set_main_phone_contact">注意：\n系统默认添加的第一位联系人具有电话呼叫求助功能，此设置可在“联系人”中重新指定。</string>
 
 
     <string name="call_phone">拨打号码</string><!-- 预设电话 预设录音 是否播报当前定位 -->

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.widget.ZQImageViewRoundOval;
 import com.sfr.dbuttonapplication.entity.UserData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
@@ -26,7 +27,7 @@ public class ContactDetailActivity extends AppCompatActivity implements View.OnC
     private static final int CONTACT_SET_FALSE = 2;
     private static final int CONTACT_SEARCH_SUCCESS = 3;
     private static final int CONTACT_SEARCH_FALSE = 4;
-    private ImageView mIvHead;
+    private ZQImageViewRoundOval mIvHead;
     private TextView mTvName, mTvPhone, mTvGender, mTvAge, mTvBlood, mTvID;
     private LinearLayout mLLGender, mLLAge, mLLBlood;
     private LinearLayout mLlSetPhoneContact;
@@ -93,7 +94,9 @@ public class ContactDetailActivity extends AppCompatActivity implements View.OnC
         mIsUrgent = getIntent().getStringExtra("isUrgent");
         mContactSearchTask = new ContactSearchTask();
         mContactSearchTask.execute("");
-        mIvHead = (ImageView) findViewById(R.id.iv_input_your_head);
+        mIvHead = (ZQImageViewRoundOval) findViewById(R.id.iv_input_your_head);
+        mIvHead.setType(ZQImageViewRoundOval.TYPE_ROUND);
+        mIvHead.setRoundRadius(20);//矩形凹行大小
         mTvName = (TextView) findViewById(R.id.tv_input_your_username);
         mTvPhone = (TextView) findViewById(R.id.tv_user_data_phone_number);
         mTvGender = (TextView) findViewById(R.id.tv_user_data_sex);

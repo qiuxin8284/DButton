@@ -79,13 +79,13 @@
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
-                <com.sfr.dbuttonapplication.activity.widget.CircleImageView
+                <com.sfr.dbuttonapplication.activity.widget.ZQImageViewRoundOval
                     android:id="@+id/iv_input_your_head"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="45dp"
-                    android:background="@mipmap/img_default_head" />
+                    android:src="@mipmap/img_default_head_rect" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
