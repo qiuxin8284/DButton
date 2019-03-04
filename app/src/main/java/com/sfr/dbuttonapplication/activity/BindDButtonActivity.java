@@ -11,8 +11,11 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +24,10 @@ import com.icen.blelibrary.config.BleLibsConfig;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.BindDButtonListAdapter;
+import com.sfr.dbuttonapplication.activity.login.RegisterDataActivity;
+import com.sfr.dbuttonapplication.activity.widget.BindOverDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
+import com.sfr.dbuttonapplication.activity.widget.RegisterOverDialog;
 import com.sfr.dbuttonapplication.entity.DButtonData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
@@ -50,10 +56,11 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
                 case ADD_LAY_SUCCESS:
                     LoadingProgressDialog.Dissmiss();
                     DButtonApplication.mAddDbutton = true;
-                    ToastUtils.shortToast(BindDButtonActivity.this, R.string.bind_success);
                     SettingSharedPerferencesUtil.SetBindDbuttonMACValue(
                             BindDButtonActivity.this, DButtonApplication.mUserData.getPhone(), mMac);
-                    finish();
+                    showBindOverDialog();
+//                    ToastUtils.shortToast(BindDButtonActivity.this, R.string.bind_success);
+//                    finish();
                     break;
                 case ADD_LAY_FALSE:
                     LoadingProgressDialog.Dissmiss();
@@ -314,5 +321,44 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
                 onLEScan(scan_process);
             }
         }
+    }
+
+
+    private BindOverDialog mBindOverDialog;
+    private TextView mTvTitle,mTvText;
+    private LinearLayout mLlBind,mLlLogin;
+
+    public void showBindOverDialog() {
+        mBindOverDialog = new BindOverDialog(BindDButtonActivity.this,
+                R.style.share_dialog);
+        mBindOverDialog.show();
+        Window window = mBindOverDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        //window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvTitle = (TextView) window.findViewById(R.id.bind_over_title);
+        mTvTitle.setText(R.string.bind_over);
+        mTvText = (TextView) window.findViewById(R.id.bind_over_text);
+        mTvText.setText(R.string.bind_over_hint);
+        mLlBind = (LinearLayout) window.findViewById(R.id.bind_over_bind);
+        mLlBind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转更多网页内容
+                mBindOverDialog.dismiss();
+                finish();
+            }
+        });
+        mLlLogin = (LinearLayout) window.findViewById(R.id.bind_over_login);
+        mLlLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBindOverDialog.dismiss();
+                finish();
+            }
+        });
     }
 }

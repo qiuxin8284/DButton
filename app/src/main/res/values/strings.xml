@@ -59,6 +59,7 @@
     <string name="get_sms_code">获取验证码</string>
     <string name="login_hint">本APP需要"小贝"的支持才可正常工作，点击"了解详情"</string>
     <string name="learn_detail">了解详情</string>
+    <string name="learn_dbutton">了解小贝</string>
     <string name="login">登录</string>
     <string name="logout_account">退出登录</string>
 
@@ -94,6 +95,9 @@
     <string name="sex_woman">女</string>
     <string name="blood_other">未知</string>
     <string name="edit_over">完成修改</string>
+    <string name="over">完成</string>
+    <string name="bind_over">完成绑定</string>
+    <string name="bind_over_hint">您已完成小贝的绑定，可以使用了！！</string>
 
     <string name="no_photo">获取图片失败，请重新选取图片</string>
     <string name="upload_photo_success">文件上传成功</string>
