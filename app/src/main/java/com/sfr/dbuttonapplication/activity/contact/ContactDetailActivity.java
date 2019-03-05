@@ -47,6 +47,9 @@ public class ContactDetailActivity extends AppCompatActivity implements View.OnC
                     //{"id":"ff808081670fe9610167112476450017","username":null,"name":"ww","phone":"15989380185","gender":"1","age":"0","blood":"b","img":null}
                     mTvName.setText(mUserData.getName());
                     mTvPhone.setText(mUserData.getPhone());
+                    mLLGender.setVisibility(View.VISIBLE);
+                    mLLAge.setVisibility(View.VISIBLE);
+                    mLLBlood.setVisibility(View.VISIBLE);
                     if (mUserData.getGender().equals("1")) {
                         mTvGender.setText(R.string.sex_man);
                     } else if (mUserData.getGender().equals("2")) {
@@ -118,16 +121,16 @@ public class ContactDetailActivity extends AppCompatActivity implements View.OnC
         mLlSetPhoneContact.setOnClickListener(this);
     }
 
-    private TextView mActivityTitle, mTitleExtra, mTitleBack;
+    private TextView mActivityTitle, mTitleExtra;
+    private ImageView mTitleBack;
 
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.contact_data));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

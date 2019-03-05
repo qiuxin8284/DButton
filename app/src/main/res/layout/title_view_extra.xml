@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_marginLeft="15dp"
-            android:background="@mipmap/img_left"
+            android:background="@drawable/left_selector"
             android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/title_back"
@@ -77,7 +77,7 @@
             android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/title_left_padding"
-            android:background="@mipmap/img_left"
+            android:background="@mipmap/img_right"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 

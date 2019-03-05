@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 rb.setChecked(true);
             }
             Drawable d = getResources().getDrawable(imgs[i]);
-            d.setBounds(0, 0, 100, 100);
+            d.setBounds(0, 0, 75, 75);
             rb.setCompoundDrawables(null, d, null, null);
         }
     }

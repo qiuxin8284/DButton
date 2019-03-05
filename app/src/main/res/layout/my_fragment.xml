@@ -196,10 +196,8 @@
                 android:id="@+id/rl_my_alarm_list"
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/alarm_shape"
-                android:layout_height="46dp">
+                android:layout_height="55dp">
 
                 <ImageView
                     android:id="@+id/iv_img_my_alarm"
@@ -240,10 +238,8 @@
                 android:id="@+id/rl_my_dbutton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/alarm_shape"
-                android:layout_height="46dp">
+                android:layout_height="55dp">
 
                 <ImageView
                     android:id="@+id/iv_img_my_dbutton"
@@ -284,10 +280,8 @@
                 android:id="@+id/rl_ota_update"
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/alarm_shape"
-                android:layout_height="46dp">
+                android:layout_height="55dp">
 
                 <ImageView
                     android:id="@+id/iv_img_ota_update"
@@ -337,10 +331,8 @@
                 android:id="@+id/rl_about_us"
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/alarm_shape"
-                android:layout_height="46dp">
+                android:layout_height="55dp">
 
                 <ImageView
                     android:id="@+id/iv_about_us"

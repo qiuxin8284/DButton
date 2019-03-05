@@ -112,7 +112,7 @@ public class PhoneContactSortAdapter extends BaseAdapter implements SectionIndex
             viewHolder.rlLine.setVisibility(View.GONE);
         } else {
             viewHolder.rlLetter.setVisibility(View.GONE);
-            viewHolder.rlLine.setVisibility(View.VISIBLE);
+            viewHolder.rlLine.setVisibility(View.GONE);
         }
 
         if (list.get(position).getNameId() != null) {

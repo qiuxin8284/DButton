@@ -41,19 +41,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.PhoneSearchActivity" />
-        <activity android:name=".activity.login.LoadingActivity">
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.PhoneSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.login.LoadingActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.login.RegisterActivity" />
-        <activity android:name=".activity.login.RegisterDataActivity" />
-        <activity android:name=".activity.login.RegisterSucessActivity" />
+        <activity android:name=".activity.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.login.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.login.RegisterDataActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.login.RegisterSucessActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.icen.blelibrary.services.BleManagerService">
             <intent-filter>
@@ -63,20 +70,32 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.alarm.AlarmDetailActivity" />
-        <activity android:name=".activity.contact.ContactDetailActivity" />
-        <activity android:name=".activity.contact.AddContactActivity" />
-        <activity android:name=".activity.contact.AddPhoneContactActivity" />
+        <activity android:name=".activity.alarm.AlarmDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.contact.ContactDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.contact.AddContactActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.contact.AddPhoneContactActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EditUserDataActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.alarm.MyAlarmListActivity" />
-        <activity android:name=".activity.OTAUpdateActivity" />
-        <activity android:name=".activity.VersionUpdateActivity" />
-        <activity android:name=".activity.MyDButtonActivity" />
-        <activity android:name=".activity.BindDButtonActivity" />
-        <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.DButtonExplainActivity" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.alarm.MyAlarmListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.OTAUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.VersionUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.MyDButtonActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.BindDButtonActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.DButtonExplainActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -108,7 +127,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DownloadActivity"></activity>
+        <activity android:name=".activity.DownloadActivity"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

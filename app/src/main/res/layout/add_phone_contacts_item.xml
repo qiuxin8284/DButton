@@ -96,6 +96,7 @@
         android:id="@+id/rl_message_item_bottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:layout_below="@id/rl_message_item_top" >
 
         <RelativeLayout

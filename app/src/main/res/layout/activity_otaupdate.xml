@@ -36,7 +36,7 @@
             android:layout_gravity="center_horizontal"
             android:text="现有版本："
             android:textColor="@color/user_data_text"
-            android:textSize="@dimen/alarm_list_name" />
+            android:textSize="16sp" />
         <TextView
             android:id="@+id/tv_update_ver"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_gravity="center_horizontal"
             android:text="可用版本："
             android:textColor="@color/user_data_text"
-            android:textSize="@dimen/alarm_list_name" />
+            android:textSize="16sp" />
 
         <SeekBar
             android:id="@+id/seekbar"
