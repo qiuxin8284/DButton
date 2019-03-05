@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">DButton</string>
 
-    <string name="alarm_up_ing">警报生效中…!!</string>
-    <string name="dbutton_explain">按钮说明</string>
+    <string name="alarm_up_ing">求助已生效</string>
+    <string name="stop">停止</string>
+    <string name="alarm_up_ing_hint">按下停止键后将中止对所有联系人的求助</string>
+    <string name="dbutton_explain">了解小D</string>
     <string name="my_alarm_detail">我的警报详情</string>
     <string name="detail">详情</string>
     <string name="menu_alarm">求助</string>
@@ -42,7 +44,7 @@
     <string name="dbutton_to_bind_search_hint_text">请将需要配对的小D靠近手机，以便找到它……</string>
     <string name="dbutton_to_bind_search_over_hint_title">搜索已完成</string>
     <string name="dbutton_to_bind_search_over_hint_text">如有多个小D，请照小D的ID号确认绑定</string>
-    <string name="dbutton_empty_hint">暂时没有发现任何小D！</string>
+    <string name="dbutton_empty_hint">如您还没有“小D”，可以选择购买</string>
 
     <string name="delete_hint">删除后不可返回，必须再次通过增加联系人再可恢复</string>
     <string name="abondon">放弃</string>
@@ -88,6 +90,11 @@
     <string name="please_input_your_blood_group_hint">请输入您的血型</string>
 
 
+    <string name="need_contact">需要联系人</string>
+    <string name="need_contact_hint">我的小D需要联系人信息，\n以便在需要时求助TA们！！</string>
+    <string name="go_add">去添加</string>
+
+
     <string name="please_bind_your_dbutton">如您手上有小D请绑定</string>
     <string name="please_bind_your_dbutton_hint">(也可以完成注册后去个人中心绑定）</string>
     <string name="register_over">注册</string>
@@ -98,6 +105,7 @@
     <string name="over">完成</string>
     <string name="bind_over">完成绑定</string>
     <string name="bind_over_hint">您已完成小D的绑定，可以使用了！！</string>
+    <string name="repeat_connect">重试</string>
 
     <string name="no_photo">获取图片失败，请重新选取图片</string>
     <string name="upload_photo_success">文件上传成功</string>
@@ -112,7 +120,7 @@
     <string name="user_data_age">年龄：</string>
     <string name="user_data_blood">血型：</string>
     <string name="user_data_phone_number">手机：</string>
-    <string name="user_data_dbutton_id">小DID：</string>
+    <string name="user_data_dbutton_id">小D ID：</string>
     <string name="dbutton_detail">小D详情</string>
     <string name="dbutton_electricity">小D电量</string>
     <string name="dbutton_unbind">解除绑定</string>
@@ -130,6 +138,7 @@
     <string name="dbutton_explain_button">小D说明</string>
     <string name="register_over_hint">如您已购买了小D可以点“绑定小D”完成操作了</string>
     <string name="register_over_bind">绑定小D</string>
+    <string name="buy_dbutton">购买小D</string>
     <string name="register_over_login">进入登录页</string>
     <string name="set_main_phone_contact">注意：\n系统默认添加的第一位联系人具有电话呼叫求助功能，此设置可在“联系人”中重新指定。</string>
 

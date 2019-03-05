@@ -87,7 +87,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="43dp"
                     android:layout_marginBottom="13dp"
-                    android:text="@string/bind"
+                    android:text="@string/dbutton_bind"
                     android:textColor="@color/text_green"
                     android:textSize="15sp" />
             </RelativeLayout>
@@ -143,7 +143,7 @@
                         android:id="@+id/my_dbutton_id_connect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="小贝ID：AE:BC:15:6C:7E:AC"
+                        android:text="小D ID：AE:BC:15:6C:7E:AC"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
-                        android:text="宝珠电量："
+                        android:text="小D电量："
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -161,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
-                        android:text="小贝状态：已连接"
+                        android:text="小D状态：已连接"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -252,7 +252,7 @@
                         android:id="@+id/my_dbutton_id_no_connect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="小贝ID：AE:BC:15:6C:7E:AC"
+                        android:text="小D ID：AE:BC:15:6C:7E:AC"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -260,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
-                        android:text="宝珠电量：N/A"
+                        android:text="小D电量：N/A"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -269,7 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="13dp"
-                        android:text="小贝状态：未连接"
+                        android:text="小D状态：未连接"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>

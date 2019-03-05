@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,11 +19,14 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.BindDButtonActivity;
 import com.sfr.dbuttonapplication.activity.EditUserDataActivity;
 import com.sfr.dbuttonapplication.activity.MyDButtonActivity;
 import com.sfr.dbuttonapplication.activity.VersionUpdateActivity;
 import com.sfr.dbuttonapplication.activity.alarm.MyAlarmListActivity;
+import com.sfr.dbuttonapplication.activity.contact.AddPhoneContactActivity;
 import com.sfr.dbuttonapplication.activity.login.LoginActivity;
+import com.sfr.dbuttonapplication.activity.widget.BindOverDialog;
 import com.sfr.dbuttonapplication.activity.widget.XCRoundRectImageView;
 import com.sfr.dbuttonapplication.activity.widget.ZQImageViewRoundOval;
 import com.sfr.dbuttonapplication.utils.SettingSharedPerferencesUtil;
@@ -85,10 +90,14 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.rl_my_dbutton:
+                if(DButtonApplication.mContactList.size()==0) {
+                    showBindOverDialog();
+                }else {
 //                intent = new Intent(getActivity(), BindDButtonActivity.class);
 //                startActivity(intent);
-                intent = new Intent(getActivity(), MyDButtonActivity.class);
-                startActivity(intent);
+                    intent = new Intent(getActivity(), MyDButtonActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_logout_account:
                 SettingSharedPerferencesUtil.SetLoginTokenValue(getActivity(),"");
@@ -106,6 +115,48 @@ public class MyFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    private BindOverDialog mBindOverDialog;
+    private TextView mTvTitle, mTvText;
+    private LinearLayout mLlBind, mLlLogin;
+    private TextView mTvBind, mTvLogin;
+
+    public void showBindOverDialog() {
+        mBindOverDialog = new BindOverDialog(getActivity(),
+                R.style.share_dialog);
+        mBindOverDialog.show();
+        Window window = mBindOverDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        //window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvTitle = (TextView) window.findViewById(R.id.bind_over_title);
+        mTvTitle.setText(R.string.need_contact);
+        mTvText = (TextView) window.findViewById(R.id.bind_over_text);
+        mTvText.setText(R.string.need_contact_hint);
+        mTvBind = (TextView) window.findViewById(R.id.tv_bind_over_bind);
+        mTvBind.setText(R.string.common_cancel);
+        mLlBind = (LinearLayout) window.findViewById(R.id.bind_over_bind);
+        mLlBind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转更多网页内容
+                mBindOverDialog.dismiss();
+            }
+        });
+        mTvLogin = (TextView) window.findViewById(R.id.tv_bind_over_login);
+        mTvLogin.setText(R.string.go_add);
+        mLlLogin = (LinearLayout) window.findViewById(R.id.bind_over_login);
+        mLlLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddPhoneContactActivity.class);
+                startActivity(intent);
+                mBindOverDialog.dismiss();
+            }
+        });
+    }
     public void setView(View view) {
         mBtnEditData = (LinearLayout)view.findViewById(R.id.btn_edit_user_data);
         mRLMyAlarmList = (RelativeLayout)view.findViewById(R.id.rl_my_alarm_list);

@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(DButtonApplication.ACTION_LONG_CLICK);
         registerReceiver(mDButtonControlReceiver, intentFilter);
+        //showAlarmConfirmDialogDialog();
     }
 
     @Override
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AlarmConfirmDialog mAlarmConfirmDialog;
 
-    private ImageView mLvDialog;
+    private Button mLvDialog;
 
     public void showAlarmConfirmDialogDialog() {
         if (mAlarmConfirmDialog == null) {
@@ -208,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.alpha = 1f;
             window.setAttributes(lp);
-            mLvDialog = (ImageView) window.findViewById(R.id.dialog_alarm_confirm);
+            mLvDialog = (Button) window.findViewById(R.id.dialog_alarm_confirm);
             mLvDialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

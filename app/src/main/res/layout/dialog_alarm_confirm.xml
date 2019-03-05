@@ -16,20 +16,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
             android:gravity="center_horizontal"
             android:text="@string/alarm_up_ing"
             android:textColor="@color/white"
-            android:textSize="38sp" />
+            android:textSize="31sp" />
 
-        <ImageView
+        <Button
             android:id="@+id/dialog_alarm_confirm"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:text="@string/stop"
+            android:background="@mipmap/alarm_cancel" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:text="@string/alarm_up_ing_hint"
+            android:textColor="@color/white"
             android:layout_marginBottom="180dp"
-            android:src="@mipmap/alarm_cancel" />
+            android:textSize="17sp" />
     </LinearLayout>
 </LinearLayout>

@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ import com.sfr.dbuttonapplication.utils.SettingSharedPerferencesUtil;
 import com.sfr.dbuttonapplication.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class BindDButtonActivity extends AppCompatActivity implements View.OnClickListener {
@@ -45,9 +48,12 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
     private BindDButtonListAdapter mBindDButtonListAdapter;
     private ArrayList<DButtonData> mBindDButtonList;
     private HashMap<String, DButtonData> mDButtonMap = new HashMap<String, DButtonData>();
-    private TextView mTvEmptyHint, mTvHintTitle, mTvHintText;
+    private LinearLayout mTvEmptyHint;
+    private TextView mTvHintTitle, mTvHintText;
     private static final int ADD_LAY_SUCCESS = 1;
     private static final int ADD_LAY_FALSE = 2;
+    private Button mBtnBuy;
+    private TextView mTvRepeat;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -96,6 +102,8 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
                 mAddLayerTask.execute("");
             }
         });
+        mTvRepeat.setOnClickListener(this);
+        mBtnBuy.setOnClickListener(this);
     }
 
     private void setView() {
@@ -104,7 +112,9 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
         mLvBindDButtonList = (ListView) findViewById(R.id.lv_bind_dbutton_list);
         mBindDButtonListAdapter = new BindDButtonListAdapter(BindDButtonActivity.this, mBindDButtonList);
         mLvBindDButtonList.setAdapter(mBindDButtonListAdapter);
-        mTvEmptyHint = (TextView) findViewById(R.id.tv_empty_hint);
+        mTvEmptyHint = (LinearLayout) findViewById(R.id.tv_empty_hint);
+        mBtnBuy = (Button) findViewById(R.id.btn_buy);
+        mTvRepeat = (TextView) findViewById(R.id.tv_repeat_connect);
 //        if (mBindDButtonList.size() == 0) {
 //            mTvEmptyHint.setVisibility(View.VISIBLE);
 //        } else {
@@ -137,7 +147,19 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.btn_buy:
+                Intent intent = new Intent(BindDButtonActivity.this, WebViewActivity.class);
+                intent.putExtra("url", "http://www.baidu.com");
+                startActivity(intent);
+                break;
+            case R.id.tv_repeat_connect:
+                mTvHintTitle.setText(R.string.dbutton_to_bind_search_hint_title);
+                mTvHintText.setText(R.string.dbutton_to_bind_search_hint_text);
+                DButtonApplication.mInstance.startScanDevice();
+                mTvEmptyHint.setVisibility(View.GONE);
+                break;
+        }
     }
 
     private String mMac = "";
@@ -260,6 +282,7 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
 
 
     public void onLEScan(int scan_process) {
+        LogUtil.println("DButtonApplication::onLEScan::process= " + scan_process);
         if (BleLibsConfig.LE_SCAN_PROCESS_BEGIN == scan_process) {//指示扫描开始
             mBindDButtonList = new ArrayList<DButtonData>();
             Toast.makeText(this, "LE Scan begin", Toast.LENGTH_LONG).show();
@@ -325,8 +348,8 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
 
 
     private BindOverDialog mBindOverDialog;
-    private TextView mTvTitle,mTvText;
-    private LinearLayout mLlBind,mLlLogin;
+    private TextView mTvTitle, mTvText;
+    private LinearLayout mLlBind, mLlLogin;
 
     public void showBindOverDialog() {
         mBindOverDialog = new BindOverDialog(BindDButtonActivity.this,

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.login.LoginActivity;
 import com.sfr.dbuttonapplication.activity.widget.ClearEditText;
 import com.sfr.dbuttonapplication.activity.widget.DeleteConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
@@ -100,6 +101,7 @@ public class AddPhoneContactActivity extends AppCompatActivity implements View.O
                     // 根据a-z进行排序
                     Collections.sort(SourceDateList, pinyinComparator);
                     adapter.updateListView(SourceDateList);
+                    LoadingProgressDialog.Dissmiss();
 
                     break;
                 case 8:
@@ -158,6 +160,7 @@ public class AddPhoneContactActivity extends AppCompatActivity implements View.O
         // 实例化InputMethodManager 用来控制输入法面板
         imm = (InputMethodManager) AddPhoneContactActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
         dblist = new ArrayList<ContactsData>();
+        LoadingProgressDialog.show(AddPhoneContactActivity.this, false, true, 30000);
         mGetPhoneContacts = new GetPhoneContacts(handler);
         mGetPhoneContacts.execute("");
         //实例化汉字转拼音类

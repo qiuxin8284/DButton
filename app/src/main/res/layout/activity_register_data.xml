@@ -186,6 +186,7 @@
                     android:id="@+id/rl_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edit_data_selector"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
@@ -224,6 +225,7 @@
                 <include layout="@layout/item_line" />
                 <RelativeLayout
                     android:id="@+id/rl_input_your_head"
+                    android:background="@drawable/edit_data_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -256,6 +258,7 @@
                     android:id="@+id/rl_user_sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edit_data_selector"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
@@ -294,6 +297,7 @@
 
                 <RelativeLayout
                     android:id="@+id/rl_input_your_bor"
+                    android:background="@drawable/edit_data_selector"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
@@ -336,6 +340,7 @@
                     android:id="@+id/rl_user_blood_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/edit_data_selector"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 

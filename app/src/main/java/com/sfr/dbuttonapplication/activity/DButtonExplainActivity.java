@@ -21,15 +21,15 @@ public class DButtonExplainActivity extends AppCompatActivity {
         mIvExplain = (ImageView)findViewById(R.id.iv_explain);
         mIvExplain.setBackgroundResource(R.mipmap.dbutton_explain_bg);
     }
-    private TextView mActivityTitle,mTitleExtra,mTitleBack;
+    private TextView mActivityTitle,mTitleExtra;
+    private ImageView mTitleBack;
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
-        mTitleBack = (TextView) findViewById(R.id.title_back);
+        mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mActivityTitle.setText(getResources().getString(R.string.dbutton_explain));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
-        mTitleBack.setText(getResources().getString(R.string.go_up));
         mTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.sfr.dbuttonapplication.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -353,17 +354,17 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
         mCalendar.setTimeInMillis(time);
 
         Date date = new Date();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(EditUserDataActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(EditUserDataActivity.this, AlertDialog.THEME_HOLO_LIGHT,new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 startcal = Calendar.getInstance();
-                startcal.set(Calendar.YEAR, year);
-                startcal.set(Calendar.MONTH, month);
-                startcal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                startcal.set(Calendar.YEAR,year);
+                startcal.set(Calendar.MONTH,month);
+                startcal.set(Calendar.DAY_OF_MONTH,dayOfMonth);
                 mTvBorthDay.setText(year+"-"+(month+1)+"-"+dayOfMonth);
 
-//                TimePickerDialog dialog = new TimePickerDialog(EditUserDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
+//                TimePickerDialog dialog = new TimePickerDialog(RegisterDataActivity.this, new TimePickerDialog.OnTimeSetListener() {
 //                    @Override
 //                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 //
@@ -377,7 +378,7 @@ public class EditUserDataActivity extends AppCompatActivity implements View.OnCl
 //                dialog.show();
 
             }
-        }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+        },mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
 
         datePickerDialog.show();
     }
