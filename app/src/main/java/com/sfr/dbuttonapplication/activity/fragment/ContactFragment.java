@@ -104,7 +104,7 @@ public class ContactFragment extends Fragment {
         mTitleExtra = (TextView) view.findViewById(R.id.title_extra);
         mIvRigth = (ImageView) view.findViewById(R.id.title_right_btn);
         mIvRigth.setVisibility(View.VISIBLE);
-        mIvRigth.setBackgroundResource(R.mipmap.img_add);
+        mIvRigth.setBackgroundResource(R.drawable.add_selector);
         mActivityTitle.setText(getResources().getString(R.string.menu_contact));
         mTitleExtra.setText(getResources().getString(R.string.add_contact));
         mTitleExtra.setVisibility(View.GONE);
@@ -148,8 +148,12 @@ public class ContactFragment extends Fragment {
         mLvContact.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                mIDS = mContactList.get(position).getId();
-                showDeleteConfirmDialog(mContactList.get(position).getName());
+                if (mContactList.get(position).getIsUrgent().equals("1")) {
+
+                }else{
+                    mIDS = mContactList.get(position).getId();
+                    showDeleteConfirmDialog(mContactList.get(position).getName());
+                }
                 return true;
             }
         });

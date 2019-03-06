@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/loading_bg"
+    android:background="@mipmap/loading_logo"
     tools:context="com.sfr.dbuttonapplication.activity.login.LoadingActivity">
 
     <LinearLayout
