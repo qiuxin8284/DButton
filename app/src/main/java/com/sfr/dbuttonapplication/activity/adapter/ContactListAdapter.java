@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.fragment.ContactFragment;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 public class ContactListAdapter extends BaseAdapter {
 
+    protected DisplayImageOptions options;
     private ArrayList<UserData> mList = new ArrayList<UserData>();
     protected LayoutInflater mInflater;
     protected Context cxt;
@@ -36,6 +38,13 @@ public class ContactListAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(this.cxt);
         mList = list;
         this.mHandler = handler;
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_default_head)
+                .showImageForEmptyUri(R.mipmap.img_default_head)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .showImageOnFail(R.mipmap.img_default_head)
+                .considerExifParams(true).build();
     }
 
     public void setServiceList(ArrayList<UserData> list) {
@@ -81,7 +90,7 @@ public class ContactListAdapter extends BaseAdapter {
             holder.ivDelete.setVisibility(View.GONE);
         }
         if(!TextUtils.isEmpty(mList.get(position).getImg())){
-            ImageLoader.getInstance().displayImage(mList.get(position).getImg(),holder.ivHead);
+            ImageLoader.getInstance().displayImage(mList.get(position).getImg(),holder.ivHead,options);
         }
         return v;
     }

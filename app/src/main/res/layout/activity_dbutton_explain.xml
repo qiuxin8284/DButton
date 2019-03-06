@@ -16,4 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title" />
+
+    <TextView
+        android:id="@+id/tv_explain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:text="@string/dbutton_explain_hint"
+        android:textColor="@color/text_green"
+        android:textStyle="bold"
+        android:textSize="15sp" />
 </RelativeLayout>

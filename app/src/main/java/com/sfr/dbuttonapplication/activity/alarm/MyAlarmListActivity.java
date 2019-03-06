@@ -178,6 +178,8 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     Intent intent = new Intent(MyAlarmListActivity.this, AlarmDetailActivity.class);
                     intent.putExtra("id", mAlarmList.get(position).getAlarmData().getId());//查不到是不是ID有问题
+                    intent.putExtra("name",mAlarmList.get(position).getAlarmData().getVipName());
+                    intent.putExtra("image",mAlarmList.get(position).getAlarmData().getVipImg());
                     startActivity(intent);
                 }
             }

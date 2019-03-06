@@ -35,6 +35,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
@@ -70,9 +71,9 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     public static final String BROADCAST_REFRESH_PROGRESS = "com.music.refreshprogress";
     public static final String BROADCAST_CHANGE_MUSIC = "com.music.changemusic";
     public static final String BROADCAST_NEXT_MUSIC = "com.music.nextmusic";
-    private ImageView mIvStart, mIvGoMap;//iv_voice_start;
+    private ImageView mIvStart, mIvGoMap,mIvHead;//iv_voice_start;
     private SeekBar mSeekBar;//sb_voice;
-    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation;
+    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation,mTvUserName;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private static final int ALARM_DETAIL_SUCCESS = 3;
@@ -192,6 +193,8 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         initTitle();
         mApp = (DButtonApplication) getApplication();
         mID = getIntent().getStringExtra("id");
+        mName = getIntent().getStringExtra("name");
+        mImg = getIntent().getStringExtra("image");
         LogUtil.println("AlarmDetailActivity mID:" + mID);
         setView();
         setListener();
@@ -213,16 +216,16 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         musicList.add(music);
 
         if (mAlarmData.getSession().contains(",")) {
-           String[] session = mAlarmData.getSession().split(",");
-           for (int i = 0;i<session.length;i++){
-               music = new Music();
-               music.setName("dbuttonS"+i);
-               music.setSize(0);
-               music.setUrl(session[i]);
-               if (!TextUtils.isEmpty(mAlarmData.getDuration()))
-                   music.setDuration(Long.valueOf(mAlarmData.getDuration()));
-               musicList.add(music);
-           }
+            String[] session = mAlarmData.getSession().split(",");
+            for (int i = 0; i < session.length; i++) {
+                music = new Music();
+                music.setName("dbuttonS" + i);
+                music.setSize(0);
+                music.setUrl(session[i]);
+                if (!TextUtils.isEmpty(mAlarmData.getDuration()))
+                    music.setDuration(Long.valueOf(mAlarmData.getDuration()));
+                musicList.add(music);
+            }
             mApp.setMusicList(musicList);
         } else {
             music = new Music();
@@ -269,6 +272,11 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setView() {
+
+        mTvUserName = (TextView) findViewById(R.id.tv_user_name);
+        mTvUserName.setText(mName);
+        mIvHead = (ImageView) findViewById(R.id.iv_your_head);
+        ImageLoader.getInstance().displayImage(mImg,mIvHead);
         mTvBeginTime = (TextView) findViewById(R.id.tv_begin_time);
         mTvEndTime = (TextView) findViewById(R.id.tv_end_time);
         mTvAddress = (TextView) findViewById(R.id.tv_alarm_address);
@@ -295,7 +303,8 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private TextView mActivityTitle, mTitleExtra;
-    private ImageView mTitleBack,mIvUpdate;
+    private ImageView mTitleBack, mIvUpdate;
+
     private void initTitle() {
         mActivityTitle = (TextView) findViewById(R.id.title_info);
         mTitleExtra = (TextView) findViewById(R.id.title_extra);
@@ -326,6 +335,8 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     private AlarmDetailTask mAlarmDetailTask;
     private AlarmData mAlarmData;
     private String mID = "";
+    private String mName = "";
+    private String mImg = "";
 
     @Override
     public void onClick(View v) {

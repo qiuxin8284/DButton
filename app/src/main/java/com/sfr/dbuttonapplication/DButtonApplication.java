@@ -398,21 +398,37 @@ public class DButtonApplication extends BleBaseApplication {
     //onReadCh::result= true uuid= 00007101-0000-544c-8267-4c4442454144 ble_value= [1]
     @Override
     public void onChChange(boolean is_success, String ch_uuid, byte[] ble_value) {
+        Log.e(TAG, "onChChange() +++is_success："+is_success+"|ch_uuid："+ch_uuid);
+        Log.e(TAG, "onChChange() +++ble_value："+ble_value);
         super.onChChange(is_success, ch_uuid, ble_value);
         if (is_success && null != ble_value && ble_value.length > 0) {
             if (ble_value.length == 1) {
                 String value = Arrays.toString(ble_value);
                 if (value.contains("1")) {//单击
-                    mHandler.sendEmptyMessage(10);
                     //单击无效化处理
-//                    Intent intent = new Intent();
-//                    intent.setAction(DButtonApplication.ACTION_ONE_CLICK);
-//                    sendBroadcast(intent);
+                    if(!isAlarmUp) {
+                        mHandler.sendEmptyMessage(10);
+                        if (hasStart) {
+                            Log.e(TAG, "onChChange() +++单击 启动结束");
+                            //结束轨迹
+                            hasStart = false;
+                            //结束录音
+                            stop();
+                        }else{
+                            Log.e(TAG, "onChChange() +++单击 无效处理");
+                        }
+                    }else{
+                        Log.e(TAG, "onChChange() +++单击 恢复录音");
+                        getManager().writeCharacteristic(UUIDCHAR_CTRL, 31,
+                                BluetoothGattCharacteristic.FORMAT_UINT8);
+                    }
                 } else if (value.contains("2")) {//双击
+                    Log.e(TAG, "onChChange() +++双击");
                     Intent intent = new Intent();
                     intent.setAction(DButtonApplication.ACTION_DOUBLE_CLICK);
                     sendBroadcast(intent);
                 } else if (value.contains("3")) {//长按
+                    Log.e(TAG, "onChChange() +++长按");
                     Intent intent = new Intent();
                     intent.setAction(DButtonApplication.ACTION_LONG_CLICK);
                     sendBroadcast(intent);
@@ -617,6 +633,7 @@ public class DButtonApplication extends BleBaseApplication {
                     //结束录音
                     stop();
                     if (isAlarmUp) {
+                        mHandler.sendEmptyMessage(10);
                         Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++有报警触发下结束");
                         //修改接口轨迹上传、录音上传，通过ID修改-此处需要判断录音文件是否上传成功
                         //无ID直接跳过上传接口

@@ -427,6 +427,7 @@ public class HttpAnalyJsonManager {
                 alarmData.setDuration(alarmDataJSON.getString("duration"));
                 alarmData.setVipName(alarmDataJSON.getString("vipName"));
                 alarmData.setVipImg(alarmDataJSON.getString("vipImg"));
+                alarmData.setVipPhone(alarmDataJSON.getString("vipPhone"));
                 alarmResultData.setAlarmData(alarmData);
                 JSONObject contactDataJSON = alarmResultJSON.getJSONObject("contact");
                 userData.setId(alarmResultJSON.getString("id"));
@@ -467,6 +468,8 @@ public class HttpAnalyJsonManager {
                 AlarmData alarmData = new AlarmData();
                 JSONObject alarmResultJSON = alarmDataListArray.getJSONObject(i);
                 alarmData.setId(alarmResultJSON.getString("id"));
+                alarmData.setVipImg(alarmResultJSON.getString("vipImg"));
+                alarmData.setVipName(alarmResultJSON.getString("vipName"));
                 alarmData.setPoint(alarmResultJSON.getString("point"));
                 alarmData.setBeginTime(alarmResultJSON.getString("beginTime"));
                 alarmData.setEndTime(alarmResultJSON.getString("endTime"));

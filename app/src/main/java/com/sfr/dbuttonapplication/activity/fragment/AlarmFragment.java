@@ -120,7 +120,7 @@ public class AlarmFragment extends Fragment {
                     startService();
                 }else{
                     //可以尝试断开操作
-                    DButtonApplication.mInstance.disconnect();
+                    //DButtonApplication.mInstance.disconnect();
                 }
             }
         });
@@ -154,6 +154,8 @@ public class AlarmFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), AlarmDetailActivity.class);
                 intent.putExtra("id",mAlarmList.get(position).getAlarmId());
+                intent.putExtra("name",mAlarmList.get(position).getAlarmData().getVipName());
+                intent.putExtra("image",mAlarmList.get(position).getAlarmData().getVipImg());
                 startActivity(intent);
             }
         });

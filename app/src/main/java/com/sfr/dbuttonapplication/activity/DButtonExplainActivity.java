@@ -12,6 +12,7 @@ import com.sfr.dbuttonapplication.utils.APPUtils;
 public class DButtonExplainActivity extends AppCompatActivity {
 
     private ImageView mIvExplain;
+    private TextView mTvExplain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,13 @@ public class DButtonExplainActivity extends AppCompatActivity {
         initTitle();
         mIvExplain = (ImageView)findViewById(R.id.iv_explain);
         mIvExplain.setBackgroundResource(R.mipmap.dbutton_explain_bg);
+        mTvExplain = (TextView)findViewById(R.id.tv_explain);
+        mTvExplain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private TextView mActivityTitle,mTitleExtra;
     private ImageView mTitleBack;

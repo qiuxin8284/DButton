@@ -12,6 +12,7 @@ public class AlarmData {
 	private AlarmCallData alarmCallData;
 	private String vipName;
 	private String vipImg;
+	private String vipPhone;
 	private String session;
 	private boolean isOK;
 
@@ -120,6 +121,14 @@ public class AlarmData {
 		this.session = session;
 	}
 
+	public String getVipPhone() {
+		return vipPhone;
+	}
+
+	public void setVipPhone(String vipPhone) {
+		this.vipPhone = vipPhone;
+	}
+
 	@Override
 	public String toString() {
 		return "AlarmData{" +
@@ -134,6 +143,7 @@ public class AlarmData {
 				", alarmCallData=" + alarmCallData +
 				", vipName='" + vipName + '\'' +
 				", vipImg='" + vipImg + '\'' +
+				", vipPhone='" + vipPhone + '\'' +
 				", session='" + session + '\'' +
 				", isOK=" + isOK +
 				'}';

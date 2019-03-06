@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.entity.AlarmResultData;
@@ -21,6 +22,7 @@ import java.util.Date;
 
 public class AlarmListAdapter extends BaseAdapter {
 
+    protected DisplayImageOptions options;
     private ArrayList<AlarmResultData> mList = new ArrayList<AlarmResultData>();
     protected LayoutInflater mInflater;
     protected Context cxt;
@@ -30,6 +32,13 @@ public class AlarmListAdapter extends BaseAdapter {
         cxt = context;
         mInflater = LayoutInflater.from(this.cxt);
         mList = list;
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.img_default_head)
+                .showImageForEmptyUri(R.mipmap.img_default_head)
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+                .showImageOnFail(R.mipmap.img_default_head)
+                .considerExifParams(true).build();
     }
 
     public void setServiceList(ArrayList<AlarmResultData> list) {
@@ -68,8 +77,8 @@ public class AlarmListAdapter extends BaseAdapter {
             holder = (HolderView) v.getTag();
         }
         AlarmResultData alarmResultData = mList.get(position);
-        holder.tvName.setText(alarmResultData.getUserData().getName());
-        holder.tvID.setText(alarmResultData.getUserData().getPhone());
+        holder.tvName.setText(alarmResultData.getAlarmData().getVipName());
+        holder.tvID.setText(alarmResultData.getAlarmData().getVipPhone());
         holder.tvAddress.setText(alarmResultData.getAlarmData().getAddress());
         holder.tvTime.setText(simpleDateFormat.format(new Date(Long.valueOf(alarmResultData.getAlarmData().getBeginTime()))));
 
@@ -77,7 +86,7 @@ public class AlarmListAdapter extends BaseAdapter {
 //            ImageLoader.getInstance().displayImage(alarmResultData.getUserData().getImg(),holder.ivHead);
 //        }
         if(!TextUtils.isEmpty(alarmResultData.getAlarmData().getVipImg())){
-            ImageLoader.getInstance().displayImage(alarmResultData.getAlarmData().getVipImg(),holder.ivHead);
+            ImageLoader.getInstance().displayImage(alarmResultData.getAlarmData().getVipImg(),holder.ivHead,options);
         }
         LogUtil.println("alarmResultData:"+alarmResultData.toString());
         return v;

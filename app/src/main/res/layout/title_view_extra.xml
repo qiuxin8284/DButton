@@ -40,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="title_info"
+                android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/title_size" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
 

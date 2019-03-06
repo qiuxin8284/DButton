@@ -61,6 +61,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="37dp"
                     android:text="@string/dbutton_buy"
+                    android:textStyle="bold"
                     android:textColor="@color/text_green"
                     android:textSize="15sp" />
             </RelativeLayout>
@@ -88,6 +89,7 @@
                     android:layout_marginTop="43dp"
                     android:layout_marginBottom="13dp"
                     android:text="@string/dbutton_bind"
+                    android:textStyle="bold"
                     android:textColor="@color/text_green"
                     android:textSize="15sp" />
             </RelativeLayout>
@@ -101,8 +103,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/title"
         android:layout_marginTop="2dp"
-        android:background="@color/white"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -129,7 +131,6 @@
                     android:layout_width="87dp"
                     android:layout_height="87dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="42dp"
                     android:background="@mipmap/img_dbutton_logo" />
 
                 <LinearLayout
@@ -238,7 +239,6 @@
                     android:layout_width="87dp"
                     android:layout_height="87dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="42dp"
                     android:background="@mipmap/img_dbutton_logo" />
 
                 <LinearLayout

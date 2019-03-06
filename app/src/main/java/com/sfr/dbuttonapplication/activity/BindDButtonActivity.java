@@ -371,6 +371,8 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 //跳转更多网页内容
+                Intent intent = new Intent(BindDButtonActivity.this, DButtonExplainActivity.class);
+                startActivity(intent);
                 mBindOverDialog.dismiss();
                 finish();
             }
