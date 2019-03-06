@@ -153,11 +153,12 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
         mAlarmListAdapter = new MyAlarmListAdapter(MyAlarmListActivity.this, mAlarmList);
         mLvAlarm.setAdapter(mAlarmListAdapter);
         mTvEmptyHint = (TextView) findViewById(R.id.tv_alarm_empty_hint);
-        if (mAlarmList.size() == 0) {
-            mTvEmptyHint.setVisibility(View.VISIBLE);
-        } else {
-            mTvEmptyHint.setVisibility(View.GONE);
-        }
+        mTvEmptyHint.setVisibility(View.GONE);
+//        if (mAlarmList.size() == 0) {
+//            mTvEmptyHint.setVisibility(View.VISIBLE);
+//        } else {
+//            mTvEmptyHint.setVisibility(View.GONE);
+//        }
         LoadingProgressDialog.show(MyAlarmListActivity.this, false, true, 30000);
         mAlarmListTask = new AlarmListTask();
         mAlarmListTask.execute("");

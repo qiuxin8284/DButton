@@ -204,7 +204,7 @@ public class AddPhoneContactActivity extends AppCompatActivity implements View.O
         SourceDateList.toString();
         adapter = new PhoneContactSortAdapter(AddPhoneContactActivity.this, SourceDateList, sortListView, handler);
         sortListView.setAdapter(adapter);
-        handler.sendEmptyMessage(3);
+        //handler.sendEmptyMessage(3);
         mEtSearch = (ClearEditText) findViewById(R.id.action_bar_search);
         //根据输入框输入值的改变来过滤搜索
         mEtSearch.addTextChangedListener(new TextWatcher() {

@@ -53,6 +53,7 @@
                     android:id="@+id/rl_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_data_selector"
                     android:focusable="true"
                     android:focusableInTouchMode="true">
@@ -63,8 +64,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="13dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/please_input_your_name"
                         android:textColor="@color/black"
                         android:textSize="@dimen/user_data_hint_text" />
@@ -103,8 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/please_input_your_head"
                         android:textColor="@color/black"
                         android:textSize="@dimen/user_data_hint_text" />
@@ -136,8 +137,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/please_choies_your_sex"
                         android:textColor="@color/black"
                         android:textSize="@dimen/user_data_hint_text" />
@@ -178,8 +179,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/please_input_your_date_of_birth"
                         android:textColor="@color/black"
                         android:textSize="@dimen/user_data_hint_text" />
@@ -220,8 +221,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/please_input_your_blood_group"
                         android:textColor="@color/black"
                         android:textSize="@dimen/user_data_hint_text" />
@@ -261,7 +262,7 @@
                         android:layout_marginTop="22dp"
                         android:layout_marginBottom="22dp"
                         android:background="@drawable/login_btn_selector"
-                        android:text="@string/edit_over"
+                        android:text="@string/over"
                         android:textColor="@color/white" />
                 </RelativeLayout>
 

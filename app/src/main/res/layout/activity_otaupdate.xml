@@ -11,80 +11,84 @@
         android:id="@+id/title"
         layout="@layout/title_view_extra" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_ota"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/title"
-        android:background="@color/white"
         android:layout_marginTop="1dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:background="@color/white">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ota_update_detail_big" />
-
-        <TextView
-            android:id="@+id/tv_now_ver"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="现有版本："
-            android:textColor="@color/user_data_text"
-            android:textSize="16sp" />
-        <TextView
-            android:id="@+id/tv_update_ver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="可用版本："
-            android:textColor="@color/user_data_text"
-            android:textSize="16sp" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <SeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="40dp"
-            android:clickable="false"
-            android:focusable="false"
-            android:max="100"
-            android:visibility="gone"
-            android:progress="0"
-            android:secondaryProgress="100" >
-        </SeekBar>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@mipmap/ota_update_detail_big" />
 
-        <TextView
-            android:id="@+id/tv_seekbar"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="0%"
-            android:textColor="@color/black"
-            android:textSize="30dp" />
+            <TextView
+                android:id="@+id/tv_now_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="现有版本："
+                android:textColor="@color/user_data_text"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btn_update"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/white"
-            android:text="@string/update"
-            android:background="@drawable/login_btn_selector" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_update_ver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="可用版本："
+                android:textColor="@color/user_data_text"
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="20dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:max="100"
+                android:progress="0"
+                android:secondaryProgress="100"
+                android:visibility="gone"></SeekBar>
+
+            <TextView
+                android:id="@+id/tv_seekbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="0%"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="150dp"
+                android:background="@drawable/login_btn_selector"
+                android:text="@string/update"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

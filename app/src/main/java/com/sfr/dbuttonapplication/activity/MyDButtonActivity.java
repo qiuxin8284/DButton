@@ -39,6 +39,7 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
     private static final int LAYER_DEL_SUCCESS = 3;
     private static final int LAYER_DEL_FALSE = 4;
     private TextView mTvDButtonIDConnect, mTvDButtonIDNoConnect,mTvBattery;
+    private ImageView mIvBattery;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -141,6 +142,7 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
         mTvDButtonIDConnect = (TextView) findViewById(R.id.my_dbutton_id_connect);
         mTvDButtonIDNoConnect = (TextView) findViewById(R.id.my_dbutton_id_no_connect);
         mTvBattery = (TextView) findViewById(R.id.tv_battrty);
+        mIvBattery = (ImageView) findViewById(R.id.iv_battrty);
         mBtnExplain = (RelativeLayout) findViewById(R.id.btn_explain);
         mBtnConnect = (RelativeLayout) findViewById(R.id.btn_connect);
 
@@ -414,7 +416,8 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                 }
             }else if(action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
                 String battery = intent.getStringExtra("battery");
-                mTvBattery.setText("小贝电量："+battery+"%");
+                mTvBattery.setText(battery+"%");
+                mIvBattery.setBackgroundResource(R.mipmap.battrty_100);
             }
         }
     }

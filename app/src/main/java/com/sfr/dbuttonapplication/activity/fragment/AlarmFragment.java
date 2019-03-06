@@ -111,7 +111,7 @@ public class AlarmFragment extends Fragment {
         mActivityTitle.setText(getResources().getString(R.string.menu_alarm));
         mTitleExtra.setVisibility(View.GONE);
         mTitleExtra.setText(R.string.no_connection);
-        mIvRigth.setBackgroundResource(R.mipmap.no_connection);
+        mIvRigth.setBackgroundResource(R.drawable.no_connect_selector);
         mIsConnection = false;
         mIvRigth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,11 +140,12 @@ public class AlarmFragment extends Fragment {
         mAlarmListAdapter = new AlarmListAdapter(getActivity(), mAlarmList);
         mLvAlarm.setAdapter(mAlarmListAdapter);
         mTvEmptyHint = (TextView) view.findViewById(R.id.tv_alarm_empty_hint);
-        if (mAlarmList.size() == 0) {
-            mTvEmptyHint.setVisibility(View.VISIBLE);
-        } else {
-            mTvEmptyHint.setVisibility(View.GONE);
-        }
+        mTvEmptyHint.setVisibility(View.GONE);
+//        if (mAlarmList.size() == 0) {
+//            mTvEmptyHint.setVisibility(View.VISIBLE);
+//        } else {
+//            mTvEmptyHint.setVisibility(View.GONE);
+//        }
         mHandler.sendEmptyMessage(FOR_ALARM_LIST);
     }
 
@@ -200,7 +201,7 @@ public class AlarmFragment extends Fragment {
                     mIsConnection = true;
                 }else{
                     mTitleExtra.setText(R.string.no_connection);
-                    mIvRigth.setBackgroundResource(R.mipmap.no_connection);
+                    mIvRigth.setBackgroundResource(R.drawable.no_connect_selector);
                     mIsConnection = false;
                 }
             } else if (action.equals(DButtonApplication.ACTION_ALARM_LIST_UPDATE)) {
