@@ -62,7 +62,7 @@ public class FileUtils {
                     byte[] content = msg.getData().getByteArray("content");
                     if (null != bos && null != content) {
                         try {
-                            byte[] mp3_content = BeadsAudio.ldpcm_to_mp3(content);
+                            byte[] mp3_content = BeadsAudio.adpcm_to_mp3(content);
                             bos.write(mp3_content);
                         } catch (IOException e) {
                             e.printStackTrace();

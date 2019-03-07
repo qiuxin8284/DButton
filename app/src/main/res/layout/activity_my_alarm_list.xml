@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
-                android:text="@string/common_cancel"
+                android:text="@string/abondon"
                 android:textColor="@color/user_data_text" />
         </LinearLayout>
     </RelativeLayout>

@@ -69,7 +69,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="26dp"
                 android:textColor="@color/black"
-                android:text="百川"
+                android:text=""
                 android:textSize="22sp" />
 
             <LinearLayout
@@ -110,7 +110,7 @@
                             android:id="@+id/tv_user_data_phone_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="15989380185"
+                            android:text=""
                             android:layout_marginLeft="5dp"
                             android:textSize="@dimen/my_user_data_hint_text" />
                     </LinearLayout>
@@ -129,7 +129,7 @@
                             android:id="@+id/tv_user_data_sex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="男"
+                            android:text=""
                             android:layout_marginLeft="5dp"
                             android:textSize="@dimen/my_user_data_hint_text" />
                     </LinearLayout>
@@ -150,7 +150,7 @@
                             android:id="@+id/tv_user_data_age"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23"
+                            android:text=""
                             android:layout_marginLeft="5dp"
                             android:textSize="@dimen/my_user_data_hint_text" />
                     </LinearLayout>
@@ -171,7 +171,7 @@
                             android:id="@+id/tv_user_data_blood"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="A"
+                            android:text=""
                             android:textAllCaps="true"
                             android:layout_marginLeft="5dp"
                             android:textSize="@dimen/my_user_data_hint_text" />

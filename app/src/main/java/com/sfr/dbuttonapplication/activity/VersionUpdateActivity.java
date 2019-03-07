@@ -42,8 +42,8 @@ public class VersionUpdateActivity extends AppCompatActivity implements View.OnC
                 case OTA_VERSION_SUCCESS:
                     LoadingProgressDialog.Dissmiss();
                     if (mRenewData != null) {
-                        mTvNowVer.setText("现有版本：Ver " + mRenewData.getLowestVer());
-                        mTvUpdateVer.setText("可用版本：Ver " + mRenewData.getNewVer());
+                        mTvNowVer.setText("现有版本：Version " + mRenewData.getLowestVer());
+                        mTvUpdateVer.setText("可用版本：Version " + mRenewData.getNewVer());
                         LogUtil.println("DButtonApplication::getLink:= " + mRenewData.getLink());
                         if (mRenewData.getLowestVer().equals(mRenewData.getNewVer())) {
                             mBtnUpdate.setBackgroundResource(R.mipmap.btn_login_none);

@@ -172,7 +172,7 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
                     LogUtil.println("setListener mAlarmListAdapter.isMulMode():" + mAlarmListAdapter.isMulMode());
                     mAlarmListAdapter.setSelecte(position);
                     if (mAlarmListAdapter.getSelectSize() == mAlarmList.size()) {
-                        mTvChoice.setText(R.string.cancel_choice_all);
+                        mTvChoice.setText(R.string.common_cancel);
                     } else {
                         mTvChoice.setText(R.string.choice_all);
                     }
@@ -216,7 +216,7 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_choice_all:
                 mAlarmListAdapter.setSelecteAll();
                 if (mAlarmListAdapter.getSelectSize() == mAlarmList.size()) {
-                    mTvChoice.setText(R.string.cancel_choice_all);
+                    mTvChoice.setText(R.string.common_cancel);
                 } else {
                     mTvChoice.setText(R.string.choice_all);
                 }

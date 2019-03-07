@@ -71,9 +71,9 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     public static final String BROADCAST_REFRESH_PROGRESS = "com.music.refreshprogress";
     public static final String BROADCAST_CHANGE_MUSIC = "com.music.changemusic";
     public static final String BROADCAST_NEXT_MUSIC = "com.music.nextmusic";
-    private ImageView mIvStart, mIvGoMap,mIvHead;//iv_voice_start;
+    private ImageView mIvStart, mIvGoMap, mIvHead;//iv_voice_start;
     private SeekBar mSeekBar;//sb_voice;
-    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation,mTvUserName;
+    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation, mTvUserName, mTvCurMusic;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private static final int ALARM_DETAIL_SUCCESS = 3;
@@ -89,7 +89,8 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     String lastAddress = "";//地址
     Double lastLa;//纬度
     Double lastLo;//经度
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
+    //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -98,6 +99,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                 case 1:
                     mSeekBar.setProgress(curPercent);
                     mSeekBar.setSecondaryProgress(secondaryProgress);
+                    LogUtil.i("voiceTime", "curMusic:" + curMusic);
                     LogUtil.i("voiceTime", "curPercent:" + curPercent);
                     LogUtil.i("voiceTime", "secondaryProgress:" + secondaryProgress);
                     //tvStare.setText(getStrTime(position));
@@ -206,14 +208,24 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initMusic() {
+        LogUtil.println("initMusic 1 mAlarmData.toString1:" + mAlarmData.toString() +"\n");
         musicList = new ArrayList<Music>();
         Music music = new Music();
-        music.setName("dbuttonR");
-        music.setSize(0);
-        music.setUrl(mAlarmData.getRecord());
-        if (!TextUtils.isEmpty(mAlarmData.getDuration()))
-            music.setDuration(Long.valueOf(mAlarmData.getDuration()));
-        musicList.add(music);
+        LogUtil.println("initMusic mAlarmData.getRecord()!=null:" + (mAlarmData.getRecord()!=null) +"\n");
+        LogUtil.println("initMusic !TextUtils.isEmpty(mAlarmData.getRecord()):" + (!TextUtils.isEmpty(mAlarmData.getRecord())) +"\n");
+        LogUtil.println("initMusic mAlarmData.getRecord():" + mAlarmData.getRecord());
+        if (mAlarmData.getRecord()!=null&&!TextUtils.isEmpty(mAlarmData.getRecord())&&!mAlarmData.getRecord().equals("null")) {
+            music.setName("dbuttonR");
+            music.setSize(0);
+            music.setUrl(mAlarmData.getRecord());
+            if (!TextUtils.isEmpty(mAlarmData.getDuration()))
+                music.setDuration(Long.valueOf(mAlarmData.getDuration()));
+            musicList.add(music);
+            LogUtil.println("initMusic music.toString1:" + music.toString() +"\n");
+        } else {
+            LogUtil.println("initMusic AlarmData.toString1:" + mAlarmData.toString() +"\n");
+        }
+
 
         if (mAlarmData.getSession().contains(",")) {
             String[] session = mAlarmData.getSession().split(",");
@@ -225,6 +237,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                 if (!TextUtils.isEmpty(mAlarmData.getDuration()))
                     music.setDuration(Long.valueOf(mAlarmData.getDuration()));
                 musicList.add(music);
+                LogUtil.println("initMusic music.toString2:" + music.toString() +"\n");
             }
             mApp.setMusicList(musicList);
         } else {
@@ -235,6 +248,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             if (!TextUtils.isEmpty(mAlarmData.getDuration()))
                 music.setDuration(Long.valueOf(mAlarmData.getDuration()));
             musicList.add(music);
+            LogUtil.println("initMusic music.toString3:" + music.toString() +"\n");
             mApp.setMusicList(musicList);
         }
     }
@@ -272,11 +286,11 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setView() {
-
+        mTvCurMusic = (TextView) findViewById(R.id.tv_cur_music);
         mTvUserName = (TextView) findViewById(R.id.tv_user_name);
         mTvUserName.setText(mName);
         mIvHead = (ImageView) findViewById(R.id.iv_your_head);
-        ImageLoader.getInstance().displayImage(mImg,mIvHead);
+        ImageLoader.getInstance().displayImage(mImg, mIvHead);
         mTvBeginTime = (TextView) findViewById(R.id.tv_begin_time);
         mTvEndTime = (TextView) findViewById(R.id.tv_end_time);
         mTvAddress = (TextView) findViewById(R.id.tv_alarm_address);
@@ -490,12 +504,14 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BROADCAST_REFRESH_PROGRESS)) {
                 curMusic = intent.getIntExtra("curMusic", 0);
+                mTvCurMusic.setText(String.valueOf(curMusic + 1));
                 curPercent = intent.getIntExtra("curPercent", 0);
                 position = intent.getIntExtra("position", 0);
                 secondaryProgress = intent.getIntExtra("secondaryProgress", 0);
                 mHandler.sendEmptyMessage(1);
             } else if (intent.getAction().equals(BROADCAST_CHANGE_MUSIC)) {
                 curMusic = intent.getIntExtra("curMusic", 0);
+                mTvCurMusic.setText(String.valueOf(curMusic + 1));
                 curPercent = intent.getIntExtra("curPercent", 0);
                 position = intent.getIntExtra("position", 0);
                 secondaryProgress = intent.getIntExtra("secondaryProgress", 0);
@@ -503,6 +519,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             } else if (intent.getAction().equals(BROADCAST_NEXT_MUSIC)) {
                 Log.i("onStart", "------------BROADCAST_NEXT_MUSIC----------------");
                 curMusic = intent.getIntExtra("curMusic", 0);
+                mTvCurMusic.setText(String.valueOf(curMusic + 1));
                 mHandler.sendEmptyMessage(3);
             }
         }

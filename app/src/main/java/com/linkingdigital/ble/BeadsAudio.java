@@ -9,7 +9,7 @@ public class BeadsAudio {
 	 *   496 bytes raw PCM data (16 bits signed little endian, 16000 sample rate)
 	 *   null when error
 	 * */
-	public native static byte[] ldpcm_to_pcm(byte[] adpcm_data);
+	public native static byte[] adpcm_to_pcm(byte[] adpcm_data);
 
 	/* encode with mp3
 	 *
@@ -22,8 +22,10 @@ public class BeadsAudio {
 	 * return
 	 *   mp3 encoded data
 	 * */
-	public native static byte[] ldpcm_to_mp3(byte[] adpcm_data);
 	public native static byte[] mp3_stop();
+	public native static void   mp3_start(int sr);
+	public native static byte[] adpcm_to_mp3(byte[] adpcm_data);
+	public native static byte[] g729_to_mp3(byte[] adpcm_data);
 
 	static {
 		System.loadLibrary("beads_jni");
