@@ -225,9 +225,9 @@ public class DButtonApplication extends BleBaseApplication {
 
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
-        );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+        option.setPriority(LocationClientOption.GpsFirst);
         //int span = 1000;
         //option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
@@ -626,6 +626,9 @@ public class DButtonApplication extends BleBaseApplication {
                         //上传录音文件
 //                        mUploadTask = new UploadTask();
 //                        mUploadTask.execute("");
+                        if(mUploadTask!=null)
+                            mUploadTask.cancel(true);
+                        mUploadTask = null;
                         mUploadTask = new UploadTask();
                         mUploadTask.execute("");
                     }
