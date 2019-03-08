@@ -579,6 +579,11 @@ public class DButtonApplication extends BleBaseApplication {
                     hasStart = true;
                     isOverUp = false;
                     //初始化的时候赋值List
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                     mPointDataList = new ArrayList<PointData>();
                     startRemark();//记录开始时间，记录轨迹点，记录录音
                 } else {
@@ -619,6 +624,8 @@ public class DButtonApplication extends BleBaseApplication {
                         endTime = simpleDateFormat.format(date);
                         Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++" + Thread.currentThread().getName() + "|Date获取当前日期时间" + endTime);
                         //上传录音文件
+//                        mUploadTask = new UploadTask();
+//                        mUploadTask.execute("");
                         mUploadTask = new UploadTask();
                         mUploadTask.execute("");
                     }
@@ -811,7 +818,9 @@ public class DButtonApplication extends BleBaseApplication {
                     mRecord = mUploadData.getUrl();
                     break;
                 case UPLOAD_FALSE:
-                    ToastUtils.shortToast(DButtonApplication.this, getResources().getString(R.string.upload_photo_false));
+                    //ToastUtils.shortToast(DButtonApplication.this, getResources().getString(R.string.upload_photo_false));
+//                    mUploadTask = new UploadTask();
+//                    mUploadTask.execute("");
                     break;
                 case ALARM_UPDATE_SUCCESS:
                     if (isAlarmUp) {
@@ -997,8 +1006,9 @@ public class DButtonApplication extends BleBaseApplication {
                 if (isOverUp) {
                     isAlarmUp = false;
                     Log.e(TAG, "onReceive() AlarmUpdateTask+++++++++++++++++++++++彻底结束警报流程");
+                }else {
+                    mHandler.sendEmptyMessageDelayed(ALARM_UPDATE_SUCCESS, 30000);
                 }
-                mHandler.sendEmptyMessageDelayed(ALARM_UPDATE_SUCCESS, 30000);
             } else {
                 mHandler.sendEmptyMessageDelayed(ALARM_UPDATE_FALSE, 30000);
             }
@@ -1149,11 +1159,21 @@ public class DButtonApplication extends BleBaseApplication {
                 }
                 mHandler.sendEmptyMessage(UPLOAD_SUCCESS);
             } else {
+                if (!isAlarmUp) {
+                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpTask");
+                    //执行长按的上传方法
+                    //此处需要判断录音文件是否上传成功
+                    mAlarmUpTask = new AlarmUpTask();
+                    mAlarmUpTask.execute("");
+                    if (!isOverUp) {
+                        //继续开始录音
+                        start();
+                    }
+                }
                 mHandler.sendEmptyMessage(UPLOAD_FALSE);
             }
             return null;
         }
     }
-
 
 }

@@ -115,6 +115,7 @@
     <string name="please_open_ble_permission">请打开蓝牙</string>
     <string name="common_ptake_photo">"拍照"</string>
     <string name="common_palbum">"相册"</string>
+    <string name="short_voice">录音时间过短</string>
 
     <string name="user_data_id">用户ID：</string>
     <string name="user_data_sex">性别：</string>
