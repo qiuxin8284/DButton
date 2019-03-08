@@ -90,7 +90,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     Double lastLa;//纬度
     Double lastLo;//经度
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");// HH:mm:ss
-    //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
+    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy/MM/dd HH:mm");// HH:mm:ss
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -99,9 +99,8 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                 case 1:
                     mSeekBar.setProgress(curPercent);
                     mSeekBar.setSecondaryProgress(secondaryProgress);
-                    LogUtil.i("voiceTime", "curMusic:" + curMusic);
-                    LogUtil.i("voiceTime", "curPercent:" + curPercent);
-                    LogUtil.i("voiceTime", "secondaryProgress:" + secondaryProgress);
+                    LogUtil.println("voiceTime curPercent:" + curPercent);
+                    LogUtil.println("voiceTime secondaryProgress:" + secondaryProgress);
                     //tvStare.setText(getStrTime(position));
                     break;
                 case ALARM_DETAIL_SUCCESS:
@@ -173,8 +172,9 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     }
                     //报警开始时间 结束时间和地址
                     lastAddress = mAlarmData.getAddress();
-                    mTvBeginTime.setText("记录时间：" + simpleDateFormat.format(new Date(Long.valueOf(mAlarmData.getBeginTime()))));
-                    mTvEndTime.setText("报警时间：" + simpleDateFormat.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
+                    mTvBeginTime.setText("记录时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getBeginTime()))));
+                    //mTvEndTime.setText("报警时间：" + simpleDateFormat.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
+                    mTvEndTime.setText("报警时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
                     mTvAddress.setText(mAlarmData.getAddress());
                     //mTvLocation.setText("经度："+lastLo+"  ,  纬度："+lastLa);//后续清空后改成截取json的形式取最后一个点
                     initMusic();

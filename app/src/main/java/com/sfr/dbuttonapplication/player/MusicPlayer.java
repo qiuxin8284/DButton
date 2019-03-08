@@ -62,6 +62,10 @@ public class MusicPlayer extends Service implements OnBufferingUpdateListener,
 				int duration = mediaPlayer.getDuration();
 				int percent = 0;
 				if(duration!=0) percent = position * 100 / duration;
+				LogUtil.println("voiceTime position:" + position);
+				LogUtil.println("voiceTime duration:" + duration);
+				LogUtil.println("voiceTime bufferingProgress:" + bufferingProgress);
+				LogUtil.println("voiceTime mediaPlayer:" + mediaPlayer.toString());
 
 
 				Intent intent = new Intent(AlarmDetailActivity.BROADCAST_REFRESH_PROGRESS);
@@ -154,6 +158,8 @@ public class MusicPlayer extends Service implements OnBufferingUpdateListener,
 			LogUtil.println("loadFileData："+"musicList.get(curMusic).getUrl():"+dateSource);
 			mediaPlayer.setDataSource(dateSource);
 			mediaPlayer.prepare();
+			int duration = mediaPlayer.getDuration();
+			LogUtil.println("voiceTime setDataSource duration:" + duration);
 
 			sendChangeMusicBroadcast();
 
@@ -295,6 +301,8 @@ public class MusicPlayer extends Service implements OnBufferingUpdateListener,
 	@Override
 	public void onPrepared(MediaPlayer arg0) {
 		arg0.start();
+		int duration = mediaPlayer.getDuration();
+		LogUtil.println("voiceTime onPrepared duration:" + duration);
 		Log.e("mediaPlayer", "onPrepared");
 	}
 
