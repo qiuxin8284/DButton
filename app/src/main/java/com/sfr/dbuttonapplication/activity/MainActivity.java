@@ -2,6 +2,7 @@ package com.sfr.dbuttonapplication.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
@@ -220,7 +221,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mAlarmConfirmDialog.dismiss();
                 }
             });
-        }else{
+            mAlarmConfirmDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if(keyCode==KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0){
+
+                        return true;
+
+                    } else if (keyCode == KeyEvent.KEYCODE_SEARCH) {
+                        return true;
+                    } else {
+                        return false; //默认返回 false
+                    }
+                }
+            });
+            mAlarmConfirmDialog.setCancelable(false);
+        } else {
             mAlarmConfirmDialog.show();
         }
     }

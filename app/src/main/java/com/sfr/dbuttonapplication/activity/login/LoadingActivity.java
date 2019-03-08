@@ -75,13 +75,12 @@ public class LoadingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
 
-        mLoginHandler.sendEmptyMessageDelayed(GO_TO_LOGIN, DELAY_TIME);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-
+        mLoginHandler.sendEmptyMessageDelayed(GO_TO_LOGIN, DELAY_TIME);
     }
 
 
