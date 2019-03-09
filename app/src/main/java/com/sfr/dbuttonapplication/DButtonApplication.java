@@ -1172,6 +1172,15 @@ public class DButtonApplication extends BleBaseApplication {
                         //继续开始录音
                         start();
                     }
+                }else{
+                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask");
+                    //执行单击的修改方法
+                    mAlarmUpdateTask = new AlarmUpdateTask();
+                    mAlarmUpdateTask.execute("");
+                    if (!isOverUp) {
+                        //继续开始录音
+                        start();
+                    }
                 }
                 mHandler.sendEmptyMessage(UPLOAD_FALSE);
             }
