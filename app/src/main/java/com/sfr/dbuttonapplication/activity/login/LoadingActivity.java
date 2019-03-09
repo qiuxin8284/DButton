@@ -64,7 +64,7 @@ public class LoadingActivity extends AppCompatActivity implements PermissionInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        APPUtils.setTranslucent(this);
+        APPUtils.setTranslucentGone(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_loading);
         //初始化并发起权限申请

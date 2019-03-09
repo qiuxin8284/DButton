@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -71,8 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         //APPUtils.setTranslucent(this);
         setContentView(R.layout.activity_main);
-        Window window = getWindow();
-        window.setStatusBarColor(0XFFFFFFFF);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            //window.setStatusBarColor(0XFFFFFFFF);
+            // 设置状态栏底色白色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(Color.WHITE);
+        }
+        // 设置状态栏字体黑色
 //      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         ///ViewColor.transparencyBar(this);
         //ViewColor.setColor(this, 0XFFFFFFFF);//黑色可以0XFF000000，红色可以0XFFFF0000|白色就是透明低栏0XFFFFFFFF
@@ -242,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mAlarmConfirmDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if(keyCode==KeyEvent.KEYCODE_BACK&&event.getRepeatCount()==0){
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 
                         return true;
 

@@ -21,21 +21,6 @@ public class AddContactActivity extends AppCompatActivity implements View.OnClic
         initTitle();
         setView();
         setListener();
-        initAction();
-    }
-
-    private void initAction() {
-        View statusBar = findViewById(R.id.statusBarView);
-        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
-        layoutParams.height = getStatusBarHeight();
-    }
-    public int getStatusBarHeight() {
-        int result = 0; //获取状态栏高度的资源id
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
     }
 
     private LinearLayout mLLAddPhoneContact;
