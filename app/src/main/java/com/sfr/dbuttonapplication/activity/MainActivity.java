@@ -1,5 +1,6 @@
 package com.sfr.dbuttonapplication.activity;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -81,7 +82,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intentFilter.addAction(DButtonApplication.ACTION_LONG_CLICK);
         registerReceiver(mDButtonControlReceiver, intentFilter);
         //showAlarmConfirmDialogDialog();
+
+        // 获得蓝牙适配器对象
+//        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(enableBtIntent, 1000);
+//        }
     }
+    private BluetoothAdapter bluetoothAdapter;
 
     @Override
     public void onDestroy() {

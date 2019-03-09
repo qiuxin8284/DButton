@@ -65,7 +65,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
                             LoginActivity.this, DButtonApplication.mUserData.getPhone());
                     LogUtil.println("DButtonApplication::Login::mNowMac= " + DButtonApplication.mNowMac);
-                    DButtonApplication.mInstance.startScanDevice();
+                    if(!TextUtils.isEmpty(DButtonApplication.mNowMac)) {
+                        DButtonApplication.mInstance.startScanDevice();
+                    }
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

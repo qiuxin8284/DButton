@@ -26,6 +26,7 @@ import com.icen.blelibrary.config.BleLibsConfig;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.BindDButtonListAdapter;
+import com.sfr.dbuttonapplication.activity.login.LoadingActivity;
 import com.sfr.dbuttonapplication.activity.login.RegisterDataActivity;
 import com.sfr.dbuttonapplication.activity.widget.BindOverDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
@@ -64,6 +65,10 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
                     DButtonApplication.mAddDbutton = true;
                     SettingSharedPerferencesUtil.SetBindDbuttonMACValue(
                             BindDButtonActivity.this, DButtonApplication.mUserData.getPhone(), mMac);
+                    DButtonApplication.mNowMac = mMac;
+                    if (!TextUtils.isEmpty(DButtonApplication.mNowMac)) {
+                        DButtonApplication.mInstance.connectToDevice();
+                    }
                     showBindOverDialog();
 //                    ToastUtils.shortToast(BindDButtonActivity.this, R.string.bind_success);
 //                    finish();

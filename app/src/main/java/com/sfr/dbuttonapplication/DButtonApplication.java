@@ -5,6 +5,7 @@ package com.sfr.dbuttonapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -484,6 +485,11 @@ public class DButtonApplication extends BleBaseApplication {
     }
 
     public void startScanDevice() {
+        // 获得蓝牙适配器对象
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
+        }
         LogUtil.println("DButtonApplication::startScanDevice::");
         mDButtonMap = new HashMap<String, DButtonData>();
         getManager().startScanDevice();
