@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -89,6 +90,21 @@ public class OTAUpdateActivity extends BleBaseActivity implements View.OnClickLi
         LoadingProgressDialog.show(OTAUpdateActivity.this, false, true, 30000);
         mRenewTask = new RenewTask();
         mRenewTask.execute("");
+        initAction();
+    }
+
+    private void initAction() {
+        View statusBar = findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight();
+    }
+    public int getStatusBarHeight() {
+        int result = 0; //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     private void setListener() {

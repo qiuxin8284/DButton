@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.sfr.dbuttonapplication.R;
@@ -24,6 +25,21 @@ public class PhoneSearchActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_phone_search);
         setView();
         setListener();
+        initAction();
+    }
+
+    private void initAction() {
+        View statusBar = findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight();
+    }
+    public int getStatusBarHeight() {
+        int result = 0; //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     private void setListener() {

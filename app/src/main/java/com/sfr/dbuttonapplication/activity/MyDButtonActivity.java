@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,14 +32,14 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
 
     private RelativeLayout mRLBindDButton, mRLBuyDButton;//rl_dbutton_bind
     private RelativeLayout mRLNoBind, mRLHasBind, mRLNoConnect;
-    private RelativeLayout mRLUnbindOne,mRLUnbindTwo;
+    private RelativeLayout mRLUnbindOne, mRLUnbindTwo;
     private RelativeLayout mBtnExplain;
     private RelativeLayout mBtnConnect; //btn_explain
     private static final int LAYER_LIST_SUCCESS = 1;
     private static final int LAYER_LIST_FALSE = 2;
     private static final int LAYER_DEL_SUCCESS = 3;
     private static final int LAYER_DEL_FALSE = 4;
-    private TextView mTvDButtonIDConnect, mTvDButtonIDNoConnect,mTvBattery;
+    private TextView mTvDButtonIDConnect, mTvDButtonIDNoConnect, mTvBattery;
     private ImageView mIvBattery;
     private Handler mHandler = new Handler() {
         @Override
@@ -57,23 +58,23 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                         DButtonApplication.mNowMac = "";
                         mIDS = "";
                         SettingSharedPerferencesUtil.SetBindDbuttonIDValue(
-                                MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),mIDS);
+                                MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), mIDS);
                         SettingSharedPerferencesUtil.SetBindDbuttonMACValue(
-                                MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),DButtonApplication.mNowMac);
+                                MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), DButtonApplication.mNowMac);
                     } else {
                         DButtonApplication.mNowMac = mLayerListData.getList().get(0).getMac();
                         mIDS = mLayerListData.getList().get(0).getId();
                         SettingSharedPerferencesUtil.SetBindDbuttonIDValue(
-                                MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),mIDS);
+                                MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), mIDS);
                         SettingSharedPerferencesUtil.SetBindDbuttonMACValue(
-                                MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),DButtonApplication.mNowMac);
+                                MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), DButtonApplication.mNowMac);
                         //判断是否连接
-                        if(DButtonApplication.isConnectDevice){
+                        if (DButtonApplication.isConnectDevice) {
                             DButtonApplication.mInstance.readBatteryShow();
                             mRLNoBind.setVisibility(View.GONE);
                             mRLHasBind.setVisibility(View.VISIBLE);
                             mRLNoConnect.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             mRLNoBind.setVisibility(View.GONE);
                             mRLHasBind.setVisibility(View.GONE);
                             mRLNoConnect.setVisibility(View.VISIBLE);
@@ -96,9 +97,9 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                     DButtonApplication.mNowMac = "";
                     mIDS = "";
                     SettingSharedPerferencesUtil.SetBindDbuttonIDValue(
-                            MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),mIDS);
+                            MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), mIDS);
                     SettingSharedPerferencesUtil.SetBindDbuttonMACValue(
-                            MyDButtonActivity.this,DButtonApplication.mUserData.getPhone(),DButtonApplication.mNowMac);
+                            MyDButtonActivity.this, DButtonApplication.mUserData.getPhone(), DButtonApplication.mNowMac);
                     DButtonApplication.mInstance.disconnect();
                     break;
                 case LAYER_DEL_FALSE:
@@ -119,6 +120,21 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
         setView();
         setListener();
 
+        initAction();
+    }
+
+    private void initAction() {
+        View statusBar = findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight();
+    }
+    public int getStatusBarHeight() {
+        int result = 0; //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     private void setListener() {
@@ -149,19 +165,19 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
         DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
                 MyDButtonActivity.this, DButtonApplication.mUserData.getPhone());
         mIDS = SettingSharedPerferencesUtil.GetBindDbuttonIDValue(
-                MyDButtonActivity.this,DButtonApplication.mUserData.getPhone());
+                MyDButtonActivity.this, DButtonApplication.mUserData.getPhone());
         if (TextUtils.isEmpty(DButtonApplication.mNowMac)) {
             mRLNoBind.setVisibility(View.VISIBLE);
             mRLHasBind.setVisibility(View.GONE);
             mRLNoConnect.setVisibility(View.GONE);
         } else {
             //判断是否连接
-            if(DButtonApplication.isConnectDevice){
+            if (DButtonApplication.isConnectDevice) {
                 DButtonApplication.mInstance.readBatteryShow();
                 mRLNoBind.setVisibility(View.GONE);
                 mRLHasBind.setVisibility(View.VISIBLE);
                 mRLNoConnect.setVisibility(View.GONE);
-            }else {
+            } else {
                 mRLNoBind.setVisibility(View.GONE);
                 mRLHasBind.setVisibility(View.GONE);
                 mRLNoConnect.setVisibility(View.VISIBLE);
@@ -186,12 +202,12 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                 mRLNoConnect.setVisibility(View.GONE);
             } else {
                 //判断是否连接
-                if(DButtonApplication.isConnectDevice){
+                if (DButtonApplication.isConnectDevice) {
                     DButtonApplication.mInstance.readBatteryShow();
                     mRLNoBind.setVisibility(View.GONE);
                     mRLHasBind.setVisibility(View.VISIBLE);
                     mRLNoConnect.setVisibility(View.GONE);
-                }else {
+                } else {
                     mRLNoBind.setVisibility(View.GONE);
                     mRLHasBind.setVisibility(View.GONE);
                     mRLNoConnect.setVisibility(View.VISIBLE);
@@ -409,14 +425,14 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
             if (action.equals(DButtonApplication.ACTION_DBUTTON_CONNECT)) {
                 boolean is_success = intent.getBooleanExtra("is_success", false);
                 LogUtil.println("DButtonApplication::DButtonReceiver::is_success= " + is_success);
-                if(is_success){
+                if (is_success) {
                     mRLNoBind.setVisibility(View.GONE);
                     mRLHasBind.setVisibility(View.VISIBLE);
                     mRLNoConnect.setVisibility(View.GONE);
                 }
-            }else if(action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
+            } else if (action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
                 String battery = intent.getStringExtra("battery");
-                mTvBattery.setText(battery+"%");
+                mTvBattery.setText(battery + "%");
                 mIvBattery.setBackgroundResource(R.mipmap.battrty_100);
             }
         }

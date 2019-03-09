@@ -3,6 +3,7 @@ package com.sfr.dbuttonapplication.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,21 @@ public class DButtonExplainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        initAction();
+    }
+
+    private void initAction() {
+        View statusBar = findViewById(R.id.statusBarView);
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = getStatusBarHeight();
+    }
+    public int getStatusBarHeight() {
+        int result = 0; //获取状态栏高度的资源id
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
     private TextView mActivityTitle,mTitleExtra;
     private ImageView mTitleBack;

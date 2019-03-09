@@ -35,6 +35,7 @@ import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
 import com.sfr.dbuttonapplication.utils.APPUtils;
 import com.sfr.dbuttonapplication.utils.ToastUtils;
+import com.sfr.dbuttonapplication.utils.ViewColor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,8 +69,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        APPUtils.setTranslucent(this);
+        //APPUtils.setTranslucent(this);
         setContentView(R.layout.activity_main);
+        Window window = getWindow();
+        window.setStatusBarColor(0XFFFFFFFF);
+//      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        ///ViewColor.transparencyBar(this);
+        //ViewColor.setColor(this, 0XFFFFFFFF);//黑色可以0XFF000000，红色可以0XFFFF0000|白色就是透明低栏0XFFFFFFFF
+        //ViewColor.fullScreen(this);
         setView();
         setListener();
 //        //和Activity一样都用Intent传值
@@ -90,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            startActivityForResult(enableBtIntent, 1000);
 //        }
     }
+
+
     private BluetoothAdapter bluetoothAdapter;
 
     @Override

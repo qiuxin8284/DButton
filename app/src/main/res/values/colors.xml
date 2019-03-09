@@ -3,9 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
-    <color name="green">#009933</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#FF009933</color>
     <color name="color_fab">#009933</color>
     <color name="translate_et_hint">#708090</color>
     <color name="translate_et_background">#F0F0F0</color>
@@ -23,7 +23,7 @@
     <color name="notication_position_text_normal">#4C4C4C</color>
     <color name="driver_line">#CCCCCC</color>
     <color name="new_user">#007AFF</color>
-    <color name="login_hint">#D0021B</color>
+    <color name="login_hint">#FFD0021B</color>
     <item name="gray_holo_dark" type="color">#ff464646</item>
     <item name="gray_holo_light" type="color">#ffd0d0d0</item>
 

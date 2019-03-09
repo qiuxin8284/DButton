@@ -7,9 +7,18 @@
     android:background="@color/background"
     tools:context="com.sfr.dbuttonapplication.activity.MyDButtonActivity">
 
+    <View
+        android:id="@+id/statusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
     <include
         android:id="@+id/title"
-        layout="@layout/title_view_extra" />
+        layout="@layout/title_view_extra"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/statusBarView" />
 
     <RelativeLayout
         android:id="@+id/rl_no_dbutton"
@@ -167,14 +176,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:src="@mipmap/battrty_100"/>
+                            android:src="@mipmap/battrty_100" />
 
                         <TextView
                             android:id="@+id/tv_battrty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="3dp"
                             android:text="90%"
                             android:textColor="@color/black"
                             android:textSize="12sp" />

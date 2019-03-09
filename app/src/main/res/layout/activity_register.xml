@@ -7,9 +7,19 @@
     android:background="@color/white"
     tools:context="com.sfr.dbuttonapplication.activity.login.RegisterActivity">
 
+
+    <View
+        android:id="@+id/statusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
     <include
         android:id="@+id/title"
-        layout="@layout/title_view_extra" />
+        layout="@layout/title_view_extra"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/statusBarView" />
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +44,6 @@
             android:id="@+id/img_left"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
             android:background="@drawable/left_selector"
             android:layout_height="wrap_content" />
         <TextView
@@ -43,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/img_left"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
             android:text="@string/common_cancel"
             android:textColor="@color/black"
             android:textSize="16sp" />
@@ -62,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/img_right"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:text="@string/common_accpet"
             android:textColor="@color/black"
             android:textSize="16sp" />
