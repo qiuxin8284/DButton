@@ -12,7 +12,7 @@ import com.sfr.dbuttonapplication.utils.LogUtil;
 
 import org.json.JSONObject;
 
-public class HttpManager {	
+public class HttpManager {
 	private static HttpManager sInstance = null;
 	private boolean OnlineFlag;
 	private Context mContext;

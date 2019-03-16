@@ -15,8 +15,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FileUtils {
-    public static final String FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "dbutton.mp3";
-    public static final String WAV_FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "dbutton.wav";
+//    public static final String FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "dbutton.mp3";
+//    public static final String WAV_FILE_PATH = Environment.getExternalStorageDirectory() + File.separator + "dbutton.wav";
+
+    private String file_path = "";
+    private String wav_file_path = "";
 
     public static final int MESSAGE_FILE_BEGIN = 0;
     public static final int MESSAGE_FILE_PROCESS = MESSAGE_FILE_BEGIN + 1;
@@ -36,17 +39,17 @@ public class FileUtils {
             switch (msg.what) {
                 case MESSAGE_FILE_BEGIN:
                     try {
-                        File dir = new File(FILE_PATH);
+                        File dir = new File(file_path);
                         if (!dir.exists() && dir.isDirectory()) {//判断文件目录是否存在
                             dir.mkdirs();
                         }
-                        file = new File(FILE_PATH);
+                        file = new File(file_path);
                         if (file.exists()) {
                             file.delete();
                         }
                         file.createNewFile();
 
-                        wav_file = new File(WAV_FILE_PATH);
+                        wav_file = new File(wav_file_path);
                         if (wav_file.exists()) {
                             wav_file.delete();
                         }
@@ -93,7 +96,9 @@ public class FileUtils {
         mIsRecording = false;
     }
 
-    public void beginWriteFile() {
+    public void beginWriteFile(String filePath,String wavFilePath) {
+        this.file_path = Environment.getExternalStorageDirectory() + File.separator + filePath;
+        this.wav_file_path = Environment.getExternalStorageDirectory() + File.separator + wavFilePath;
         mIsRecording = true;
         mFileHandler.sendEmptyMessage(MESSAGE_FILE_BEGIN);
     }
@@ -117,8 +122,8 @@ public class FileUtils {
 
     private void pcm2wav(){
         try {
-            FileInputStream fis = new FileInputStream(FILE_PATH);
-            FileOutputStream fos = new FileOutputStream(WAV_FILE_PATH);
+            FileInputStream fis = new FileInputStream(file_path);
+            FileOutputStream fos = new FileOutputStream(wav_file_path);
             int PCMSize = 0;
             byte[] buf = new byte[1024 * 4];
             int size = fis.read(buf);
@@ -130,7 +135,7 @@ public class FileUtils {
             WaveHeader header = new WaveHeader(PCMSize + (44 - 8));
             byte[] h = header.getHeader();
             fos.write(h, 0, h.length);
-            fis = new FileInputStream(FILE_PATH);
+            fis = new FileInputStream(file_path);
             size = fis.read(buf);
             while (size != -1) {
                 fos.write(buf, 0, size);

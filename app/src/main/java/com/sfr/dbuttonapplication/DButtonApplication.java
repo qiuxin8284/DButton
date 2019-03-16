@@ -63,6 +63,7 @@ import com.umeng.socialize.PlatformConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -721,7 +722,9 @@ public class DButtonApplication extends BleBaseApplication {
      * 开始录音
      */
     protected void start() {
-        mFileUtils.beginWriteFile();
+        fileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".mp3";
+        String wavFileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".wav";
+        mFileUtils.beginWriteFile(fileName,wavFileName);
         getManager().writeCharacteristic(UUIDCHAR_CTRL, 31,
                 BluetoothGattCharacteristic.FORMAT_UINT8);
 //        try {
@@ -962,6 +965,41 @@ public class DButtonApplication extends BleBaseApplication {
                     //getLocation(lastLocation);
                 } else {
                     Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++lastLocation == null");
+//                    if(mPointDataList.size()!=0){
+//                        Location location = mPointDataList.get(mPointDataList.size()-1).getLocation();
+//                        if (TextUtils.isEmpty(point)) {
+//                            Date date = new Date(System.currentTimeMillis());
+//                            long pointTime = date.getTime();
+//                            point = String.valueOf(location.getLongitude()) + "|" + location.getLatitude()
+//                                    + "|" + String.valueOf(pointTime);
+//                        }
+//
+//                        alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
+//                                String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
+//                                location.getAddress().address, mRecord, String.valueOf(mDuration));
+//                        Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++alarmIDData.isOK():" + alarmIDData.isOK());
+//                        //用JSON的形式保存轨迹Point值
+//                        if (alarmIDData.isOK()) {
+//                            mPointDataList = new ArrayList<PointData>();
+//                            mRecord = "";
+//                            mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
+//                        } else {
+//                            mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+//                        }
+//
+//                        if (DButtonApplication.mContactList.size() > 0) {
+//                            for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+//                                String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+//                                String message = "我在" + location.getAddress().address + "出事了,出事时间是" + simpleDateFormat.format(
+//                                        new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
+//                                sendSMS(phoneNumber, message);
+//                                if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+//                                    //拨打电话
+//                                    callPhone(phoneNumber);//同时背景播放音乐
+//                                }
+//                            }
+//                        }
+//                    }
                     //需要自动获取当前地址信息，组成一个location进行传输
                 }
             }
@@ -1140,9 +1178,11 @@ public class DButtonApplication extends BleBaseApplication {
         @Override
         protected Void doInBackground(String... params) {
             Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++doInBackground");
+            //fileName = "dbutton20190316111147.mp3";
+            //fileName = "Music/莫斯科.mp3";
             mFile = CommonUtils.encodeToBase64(Environment.getExternalStorageDirectory() + "/" + fileName);
             mUploadData = new UploadData();
-            mUploadData = HttpSendJsonManager.upload(DButtonApplication.this,
+            mUploadData = HttpSendJsonManager.uploadMedia(DButtonApplication.this,
                     HttpSendJsonManager.UPLOAD_TPYE_HEAD, fileName, mFile, String.valueOf(mDuration));
             if (mUploadData.isOK()) {
                 Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++mUploadData.isOK():" + mUploadData.isOK());

@@ -144,7 +144,7 @@ public class RegisterDataActivity extends AppCompatActivity implements OnClickLi
                     break;
                 case SEND_SMS_TIME:
                     time = time - 1;
-                    if(time == 0){
+                    if(time <= 0){
                         mBtnSendSms.setText(R.string.get_sms_code);
                         if (mEtPhone.getText().toString().length() == 11) {
                             mBtnSendSms.setClickable(true);

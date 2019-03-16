@@ -1,6 +1,9 @@
 package com.sfr.dbuttonapplication.http;
 
 import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.jordan.httplibrary.utils.Base64;
 import com.jordan.httplibrary.utils.CommonUtils;
@@ -20,6 +23,16 @@ import com.sfr.dbuttonapplication.utils.LogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Date;
+import java.util.UUID;
 
 
 public class HttpSendJsonManager {
@@ -126,8 +139,10 @@ public class HttpSendJsonManager {
     public static final String SEND_SMS_TYPE_BIND_ACCOUNT = "4";
     public static final String SEND_SMS_TYPE_UNBIND_ACCOUNT = "5";
     public static final String SEND_SMS_TYPE_DIED_ACCOUNT = "6";
+
     /**
      * 发送验证码
+     *
      * @param phone
      * @param type
      * @return
@@ -165,6 +180,7 @@ public class HttpSendJsonManager {
     public static final int UPLOAD_TPYE_MUSIC = 3;
     public static final int UPLOAD_TPYE_VOICE = 4;
     public static final int UPLOAD_TPYE_FILE = 5;
+
     /**
      * 上传媒体文件
      *
@@ -191,8 +207,17 @@ public class HttpSendJsonManager {
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
             sendJSONObject.put("data", Base64.encode(request_proto.toByteArray()));
 
+
             String json = sendJSONObject.toString();
             LogUtil.println("upload" + json);
+
+            Log.e("upload", "upload()|前" + DButtonApplication.datenamesdf.format(new Date(System.currentTimeMillis())));
+            String stringbase64 = Base64.encode(request_proto.toByteArray());
+            byte[] bytebase64 = Base64.decode(stringbase64);
+            JSONObject resultJson = new JSONObject(json);
+            Log.e("upload", "upload()|后" + DButtonApplication.datenamesdf.format(new Date(System.currentTimeMillis())));
+
+
             String synchronousResult = DButtonApplication.httpManager.SyncHttpCommunicate(url, json);
             LogUtil.println("upload synchronousResult:" + synchronousResult);
             return HttpAnalyJsonManager.mediaUpload(synchronousResult, context);
@@ -201,6 +226,90 @@ public class HttpSendJsonManager {
             e.printStackTrace();
             return uploadData;
         }
+    }
+
+
+    private static final String CHARSET = "utf-8"; //编码格式
+    public static UploadData uploadMedia(Context context, int type, String name, String file, String time) {
+        String filePath = Environment.getExternalStorageDirectory() + "/" + name;
+        UploadData uploadData = new UploadData();
+        uploadData.setOK(false);
+        String urlPath = "media";
+
+
+        //边界标识 随机生成，这个作为boundary的主体内容
+        String BOUNDARY = UUID.randomUUID().toString();
+        String PREFIX = "--";
+        //回车换行，用于调整协议头的格式
+        String LINE_END = "\r\n";
+        //格式的内容信息
+        String CONTENT_TYPE = "multipart/form-data";
+        try {
+            URL url = new URL(CommunicateConfig.GetHttpClientAdress() + urlPath);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url
+                    .openConnection();
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setUseCaches(false);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+            httpURLConnection.setRequestProperty("Charset", "UTF-8");
+            //这里设置请求方式以及boundary的内容，即上面生成的随机字符串
+            httpURLConnection.setRequestProperty("Content-Type", CONTENT_TYPE + ";boundary="
+                    + BOUNDARY);
+
+            DataOutputStream dos = new DataOutputStream(httpURLConnection.getOutputStream());
+            //这里的StringBuffer 用来拼接我们的协议头
+            StringBuffer sb = new StringBuffer();
+            sb.append(PREFIX);
+            sb.append(BOUNDARY);
+            sb.append(LINE_END);
+            sb.append("Content-Disposition: form-data; name=\"type\""
+                    + LINE_END+LINE_END);
+            sb.append("3" + LINE_END);
+            sb.append(PREFIX);
+            sb.append(BOUNDARY);
+            sb.append(LINE_END);
+            /**
+             * 这里重点注意：
+             * name里面的值为服务器端需要key 只有这个key 才可以得到对应的文件
+             * filename是文件的名字，包含后缀名的 比如:abc.png
+             */
+            sb.append("Content-Disposition: form-data;name=\"postKey\";filename=\"" + name + "\"" + LINE_END);
+            //这里Content-Type 传给后台一个mime类型的编码字段，用于识别扩展名
+            sb.append("Content-Type: mp3; charset=" + CHARSET + LINE_END);
+            sb.append(LINE_END);
+            dos.write(sb.toString().getBytes());
+
+            //将SD 文件通过输入流读到Java代码中-++++++++++++++++++++++++++++++`````````````````````````
+            FileInputStream fis = new FileInputStream(filePath);
+            byte[] buffer = new byte[8192]; // 8k
+            int count = 0;
+            while ((count = fis.read(buffer)) != -1) {
+                dos.write(buffer, 0, count);
+
+            }
+            fis.close();
+            System.out.println("file send to server............");
+            dos.writeBytes(LINE_END);
+            dos.writeBytes(PREFIX + BOUNDARY + PREFIX + LINE_END);
+            dos.flush();
+
+            //读取服务器返回结果
+            InputStream is = httpURLConnection.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is, "utf-8");
+            BufferedReader br = new BufferedReader(isr);
+            String result = br.readLine();
+
+            dos.close();
+            is.close();
+            LogUtil.println("upload result:" + result);
+            return HttpAnalyJsonManager.uploadMedia(result, context);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return uploadData;
     }
 
     /**
@@ -259,8 +368,8 @@ public class HttpSendJsonManager {
      */
     public static UserData login(Context context, String phone,
                                  String code) {
-		UserData userData = new UserData();
-		userData.setOK(false);
+        UserData userData = new UserData();
+        userData.setOK(false);
         String url = "v0/vip/login.htm";
         try {
             JSONObject sendJSONObject = new JSONObject();
@@ -283,6 +392,7 @@ public class HttpSendJsonManager {
             return userData;
         }
     }
+
     public static UserData selfLogin(Context context) {
         UserData userData = new UserData();
         userData.setOK(false);
@@ -306,8 +416,10 @@ public class HttpSendJsonManager {
             return userData;
         }
     }
+
     /**
      * 获取版本信息
+     *
      * @param context
      * @return
      */
@@ -334,6 +446,7 @@ public class HttpSendJsonManager {
             return userData;
         }
     }
+
     public static RegisterData setUserInfo(Context context, String name,
                                            String gender, String birth, String blood, String img) {
         RegisterData registerData = new RegisterData();
@@ -401,6 +514,7 @@ public class HttpSendJsonManager {
 
     public static final String IS_URGENT_YES = "1";
     public static final String IS_URGENT_NO = "0";
+
     //增加联系人---有问题。应该简单的参数即可搜索
     public static boolean addContact(Context context,
                                      String phone, String name, String isUrgent, String img) {
@@ -431,6 +545,7 @@ public class HttpSendJsonManager {
             return false;
         }
     }
+
     //修改联系人备注信息-暂时不允许吧
     public static boolean upContact(Context context,
                                     String id, String phone, String name, String gender,
@@ -468,7 +583,7 @@ public class HttpSendJsonManager {
 
     //设置紧急联系人
     public static boolean contactSet(Context context,
-                                  String id) {
+                                     String id) {
         String url = "v0/contact/set.htm";
         try {
             JSONObject sendJSONObject = new JSONObject();
@@ -519,9 +634,10 @@ public class HttpSendJsonManager {
             return userData;
         }
     }
+
     //删除联系人
     public static boolean contactDelete(Context context,
-                                     String ids) {
+                                        String ids) {
         String url = "v0/contact/del.htm";
         try {
             JSONObject sendJSONObject = new JSONObject();
@@ -546,6 +662,7 @@ public class HttpSendJsonManager {
             return false;
         }
     }
+
     //搜索联系人
     public static UserData searchContact(Context context,
                                          String phone) {
@@ -637,7 +754,7 @@ public class HttpSendJsonManager {
 
     //设置默认固件
     public static boolean setLayer(Context context,
-                                  String id) {
+                                   String id) {
         String url = "v0/layer/set.htm";
         try {
             JSONObject sendJSONObject = new JSONObject();

@@ -186,6 +186,26 @@ public class HttpAnalyJsonManager {
         return uploadData;
     }
 
+    public static UploadData uploadMedia(String json, Context context) throws JSONException {
+        UploadData uploadData = new UploadData();
+        uploadData.setOK(false);
+        JSONObject resultJson = new JSONObject(json);
+        String result = resultJson.getString("result");
+        if(result.equals("0")){
+            lastError = context.getResources().getString(R.string.upload_failed);
+            return uploadData;
+        }
+//        String id = resultJson.getString("id");
+//        String name = resultJson.getString("name");
+        String url = resultJson.getString("path");
+//        uploadData.setId(id);
+//        uploadData.setName(name);
+        uploadData.setUrl(url);
+        uploadData.setOK(true);
+        android.util.Log.e("uploadData", "uploadData:"+uploadData.toString());
+        return uploadData;
+    }
+
     //registerAccount
     public static RegisterData registerAccount(String json, Context context) throws JSONException {
         RegisterData registerData = new RegisterData();
