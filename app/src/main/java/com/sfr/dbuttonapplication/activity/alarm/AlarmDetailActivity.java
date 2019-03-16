@@ -231,26 +231,32 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         if (mAlarmData.getSession().contains(",")) {
             String[] session = mAlarmData.getSession().split(",");
             for (int i = 0; i < session.length; i++) {
-                music = new Music();
-                music.setName("dbuttonS" + i);
-                music.setSize(0);
-                music.setUrl(session[i]);
-                if (!TextUtils.isEmpty(mAlarmData.getDuration()))
-                    music.setDuration(Long.valueOf(mAlarmData.getDuration()));
-                musicList.add(music);
-                LogUtil.println("initMusic music.toString2:" + music.toString() +"\n");
+                if (session[i]!=null&&!TextUtils.isEmpty(session[i])&&!session[i].equals("null")){
+                    music = new Music();
+                    music.setName("dbuttonS" + i);
+                    music.setSize(0);
+                    music.setUrl(session[i]);
+                    if (!TextUtils.isEmpty(mAlarmData.getDuration()))
+                        music.setDuration(Long.valueOf(mAlarmData.getDuration()));
+                    musicList.add(music);
+                    LogUtil.println("initMusic music.toString2:" + music.toString() + "\n");
+                }
             }
             mApp.setMusicList(musicList);
         } else {
-            music = new Music();
-            music.setName("dbuttonS");
-            music.setSize(0);
-            music.setUrl(mAlarmData.getSession());
-            if (!TextUtils.isEmpty(mAlarmData.getDuration()))
-                music.setDuration(Long.valueOf(mAlarmData.getDuration()));
-            musicList.add(music);
-            LogUtil.println("initMusic music.toString3:" + music.toString() +"\n");
-            mApp.setMusicList(musicList);
+            if (mAlarmData.getSession()!=null&&!TextUtils.isEmpty(mAlarmData.getSession())&&!mAlarmData.getSession().equals("null")) {
+                music = new Music();
+                music.setName("dbuttonS");
+                music.setSize(0);
+                music.setUrl(mAlarmData.getSession());
+                if (!TextUtils.isEmpty(mAlarmData.getDuration()))
+                    music.setDuration(Long.valueOf(mAlarmData.getDuration()));
+                musicList.add(music);
+                LogUtil.println("initMusic music.toString3:" + music.toString() + "\n");
+                mApp.setMusicList(musicList);
+            }else{
+                mApp.setMusicList(musicList);
+            }
         }
     }
 
