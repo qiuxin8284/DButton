@@ -98,14 +98,16 @@ public class BindDButtonActivity extends AppCompatActivity implements View.OnCli
         mLvBindDButtonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DButtonData dButtonData = mBindDButtonList.get(position);
-                //添加固件
-                mMac = dButtonData.getDevice_mac();
-                mName = dButtonData.getDevice_name();
-                if (TextUtils.isEmpty(mName)) mName = "noName";
-                LoadingProgressDialog.show(BindDButtonActivity.this, false, true, 30000);
-                mAddLayerTask = new AddLayerTask();
-                mAddLayerTask.execute("");
+                if(mBindDButtonList.size()>0) {
+                    DButtonData dButtonData = mBindDButtonList.get(position);
+                    //添加固件
+                    mMac = dButtonData.getDevice_mac();
+                    mName = dButtonData.getDevice_name();
+                    if (TextUtils.isEmpty(mName)) mName = "noName";
+                    LoadingProgressDialog.show(BindDButtonActivity.this, false, true, 30000);
+                    mAddLayerTask = new AddLayerTask();
+                    mAddLayerTask.execute("");
+                }
             }
         });
         mTvRepeat.setOnClickListener(this);
