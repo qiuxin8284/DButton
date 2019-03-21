@@ -24,6 +24,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.CoordinateConverter;
 import com.jordan.httplibrary.HttpUtils;
 import com.jordan.httplibrary.utils.CommonUtils;
 import com.sfr.dbuttonapplication.DButtonApplication;
@@ -115,11 +117,24 @@ public class DButtonControlService extends Service {
         @Override
         public void onLocationChanged(Location location) {
             if (hasStart) {
+
+                String string = "纬度为：" + location.getLatitude() + ",经度为："
+                        + location.getLongitude();
+                android.util.Log.e("SlashInfo", string);
+                CoordinateConverter converter = new CoordinateConverter();
+                converter.from(CoordinateConverter.CoordType.GPS);
+                converter.coord(new LatLng(location.getLatitude(), location.getLongitude()));
+                LatLng latLng = converter.convert();
+                String string1 = "+++纬度为：" + latLng.latitude + ",经度为："
+                        + latLng.longitude;
+                Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
+                        + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:"+ string1);
+
                 PointData pointData = new PointData();
                 Date date = new Date(System.currentTimeMillis());
                 String pointTime = simpleDateFormat.format(date);
                 pointData.setPointTime(date.getTime());
-                pointData.setLocation(location);
+                pointData.setLocation(latLng);
                 //定义log方法在后台打印
                 Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
                         + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|location:" + location.toString() + "|Date获取当前日期时间:" + pointTime);
@@ -380,7 +395,7 @@ public class DButtonControlService extends Service {
                         contactIds = contactIds + "," + DButtonApplication.mContactList.get(i).getId();
                     }
                 }
-                Location lastLocation = null;
+                LatLng lastLocation = null;
 //                //上传当前轨迹记录 -- 得到ArrayList轨迹点
 //                JSONArray pointJsonArray = new JSONArray();
 //                for (int i = 0; i < mPointDataList.size(); i++) {
@@ -408,8 +423,8 @@ public class DButtonControlService extends Service {
                     //pointDataObject.put("latitude", String.valueOf(pointData.getLocation().getLatitude()));
                     //pointDataObject.put("longitude", String.valueOf(pointData.getLocation().getLongitude()));
                     //pointJsonObject.put("point", pointDataObject);
-                    pointdata = String.valueOf(pointData.getLocation().getLongitude())+"|"+ String.valueOf(pointData.
-                            getLocation().getLatitude()) +"|"+ String.valueOf(pointData.getPointTime());
+                    pointdata = String.valueOf(pointData.getLocation().longitude)+"|"+ String.valueOf(pointData.
+                            getLocation().latitude) +"|"+ String.valueOf(pointData.getPointTime());
                     if(TextUtils.isEmpty(point)){
                         point = pointdata;
                     }else{
@@ -450,9 +465,9 @@ public class DButtonControlService extends Service {
     /**
      * 得到当前经纬度并开启线程去反向地理编码
      */
-    public void getLocation(Location location) {
-        String latitude = location.getLatitude() + "";
-        String longitude = location.getLongitude() + "";
+    public void getLocation(LatLng location) {
+        String latitude = location.latitude + "";
+        String longitude = location.longitude + "";
         String url = "http://api.map.baidu.com/geocoder/v2/?ak=KGdMNn9tb2GivRZ4SP2BuWy9fkfyLKB6" +
                 "&callback=renderReverse&location=" + latitude + "," + longitude + "&output=json&pois=0";
         new LocationAsyncTask(url).execute();

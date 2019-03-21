@@ -2,19 +2,21 @@ package com.sfr.dbuttonapplication.entity;
 
 import android.location.Location;
 
+import com.baidu.mapapi.model.LatLng;
+
 /**
  * Created by ASUS on 2018/12/3.
  */
 
 public class PointData {
-    private Location location;
+    private LatLng location;
     private long pointTime;
 
-    public Location getLocation() {
+    public LatLng getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LatLng location) {
         this.location = location;
     }
 

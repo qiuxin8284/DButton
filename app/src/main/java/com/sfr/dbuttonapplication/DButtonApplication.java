@@ -29,17 +29,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.CoordinateConverter;
 import com.icen.blelibrary.BleBaseApplication;
 import com.icen.blelibrary.config.BleLibsConfig;
 //import com.iflytek.cloud.SpeechConstant;
 //import com.iflytek.cloud.SpeechUtility;
 import com.jordan.httplibrary.HttpUtils;
 import com.jordan.httplibrary.utils.CommonUtils;
+import com.linkingdigital.ble.BeadsAudio;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -121,6 +125,7 @@ public class DButtonApplication extends BleBaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mInstance = this;
         context = getApplicationContext();
         createSpeech();
@@ -223,7 +228,7 @@ public class DButtonApplication extends BleBaseApplication {
     }
 
 
-    public BDLocationListener mBDListener = new MyLocationListenner();
+    public BDAbstractLocationListener mBDListener = new MyLocationListenner();
 
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
@@ -251,11 +256,12 @@ public class DButtonApplication extends BleBaseApplication {
         return client;
     }
 
-    public class MyLocationListenner implements BDLocationListener {
+    public class MyLocationListenner extends BDAbstractLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            android.util.Log.e("SlashInfo", "JordanApplication::onReceiveLocation::info= " + location.toString());
+            //mAddress = mAddress + "\n" + "地址= "+location.getAddress().address+"，坐标：" + location.getLongitude()+"."+location.getLatitude();
+            android.util.Log.e("SlashInfo", "JordanApplication::onReceiveLocation::info= "+location.getAddress().address+"，坐标：" + location.getLongitude()+"."+location.getLatitude());
             if (location == null)
                 return;
             bdLocation = location;
@@ -523,6 +529,7 @@ public class DButtonApplication extends BleBaseApplication {
     private boolean isAlarmUp = false;
     private boolean isOverUp = false;
     private ArrayList<PointData> mPointDataList = new ArrayList<PointData>();
+    //public static String mAddress = "";
     public LocationListener locationListener = new LocationListener() {
         // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
         @Override
@@ -549,11 +556,23 @@ public class DButtonApplication extends BleBaseApplication {
         @Override
         public void onLocationChanged(Location location) {
             if (hasStart) {
+                String string = "纬度为：" + location.getLatitude() + ",经度为："
+                        + location.getLongitude();
+                android.util.Log.e("SlashInfo", string);
+                CoordinateConverter converter = new CoordinateConverter();
+                converter.from(CoordinateConverter.CoordType.GPS);
+                converter.coord(new LatLng(location.getLatitude(), location.getLongitude()));
+                LatLng latLng = converter.convert();
+                String string1 = "+++纬度为：" + latLng.latitude + ",经度为："
+                        + latLng.longitude;
+                Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
+                                + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:"+ string1);
+
                 PointData pointData = new PointData();
                 Date date = new Date(System.currentTimeMillis());
                 String pointTime = simpleDateFormat.format(date);
                 pointData.setPointTime(date.getTime());
-                pointData.setLocation(location);
+                pointData.setLocation(latLng);
                 //定义log方法在后台打印
                 Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
                         + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|location:" + location.toString() + "|Date获取当前日期时间:" + pointTime);
@@ -602,7 +621,7 @@ public class DButtonApplication extends BleBaseApplication {
 //                    getManager().readCharacteristic(UUID_CHAR_DATA);
 //                    Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++sleep2");
 //                    try {
-//                        Thread.sleep(500);
+//                        Thread.sleep(3000);
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
@@ -1011,8 +1030,8 @@ public class DButtonApplication extends BleBaseApplication {
                     //pointDataObject.put("latitude", String.valueOf(pointData.getLocation().getLatitude()));
                     //pointDataObject.put("longitude", String.valueOf(pointData.getLocation().getLongitude()));
                     //pointJsonObject.put("point", pointDataObject);
-                    pointdata = String.valueOf(pointData.getLocation().getLongitude()) + "|" + String.valueOf(pointData.
-                            getLocation().getLatitude()) + "|" + String.valueOf(pointData.getPointTime());
+                    pointdata = String.valueOf(pointData.getLocation().longitude) + "|" + String.valueOf(pointData.
+                            getLocation().latitude) + "|" + String.valueOf(pointData.getPointTime());
                     if (TextUtils.isEmpty(point)) {
                         point = pointdata;
                     } else {
@@ -1069,17 +1088,17 @@ public class DButtonApplication extends BleBaseApplication {
                 } else {
                     Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++lastLocation == null");
                     if(mPointDataList.size()!=0){
-                        Location location = mPointDataList.get(mPointDataList.size()-1).getLocation();
+                        LatLng location = mPointDataList.get(mPointDataList.size()-1).getLocation();
                         if (TextUtils.isEmpty(point)) {
                             Date date = new Date(System.currentTimeMillis());
                             long pointTime = date.getTime();
-                            point = String.valueOf(location.getLongitude()) + "|" + location.getLatitude()
+                            point = String.valueOf(location.longitude) + "|" + location.latitude
                                     + "|" + String.valueOf(pointTime);
                         }
 
                         alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
                                 String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
-                                "经度" + location.getLongitude() +".纬度"+ location.getLatitude(), mRecord, String.valueOf(mDuration));
+                                "经度" + location.longitude +".纬度"+ location.latitude, mRecord, String.valueOf(mDuration));
                         Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++alarmIDData.isOK():" + alarmIDData.isOK());
                         //用JSON的形式保存轨迹Point值
                         if (alarmIDData.isOK()) {
@@ -1093,7 +1112,7 @@ public class DButtonApplication extends BleBaseApplication {
                         if (DButtonApplication.mContactList.size() > 0) {
                             for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                                 String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                                String message = "我在经度" + location.getLongitude() +".纬度"+ location.getLatitude() +
+                                String message = "我在经度" + location.longitude +".纬度"+ location.latitude +
                                         "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
                                         simpleDateFormat.format(new Date(endTimeLong));
                                 sendSMS(phoneNumber, message);
@@ -1124,8 +1143,8 @@ public class DButtonApplication extends BleBaseApplication {
             for (int i = 0; i < mPointDataList.size(); i++) {
                 String pointdata = "";
                 PointData pointData = mPointDataList.get(i);
-                pointdata = String.valueOf(pointData.getLocation().getLongitude()) + "|" + String.valueOf(pointData.
-                        getLocation().getLatitude()) + "|" + String.valueOf(pointData.getPointTime());
+                pointdata = String.valueOf(pointData.getLocation().longitude) + "|" + String.valueOf(pointData.
+                        getLocation().latitude) + "|" + String.valueOf(pointData.getPointTime());
                 if (TextUtils.isEmpty(point)) {
                     point = pointdata;
                 } else {

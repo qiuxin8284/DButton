@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
@@ -22,7 +23,7 @@ import com.sfr.dbuttonapplication.utils.ToastUtils;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView mTvCancel,mTvAccpet;
+    private TextView mTvCancel,mTvAccpet,mTvContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void setView() {
         mTvAccpet = (TextView)findViewById(R.id.tv_common_accpet);
         mTvCancel = (TextView)findViewById(R.id.tv_common_cancel);
+        mTvContent = (TextView)findViewById(R.id.tv_register_content);
+        //mTvContent.setText(DButtonApplication.mAddress);
     }
 
     private void setListener() {

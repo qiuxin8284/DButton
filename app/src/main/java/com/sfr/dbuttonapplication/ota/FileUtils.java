@@ -97,6 +97,7 @@ public class FileUtils {
     }
 
     public void beginWriteFile(String filePath,String wavFilePath) {
+        BeadsAudio.mp3_start(4000);
         this.file_path = Environment.getExternalStorageDirectory() + File.separator + filePath;
         this.wav_file_path = Environment.getExternalStorageDirectory() + File.separator + wavFilePath;
         mIsRecording = true;
