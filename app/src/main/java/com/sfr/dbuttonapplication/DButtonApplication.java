@@ -748,7 +748,7 @@ public class DButtonApplication extends BleBaseApplication {
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
         //监视地理位置变化
-        locationManager.requestLocationUpdates(locationProvider, 10000, 0, locationListener);
+        locationManager.requestLocationUpdates(locationProvider, 1000, 0, locationListener);
     }
     private void startRemark() {
         //开始录音
@@ -782,7 +782,7 @@ public class DButtonApplication extends BleBaseApplication {
         }
         Location location = locationManager.getLastKnownLocation(locationProvider);
         //监视地理位置变化
-        locationManager.requestLocationUpdates(locationProvider, 10000, 0, locationListener);
+        locationManager.requestLocationUpdates(locationProvider, 1000, 0, locationListener);
     }
 
     private MediaRecorder mediaRecorder;

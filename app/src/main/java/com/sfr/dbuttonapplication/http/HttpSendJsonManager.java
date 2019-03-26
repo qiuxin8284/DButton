@@ -219,7 +219,7 @@ public class HttpSendJsonManager {
 
 
             String synchronousResult = DButtonApplication.httpManager.SyncHttpCommunicate(url, json);
-            LogUtil.println("upload synchronousResult:" + synchronousResult);
+            LogUtil.println(":" + synchronousResult);
             return HttpAnalyJsonManager.mediaUpload(synchronousResult, context);
         } catch (Exception e) {
             HttpAnalyJsonManager.lastError = context.getResources().getString(R.string.network_connection_failed);

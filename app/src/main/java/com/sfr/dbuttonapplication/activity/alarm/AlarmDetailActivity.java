@@ -129,29 +129,38 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                             LayoutInflater inflater = getLayoutInflater();
                             View view = inflater.inflate(R.layout.point_view, null);
                             TextView txt = (TextView) view.findViewById(R.id.tv_point_time);
+
                             try {
                                 if (i == pointData.length - 1) {
                                     Date date = new Date(Long.valueOf(data[2]));
                                     String pointTime = simpleDateFormat.format(date);
                                     txt.setText(pointTime);
+
+                                    Bitmap viewBitmap = PictureUtil.getViewBitmap(view);
+                                    BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(viewBitmap);
+                                    OverlayOptions option = new MarkerOptions()
+                                            .position(ll)
+                                            .icon(bitmap);
+                                    mBaiduMap.addOverlay(option);
                                 }
                             } catch (Exception e) {
                                 txt.setText(data[2]);
                                 e.printStackTrace();
                             }
-                            Bitmap viewBitmap = PictureUtil.getViewBitmap(view);
-                            //构建Marker图标
-                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(viewBitmap);
-                            //构建Marker图标
-//                            BitmapDescriptor bitmap = BitmapDescriptorFactory
-//                                    .fromResource(R.mipmap.img_voice_index);
-                            //构建MarkerOption，用于在地图上添加Marker
-                            OverlayOptions option = new MarkerOptions()
-                                    .position(ll)
-                                    .icon(bitmap);
-                            //在地图上添加Marker，并显示
-                            mBaiduMap.addOverlay(option);
                             points.add(ll);
+//                            Bitmap viewBitmap = PictureUtil.getViewBitmap(view);
+//                            //构建Marker图标
+//                            BitmapDescriptor bitmap = BitmapDescriptorFactory.fromBitmap(viewBitmap);
+//                            //构建Marker图标
+////                            BitmapDescriptor bitmap = BitmapDescriptorFactory
+////                                    .fromResource(R.mipmap.img_voice_index);
+//                            //构建MarkerOption，用于在地图上添加Marker
+//                            OverlayOptions option = new MarkerOptions()
+//                                    .position(ll)
+//                                    .icon(bitmap);
+//                            //在地图上添加Marker，并显示
+//                            mBaiduMap.addOverlay(option);
+//                            points.add(ll);
                         }
 
                         if (points.size() > 1) {
