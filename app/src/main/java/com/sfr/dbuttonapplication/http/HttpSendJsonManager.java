@@ -859,7 +859,8 @@ public class HttpSendJsonManager {
             mainJSONObject.put("duration", duration);
 //            sendJSONObject.put("main", mainJSONObject);
 //            sendJSONObject.put("biz", getBiz());
-            LogUtil.println("alarmUp json" + mainJSONObject.toString());
+            LogUtil.println("alarmUpdate alarmUp json" + mainJSONObject.toString());
+            LogUtil.println("alarmUpdate AlarmUpTask record = "+record);
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
             sendJSONObject.put("data", Base64.encode(request_proto.toByteArray()));
 

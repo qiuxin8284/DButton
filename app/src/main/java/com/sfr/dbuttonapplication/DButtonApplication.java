@@ -117,6 +117,7 @@ public class DButtonApplication extends BleBaseApplication {
     public static HashMap<String, DButtonData> mDButtonMap;
     public static String mNowMac = "";
     private FileUtils mFileUtils;
+    private boolean mFilterContent = false;
     /**
      * 全局Context，原理是因为Application类是应用最先运行的，所以在我们的代码调用时，该值已经被赋值过了
      */
@@ -389,6 +390,8 @@ public class DButtonApplication extends BleBaseApplication {
         if (is_success) {
             canConnect = true;
             mHandler.sendEmptyMessage(10);
+            mFilterContent = true;
+            mHandler.sendEmptyMessageDelayed(11,1000);
         } else {
             //当如果是蓝牙未支持的情况下则不理会？
             //需要给个间隔时间，例如5S
@@ -413,34 +416,39 @@ public class DButtonApplication extends BleBaseApplication {
         if (is_success && null != ble_value && ble_value.length > 0) {
             if (ble_value.length == 1) {
                 String value = Arrays.toString(ble_value);
-                if (value.contains("1")) {//单击
-                    //单击无效化处理
-                    if(!isAlarmUp) {
-                        mHandler.sendEmptyMessage(10);
-                        if (hasStart) {
-                            Log.e(TAG, "onChChange() +++单击 启动结束");
-                            //结束轨迹
-                            hasStart = false;
-                            //结束录音
-                            stop();
-                        }else{
-                            Log.e(TAG, "onChChange() +++单击 无效处理");
+                if(mFilterContent){
+                    Log.e(TAG, "onChChange() +++有按键过滤");
+                }else {
+                    Log.e(TAG, "onChChange() +++无按键过滤");
+                    if (value.contains("1")) {//单击
+                        //单击无效化处理
+                        if (!isAlarmUp) {
+                            mHandler.sendEmptyMessage(10);
+                            if (hasStart) {
+                                Log.e(TAG, "onChChange() +++单击 启动结束");
+                                //结束轨迹
+                                hasStart = false;
+                                //结束录音
+                                stop();
+                            } else {
+                                Log.e(TAG, "onChChange() +++单击 无效处理");
+                            }
+                        } else {
+                            Log.e(TAG, "onChChange() +++单击 恢复录音");
+                            getManager().writeCharacteristic(UUIDCHAR_CTRL, 27,
+                                    BluetoothGattCharacteristic.FORMAT_UINT8);
                         }
-                    }else{
-                        Log.e(TAG, "onChChange() +++单击 恢复录音");
-                        getManager().writeCharacteristic(UUIDCHAR_CTRL, 27,
-                                BluetoothGattCharacteristic.FORMAT_UINT8);
+                    } else if (value.contains("2")) {//双击
+                        Log.e(TAG, "onChChange() +++双击");
+                        Intent intent = new Intent();
+                        intent.setAction(DButtonApplication.ACTION_DOUBLE_CLICK);
+                        sendBroadcast(intent);
+                    } else if (value.contains("3")) {//长按
+                        Log.e(TAG, "onChChange() +++长按");
+                        Intent intent = new Intent();
+                        intent.setAction(DButtonApplication.ACTION_LONG_CLICK);
+                        sendBroadcast(intent);
                     }
-                } else if (value.contains("2")) {//双击
-                    Log.e(TAG, "onChChange() +++双击");
-                    Intent intent = new Intent();
-                    intent.setAction(DButtonApplication.ACTION_DOUBLE_CLICK);
-                    sendBroadcast(intent);
-                } else if (value.contains("3")) {//长按
-                    Log.e(TAG, "onChChange() +++长按");
-                    Intent intent = new Intent();
-                    intent.setAction(DButtonApplication.ACTION_LONG_CLICK);
-                    sendBroadcast(intent);
                 }
             } else {
                 String value = Arrays.toString(ble_value);
@@ -921,6 +929,9 @@ public class DButtonApplication extends BleBaseApplication {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
+                case 11:
+                    mFilterContent = false;
+                    break;
                 case 10:
                     getManager().writeCharacteristic(UUIDCHAR_CTRL, 2,
                             BluetoothGattCharacteristic.FORMAT_UINT8);
@@ -949,6 +960,7 @@ public class DButtonApplication extends BleBaseApplication {
                 case UPLOAD_SUCCESS:
                     android.util.Log.e("uploadData", "mUploadData:" + mUploadData.toString());
                     mRecord = mUploadData.getUrl();
+                    LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord：" + mRecord);
                     break;
                 case UPLOAD_FALSE:
                     //ToastUtils.shortToast(DButtonApplication.this, getResources().getString(R.string.upload_photo_false));
@@ -970,6 +982,7 @@ public class DButtonApplication extends BleBaseApplication {
                 case ALARM_UPDATE_FALSE:
                     //ToastUtils.shortToast(DButtonControlService.this, getResources().getString(R.string.upload_photo_false));
                     if (isAlarmUp) {
+                        Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask3");
                         mAlarmUpdateTask = new AlarmUpdateTask();
                         mAlarmUpdateTask.execute("");
                     }
@@ -1059,6 +1072,7 @@ public class DButtonApplication extends BleBaseApplication {
                     Log.e(TAG, "onReceive() AlarmUpTask getLocation++++++++++++++++++++++city:" + city + "|district:" + district);
                     Log.e(TAG, "onReceive() AlarmUpTask getLocation++++++++++++++++++++++street:" + lastLocation.getAddress().street + "|address:" + lastLocation.getAddress().address);
 
+                    LogUtil.println("alarmUpdate AlarmUpTask mRecord = "+mRecord);
                     alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
                             String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
                             lastLocation.getAddress().address, mRecord, String.valueOf(mDuration));
@@ -1067,6 +1081,7 @@ public class DButtonApplication extends BleBaseApplication {
                     if (alarmIDData.isOK()) {
                         mPointDataList = new ArrayList<PointData>();
                         mRecord = "";
+                        LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空2");
                         mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                     } else {
                         mHandler.sendEmptyMessage(ALARM_UP_FALSE);
@@ -1104,6 +1119,7 @@ public class DButtonApplication extends BleBaseApplication {
                         if (alarmIDData.isOK()) {
                             mPointDataList = new ArrayList<PointData>();
                             mRecord = "";
+                            LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空3");
                             mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                         } else {
                             mHandler.sendEmptyMessage(ALARM_UP_FALSE);
@@ -1162,6 +1178,7 @@ public class DButtonApplication extends BleBaseApplication {
                 }
             }
             boolean isOk;
+            LogUtil.println("alarmUpdate AlarmUpdateTask mRecord：" + mRecord);
             if (isOverUp) {
                 isOk = HttpSendJsonManager.alarmUpdate(DButtonApplication.this, alarmIDData.getId()
                         , "2", point, mRecord);
@@ -1174,6 +1191,7 @@ public class DButtonApplication extends BleBaseApplication {
             if (isOk) {
                 mPointDataList = new ArrayList<PointData>();
                 mRecord = "";
+                LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空1");
                 if (isOverUp) {
                     isAlarmUp = false;
                     Log.e(TAG, "onReceive() AlarmUpdateTask+++++++++++++++++++++++彻底结束警报流程");
@@ -1309,6 +1327,7 @@ public class DButtonApplication extends BleBaseApplication {
             mUploadData = HttpSendJsonManager.uploadMedia(DButtonApplication.this,
                     HttpSendJsonManager.UPLOAD_TPYE_HEAD, fileName, mFile, String.valueOf(mDuration));
             if (mUploadData.isOK()) {
+                mHandler.sendEmptyMessage(UPLOAD_SUCCESS);
                 Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++mUploadData.isOK():" + mUploadData.isOK());
                 if (!isAlarmUp) {
                     Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpTask");
@@ -1321,7 +1340,7 @@ public class DButtonApplication extends BleBaseApplication {
                         start();
                     }
                 } else {
-                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask");
+                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask1");
                     //执行单击的修改方法
                     mAlarmUpdateTask = new AlarmUpdateTask();
                     mAlarmUpdateTask.execute("");
@@ -1330,8 +1349,8 @@ public class DButtonApplication extends BleBaseApplication {
                         start();
                     }
                 }
-                mHandler.sendEmptyMessage(UPLOAD_SUCCESS);
             } else {
+                mHandler.sendEmptyMessage(UPLOAD_FALSE);
                 if (!isAlarmUp) {
                     Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpTask");
                     //执行长按的上传方法
@@ -1343,7 +1362,7 @@ public class DButtonApplication extends BleBaseApplication {
                         start();
                     }
                 }else{
-                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask");
+                    Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask2");
                     //执行单击的修改方法
                     mAlarmUpdateTask = new AlarmUpdateTask();
                     mAlarmUpdateTask.execute("");
@@ -1352,7 +1371,6 @@ public class DButtonApplication extends BleBaseApplication {
                         start();
                     }
                 }
-                mHandler.sendEmptyMessage(UPLOAD_FALSE);
             }
             return null;
         }
