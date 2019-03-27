@@ -389,9 +389,12 @@ public class DButtonApplication extends BleBaseApplication {
         LogUtil.println("DButtonApplication::onConnectDevice::is_success= " + is_success);
         if (is_success) {
             canConnect = true;
-            mHandler.sendEmptyMessage(10);
-            mFilterContent = true;
-            mHandler.sendEmptyMessageDelayed(11,1000);
+            if(isFristConnect) {
+                Log.e(TAG, "mHandler onConnectDevice 震动触发");
+                mHandler.sendEmptyMessageDelayed(10, 2000);
+                mFilterContent = true;
+                mHandler.sendEmptyMessageDelayed(11, 1000);
+            }
         } else {
             //当如果是蓝牙未支持的情况下则不理会？
             //需要给个间隔时间，例如5S
@@ -405,6 +408,12 @@ public class DButtonApplication extends BleBaseApplication {
 
         getManager().initialNotification(UUID_CHAR_READ);
 
+        if(isFristConnect){
+            Log.e(TAG, "mHandler onConnectDevice 主动连接 is_success:"+is_success);
+            isFristConnect = false;
+        }else{
+            Log.e(TAG, "mHandler onConnectDevice 重新连接 is_success:"+is_success);
+        }
     }
 
     //onReadCh::result= true uuid= 00007101-0000-544c-8267-4c4442454144 ble_value= [1]
@@ -423,6 +432,7 @@ public class DButtonApplication extends BleBaseApplication {
                     if (value.contains("1")) {//单击
                         //单击无效化处理
                         if (!isAlarmUp) {
+                            Log.e(TAG, "mHandler onChChange 单击 震动触发");
                             mHandler.sendEmptyMessage(10);
                             if (hasStart) {
                                 Log.e(TAG, "onChChange() +++单击 启动结束");
@@ -511,7 +521,9 @@ public class DButtonApplication extends BleBaseApplication {
         getManager().startScanDevice();
     }
 
+    private boolean isFristConnect = false;
     public void connectToDevice() {
+        isFristConnect = true;
         LogUtil.println("DButtonApplication::connectToDevice::mNowMac= " + mNowMac);
         getManager().connectToDevice(true, mNowMac);
 //        mDButtonMap = new HashMap<String, DButtonData>();
@@ -696,6 +708,7 @@ public class DButtonApplication extends BleBaseApplication {
                     //结束录音
                     stop();
                     if (isAlarmUp) {
+                        Log.e(TAG, "mHandler DButtonControlReceiver 单击 震动触发");
                         mHandler.sendEmptyMessage(10);
                         Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++有报警触发下结束");
                         //修改接口轨迹上传、录音上传，通过ID修改-此处需要判断录音文件是否上传成功
@@ -933,6 +946,7 @@ public class DButtonApplication extends BleBaseApplication {
                     mFilterContent = false;
                     break;
                 case 10:
+                    Log.e(TAG, "mHandler 震动触发");
                     getManager().writeCharacteristic(UUIDCHAR_CTRL, 2,
                             BluetoothGattCharacteristic.FORMAT_UINT8);
                     break;

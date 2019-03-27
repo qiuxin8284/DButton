@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +19,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsMessage;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -39,6 +45,7 @@ import com.sfr.dbuttonapplication.utils.APPUtils;
 import com.sfr.dbuttonapplication.utils.ToastUtils;
 import com.sfr.dbuttonapplication.utils.ViewColor;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -63,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case ALARM_UP_FALSE:
                     ToastUtils.shortToast(MainActivity.this, HttpAnalyJsonManager.lastError);
+                    break;
+                case 22:
+                    stopRingTone();
                     break;
             }
         }
@@ -97,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDButtonControlReceiver = new DButtonControlReceiver();//广播接受者实例
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(DButtonApplication.ACTION_LONG_CLICK);
+        intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
         registerReceiver(mDButtonControlReceiver, intentFilter);
         //showAlarmConfirmDialogDialog();
 
@@ -279,9 +290,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String action = intent.getAction();
             if (action.equals(DButtonApplication.ACTION_LONG_CLICK)) {
                 showAlarmConfirmDialogDialog();
+            } else if (action.equals("android.provider.Telephony.SMS_RECEIVED")) {
+                Object[] object = (Object[]) intent.getExtras().get("pdus");
+                StringBuilder sb = new StringBuilder();
+                for (Object pdus : object) {
+                    byte[] pdusMsg = (byte[]) pdus;
+                    SmsMessage sms = SmsMessage.createFromPdu(pdusMsg);
+                    String mobile = sms.getOriginatingAddress();//发送短信的手机号
+                    String content = sms.getMessageBody();//短信内容
+                    //下面是获取短信的发送时间
+                    Date date = new Date(sms.getTimestampMillis());
+                    String date_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+                    //追加到StringBuilder中
+                    sb.append("短信发送号码：" + mobile + "\n短信内容：" + content + "\n发送时间：" + date_time + "\n\n");
+
+                    //如果找到对应关键内容，直接触发刷新list和响铃--响铃多久合适
+                    if(content.contains("出事了")) {
+                        PlayRingTone(MainActivity.this, RingtoneManager.TYPE_RINGTONE);
+                        intent = new Intent();
+                        intent.setAction(DButtonApplication.ACTION_ALARM_LIST_UPDATE);
+                        sendBroadcast(intent);
+                        mHandler.sendEmptyMessageDelayed(22,5000);
+                    }
+                }
+                Log.e("StringBuilder", "sb() +++:" + sb.toString());
             }
         }
     }
+    //RingtoneManager.TYPE_NOTIFICATION;   通知声音
+    //RingtoneManager.TYPE_ALARM;  警告
+    //RingtoneManager.TYPE_RINGTONE; 铃声
+
+    /**
+     * 获取的是铃声的Uri
+     * @param ctx
+     * @param type
+     * @return
+     */
+    public Uri getDefaultRingtoneUri(Context ctx, int type) {
+
+        return RingtoneManager.getActualDefaultRingtoneUri(ctx, type);
+
+    }
+    /**
+     * 获取的是铃声相应的Ringtone
+     * @param ctx
+     * @param type
+     */
+    public Ringtone getDefaultRingtone(Context ctx, int type) {
+
+        return RingtoneManager.getRingtone(ctx,
+                RingtoneManager.getActualDefaultRingtoneUri(ctx, type));
+
+    }
+    private MediaPlayer mMediaPlayer;
+    /**
+     * 播放铃声
+     * @param ctx
+     * @param type
+     */
+    public void PlayRingTone(Context ctx,int type){
+        mMediaPlayer = MediaPlayer.create(ctx,
+                getDefaultRingtoneUri(ctx,type));
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
+
+    }
+    public void stopRingTone(){
+        mMediaPlayer.stop();
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
