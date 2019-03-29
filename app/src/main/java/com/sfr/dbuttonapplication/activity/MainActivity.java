@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent = new Intent();
                         intent.setAction(DButtonApplication.ACTION_ALARM_LIST_UPDATE);
                         sendBroadcast(intent);
-                        mHandler.sendEmptyMessageDelayed(22,5000);
+                        mHandler.sendEmptyMessageDelayed(22,30000);
                     }
                 }
                 Log.e("StringBuilder", "sb() +++:" + sb.toString());
