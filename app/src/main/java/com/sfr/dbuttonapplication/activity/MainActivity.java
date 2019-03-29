@@ -38,6 +38,7 @@ import com.sfr.dbuttonapplication.activity.fragment.ContactFragment;
 import com.sfr.dbuttonapplication.activity.fragment.MyFragment;
 import com.sfr.dbuttonapplication.activity.widget.AlarmConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.CustomViewPager;
+import com.sfr.dbuttonapplication.activity.widget.ReceiveAlarmDialog;
 import com.sfr.dbuttonapplication.entity.AlarmIDData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
 import com.sfr.dbuttonapplication.http.HttpSendJsonManager;
@@ -280,6 +281,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private ReceiveAlarmDialog mReceiveAlarmDialog;
+
+    private Button mBtnDialog;
+
+    public void showReceiveAlarmDialog() {
+        if (mReceiveAlarmDialog == null) {
+            mReceiveAlarmDialog = new ReceiveAlarmDialog(MainActivity.this,
+                    R.style.share_dialog);
+            mReceiveAlarmDialog.show();
+            Window window = mReceiveAlarmDialog.getWindow();
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.alpha = 1f;
+            window.setAttributes(lp);
+            mBtnDialog = (Button) window.findViewById(R.id.dialog_receive_alarm);
+            mBtnDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent intent = new Intent();
+//                    intent.setAction(DButtonApplication.ACTION_ONE_CLICK);
+//                    sendBroadcast(intent);
+                    mHandler.sendEmptyMessage(22);
+                    mReceiveAlarmDialog.dismiss();
+                }
+            });
+            mReceiveAlarmDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+                        return true;
+
+                    } else if (keyCode == KeyEvent.KEYCODE_SEARCH) {
+                        return true;
+                    } else {
+                        return false; //默认返回 false
+                    }
+                }
+            });
+            mReceiveAlarmDialog.setCancelable(false);
+        } else {
+            mReceiveAlarmDialog.show();
+        }
+    }
 
     private DButtonControlReceiver mDButtonControlReceiver;
 
@@ -310,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent = new Intent();
                         intent.setAction(DButtonApplication.ACTION_ALARM_LIST_UPDATE);
                         sendBroadcast(intent);
-                        mHandler.sendEmptyMessageDelayed(22,30000);
+                        showReceiveAlarmDialog();
                     }
                 }
                 Log.e("StringBuilder", "sb() +++:" + sb.toString());

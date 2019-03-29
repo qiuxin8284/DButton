@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">DButton</string>
 
+    <string name="receive_alarm_ing">有人向您求助</string>
+    <string name="receive_alarm_ing_hint">按下查看键后您便可以在求助中心得到求助者的详细位置和现场声音</string>
     <string name="alarm_up_ing">求助已生效</string>
     <string name="stop">停止</string>
+    <string name="look">查看</string>
     <string name="alarm_up_ing_hint">按下停止键后将中止对所有联系人的求助</string>
     <string name="dbutton_explain">了解小D</string>
     <string name="my_alarm_detail">我的警报详情</string>
