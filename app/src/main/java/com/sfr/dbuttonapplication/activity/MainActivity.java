@@ -331,10 +331,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.e("StringBuilder", "onReceive  intent.getAction()："+ intent.getAction());
             String action = intent.getAction();
             if (action.equals(DButtonApplication.ACTION_LONG_CLICK)) {
                 showAlarmConfirmDialogDialog();
             } else if (action.equals("android.provider.Telephony.SMS_RECEIVED")) {
+                Log.e("StringBuilder", "SMS_RECEIVED");
                 Object[] object = (Object[]) intent.getExtras().get("pdus");
                 StringBuilder sb = new StringBuilder();
                 for (Object pdus : object) {
@@ -350,11 +352,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     //如果找到对应关键内容，直接触发刷新list和响铃--响铃多久合适
                     if(content.contains("出事了")) {
+                        Log.e("StringBuilder", "出事了");
                         PlayRingTone(MainActivity.this, RingtoneManager.TYPE_RINGTONE);
+                        Log.e("StringBuilder", "出事了1");
                         intent = new Intent();
                         intent.setAction(DButtonApplication.ACTION_ALARM_LIST_UPDATE);
                         sendBroadcast(intent);
+                        Log.e("StringBuilder", "出事了2");
                         showReceiveAlarmDialog();
+                        Log.e("StringBuilder", "出事了3");
                     }
                 }
                 Log.e("StringBuilder", "sb() +++:" + sb.toString());

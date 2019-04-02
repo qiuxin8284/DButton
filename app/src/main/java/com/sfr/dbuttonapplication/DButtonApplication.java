@@ -262,7 +262,7 @@ public class DButtonApplication extends BleBaseApplication {
         @Override
         public void onReceiveLocation(BDLocation location) {
             //mAddress = mAddress + "\n" + "地址= "+location.getAddress().address+"，坐标：" + location.getLongitude()+"."+location.getLatitude();
-            android.util.Log.e("SlashInfo", "JordanApplication::onReceiveLocation::info= "+location.getAddress().address+"，坐标：" + location.getLongitude()+"."+location.getLatitude());
+            android.util.Log.e("SlashInfo", "JordanApplication::onReceiveLocation::info= " + location.getAddress().address + "，坐标：" + location.getLongitude() + "." + location.getLatitude());
             if (location == null)
                 return;
             bdLocation = location;
@@ -323,56 +323,56 @@ public class DButtonApplication extends BleBaseApplication {
                 " class= " + device_class + " RSSI= " + device_rssi +
                 " content= " + Arrays.toString(broadcast_content));
 
-            if (!mDButtonMap.containsKey(device_mac) && !TextUtils.isEmpty(device_mac)) {
-                if ("BEADS-1".equals(device_name)) {
-                    //添加到List-后续加名称过滤
-                    DButtonData dButtonData = new DButtonData();
-                    dButtonData.setBroadcast_content(broadcast_content);
-                    dButtonData.setDevice_class(device_class);
-                    dButtonData.setDevice_mac(device_mac);
-                    dButtonData.setDevice_name(device_name);
-                    dButtonData.setDevice_rssi(device_rssi);
-                    mDButtonMap.put(device_mac, dButtonData);
-                    LogUtil.println("DButtonApplication::onLEScan::mDButtonMap= " + dButtonData.toString());
-                }
-            }
-            LogUtil.println("DButtonApplication::onLEScan::mDButtonMap.size= " + mDButtonMap.size());
-            //-------------------发广播----------------
-            if (BleLibsConfig.LE_SCAN_PROCESS_BEGIN == scan_process) {//指示扫描开始
-                //Toast.makeText(this, "扫描开始", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent();
-                intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
-                intent.putExtra("scan_process", scan_process);
-                sendBroadcast(intent);
-            } else if (BleLibsConfig.LE_SCAN_PROCESS_DOING == scan_process) {//扫描进行中
-                Intent intent = new Intent();
-                intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
-                intent.putExtra("scan_process", scan_process);
-                sendBroadcast(intent);
-
-            } else if (BleLibsConfig.LE_SCAN_PROCESS_END == scan_process) {//扫描结束
-                Intent intent = new Intent();
-                intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
-                intent.putExtra("scan_process", scan_process);
-                sendBroadcast(intent);
-                //Toast.makeText(this, "扫描结束", Toast.LENGTH_LONG).show();
-                LogUtil.println("DButtonApplication::onLEScan::mNowMac= " + mNowMac);
-                //判断是否包含mNowMac
-                if (mDButtonMap.containsKey(mNowMac)) {
-                    //尝试连接
-                    getManager().connectToDevice(true, mNowMac);
-                } else {
-                    //提示用户
-                    //Toast.makeText(this, "绑定DBUTTON不在身边", Toast.LENGTH_LONG).show();
-                    intent = new Intent();
-                    intent.setAction(DButtonApplication.ACTION_DBUTTON_CONNECT);
-                    intent.putExtra("is_success", false);
-                    sendBroadcast(intent);
-                }
-            } else {//扫描发生异常
-                //Toast.makeText(this, "Scan exception. finish this process", Toast.LENGTH_LONG).show();
+        if (!mDButtonMap.containsKey(device_mac) && !TextUtils.isEmpty(device_mac)) {
+            if ("BEADS-1".equals(device_name)) {
+                //添加到List-后续加名称过滤
+                DButtonData dButtonData = new DButtonData();
+                dButtonData.setBroadcast_content(broadcast_content);
+                dButtonData.setDevice_class(device_class);
+                dButtonData.setDevice_mac(device_mac);
+                dButtonData.setDevice_name(device_name);
+                dButtonData.setDevice_rssi(device_rssi);
+                mDButtonMap.put(device_mac, dButtonData);
+                LogUtil.println("DButtonApplication::onLEScan::mDButtonMap= " + dButtonData.toString());
             }
         }
+        LogUtil.println("DButtonApplication::onLEScan::mDButtonMap.size= " + mDButtonMap.size());
+        //-------------------发广播----------------
+        if (BleLibsConfig.LE_SCAN_PROCESS_BEGIN == scan_process) {//指示扫描开始
+            //Toast.makeText(this, "扫描开始", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
+            intent.putExtra("scan_process", scan_process);
+            sendBroadcast(intent);
+        } else if (BleLibsConfig.LE_SCAN_PROCESS_DOING == scan_process) {//扫描进行中
+            Intent intent = new Intent();
+            intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
+            intent.putExtra("scan_process", scan_process);
+            sendBroadcast(intent);
+
+        } else if (BleLibsConfig.LE_SCAN_PROCESS_END == scan_process) {//扫描结束
+            Intent intent = new Intent();
+            intent.setAction(DButtonApplication.ACTION_DBUTTON_SCAN);
+            intent.putExtra("scan_process", scan_process);
+            sendBroadcast(intent);
+            //Toast.makeText(this, "扫描结束", Toast.LENGTH_LONG).show();
+            LogUtil.println("DButtonApplication::onLEScan::mNowMac= " + mNowMac);
+            //判断是否包含mNowMac
+            if (mDButtonMap.containsKey(mNowMac)) {
+                //尝试连接
+                getManager().connectToDevice(true, mNowMac);
+            } else {
+                //提示用户
+                //Toast.makeText(this, "绑定DBUTTON不在身边", Toast.LENGTH_LONG).show();
+                intent = new Intent();
+                intent.setAction(DButtonApplication.ACTION_DBUTTON_CONNECT);
+                intent.putExtra("is_success", false);
+                sendBroadcast(intent);
+            }
+        } else {//扫描发生异常
+            //Toast.makeText(this, "Scan exception. finish this process", Toast.LENGTH_LONG).show();
+        }
+    }
 
 
     //}
@@ -389,7 +389,7 @@ public class DButtonApplication extends BleBaseApplication {
         LogUtil.println("DButtonApplication::onConnectDevice::is_success= " + is_success);
         if (is_success) {
             canConnect = true;
-            if(isFristConnect) {
+            if (isFristConnect) {
                 Log.e(TAG, "mHandler onConnectDevice 震动触发");
                 mHandler.sendEmptyMessageDelayed(10, 2000);
                 mFilterContent = true;
@@ -408,26 +408,26 @@ public class DButtonApplication extends BleBaseApplication {
 
         getManager().initialNotification(UUID_CHAR_READ);
 
-        if(isFristConnect){
-            Log.e(TAG, "mHandler onConnectDevice 主动连接 is_success:"+is_success);
+        if (isFristConnect) {
+            Log.e(TAG, "mHandler onConnectDevice 主动连接 is_success:" + is_success);
             isFristConnect = false;
-        }else{
-            Log.e(TAG, "mHandler onConnectDevice 重新连接 is_success:"+is_success);
+        } else {
+            Log.e(TAG, "mHandler onConnectDevice 重新连接 is_success:" + is_success);
         }
     }
 
     //onReadCh::result= true uuid= 00007101-0000-544c-8267-4c4442454144 ble_value= [1]
     @Override
     public void onChChange(boolean is_success, String ch_uuid, byte[] ble_value) {
-        Log.e(TAG, "onChChange() +++is_success："+is_success+"|ch_uuid："+ch_uuid);
-        Log.e(TAG, "onChChange() +++ble_value："+ble_value);
+        Log.e(TAG, "onChChange() +++is_success：" + is_success + "|ch_uuid：" + ch_uuid);
+        Log.e(TAG, "onChChange() +++ble_value：" + ble_value);
         super.onChChange(is_success, ch_uuid, ble_value);
         if (is_success && null != ble_value && ble_value.length > 0) {
             if (ble_value.length == 1) {
                 String value = Arrays.toString(ble_value);
-                if(mFilterContent){
+                if (mFilterContent) {
                     Log.e(TAG, "onChChange() +++有按键过滤");
-                }else {
+                } else {
                     Log.e(TAG, "onChChange() +++无按键过滤");
                     if (value.contains("1")) {//单击
                         //单击无效化处理
@@ -522,6 +522,7 @@ public class DButtonApplication extends BleBaseApplication {
     }
 
     private boolean isFristConnect = false;
+
     public void connectToDevice() {
         isFristConnect = true;
         LogUtil.println("DButtonApplication::connectToDevice::mNowMac= " + mNowMac);
@@ -586,7 +587,7 @@ public class DButtonApplication extends BleBaseApplication {
                 String string1 = "+++纬度为：" + latLng.latitude + ",经度为："
                         + latLng.longitude;
                 Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
-                                + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:"+ string1);
+                        + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:" + string1);
 
                 PointData pointData = new PointData();
                 Date date = new Date(System.currentTimeMillis());
@@ -691,7 +692,7 @@ public class DButtonApplication extends BleBaseApplication {
                         //上传录音文件
 //                        mUploadTask = new UploadTask();
 //                        mUploadTask.execute("");
-                        if(mUploadTask!=null)
+                        if (mUploadTask != null)
                             mUploadTask.cancel(true);
                         mUploadTask = null;
                         mUploadTask = new UploadTask();
@@ -771,6 +772,7 @@ public class DButtonApplication extends BleBaseApplication {
         //监视地理位置变化
         locationManager.requestLocationUpdates(locationProvider, 1000, 0, locationListener);
     }
+
     private void startRemark() {
         //开始录音
         start();
@@ -811,11 +813,10 @@ public class DButtonApplication extends BleBaseApplication {
     String fileName = "dbutton.mp3";
 
 
-
     protected void fristStart() {
-        fileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".mp3";
-        String wavFileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".wav";
-        mFileUtils.beginWriteFile(fileName,wavFileName);
+        fileName = "dbutton" + datenamesdf.format(new Date().getTime()) + ".mp3";
+        String wavFileName = "dbutton" + datenamesdf.format(new Date().getTime()) + ".wav";
+        mFileUtils.beginWriteFile(fileName, wavFileName);
         getManager().writeCharacteristic(UUIDCHAR_CTRL, 27,
                 BluetoothGattCharacteristic.FORMAT_UINT8);
 //        try {
@@ -860,13 +861,14 @@ public class DButtonApplication extends BleBaseApplication {
 //            e.printStackTrace();
 //        }
     }
+
     /**
      * 开始录音
      */
     protected void start() {
-        fileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".mp3";
-        String wavFileName ="dbutton"+datenamesdf.format(new Date().getTime()) + ".wav";
-        mFileUtils.beginWriteFile(fileName,wavFileName);
+        fileName = "dbutton" + datenamesdf.format(new Date().getTime()) + ".mp3";
+        String wavFileName = "dbutton" + datenamesdf.format(new Date().getTime()) + ".wav";
+        mFileUtils.beginWriteFile(fileName, wavFileName);
         getManager().writeCharacteristic(UUIDCHAR_CTRL, 24,
                 BluetoothGattCharacteristic.FORMAT_UINT8);
 //        try {
@@ -1072,7 +1074,7 @@ public class DButtonApplication extends BleBaseApplication {
                 }
 
                 BDLocation lastLocation = client.getLastKnownLocation();
-                if(lastLocation==null) lastLocation = bdLocation;
+                if (lastLocation == null) lastLocation = bdLocation;
                 if (lastLocation != null) {
                     Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++lastLocation != null");
                     if (TextUtils.isEmpty(point)) {
@@ -1086,7 +1088,7 @@ public class DButtonApplication extends BleBaseApplication {
                     Log.e(TAG, "onReceive() AlarmUpTask getLocation++++++++++++++++++++++city:" + city + "|district:" + district);
                     Log.e(TAG, "onReceive() AlarmUpTask getLocation++++++++++++++++++++++street:" + lastLocation.getAddress().street + "|address:" + lastLocation.getAddress().address);
 
-                    LogUtil.println("alarmUpdate AlarmUpTask mRecord = "+mRecord);
+                    LogUtil.println("alarmUpdate AlarmUpTask mRecord = " + mRecord);
                     alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
                             String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
                             lastLocation.getAddress().address, mRecord, String.valueOf(mDuration));
@@ -1116,8 +1118,8 @@ public class DButtonApplication extends BleBaseApplication {
                     //getLocation(lastLocation);
                 } else {
                     Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++lastLocation == null");
-                    if(mPointDataList.size()!=0){
-                        LatLng location = mPointDataList.get(mPointDataList.size()-1).getLocation();
+                    if (mPointDataList.size() != 0) {
+                        LatLng location = mPointDataList.get(mPointDataList.size() - 1).getLocation();
                         if (TextUtils.isEmpty(point)) {
                             Date date = new Date(System.currentTimeMillis());
                             long pointTime = date.getTime();
@@ -1127,7 +1129,7 @@ public class DButtonApplication extends BleBaseApplication {
 
                         alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
                                 String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
-                                "经度" + location.longitude +".纬度"+ location.latitude, mRecord, String.valueOf(mDuration));
+                                "经度" + location.longitude + ".纬度" + location.latitude, mRecord, String.valueOf(mDuration));
                         Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++alarmIDData.isOK():" + alarmIDData.isOK());
                         //用JSON的形式保存轨迹Point值
                         if (alarmIDData.isOK()) {
@@ -1142,7 +1144,7 @@ public class DButtonApplication extends BleBaseApplication {
                         if (DButtonApplication.mContactList.size() > 0) {
                             for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                                 String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                                String message = "我在经度" + location.longitude +".纬度"+ location.latitude +
+                                String message = "我在经度" + location.longitude + ".纬度" + location.latitude +
                                         "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
                                         simpleDateFormat.format(new Date(endTimeLong));
                                 sendSMS(phoneNumber, message);
@@ -1154,6 +1156,48 @@ public class DButtonApplication extends BleBaseApplication {
                         }
                     }
                     //需要自动获取当前地址信息，组成一个location进行传输
+                    else {
+                        if (ActivityCompat.checkSelfPermission(DButtonApplication.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(DButtonApplication.this,
+                                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                        }else {
+                            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            if (TextUtils.isEmpty(point)) {
+                                Date date = new Date(System.currentTimeMillis());
+                                long pointTime = date.getTime();
+                                point = String.valueOf(location.getLongitude()) + "|" + location.getLatitude()
+                                        + "|" + String.valueOf(pointTime);
+                            }
+                            alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
+                                    String.valueOf(nowTimeLong), String.valueOf(endTimeLong),
+                                    "经度" + location.getLongitude() + ".纬度" + location.getLatitude(), mRecord, String.valueOf(mDuration));
+                            Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++alarmIDData.isOK():" + alarmIDData.isOK());
+                            //用JSON的形式保存轨迹Point值
+                            if (alarmIDData.isOK()) {
+                                mPointDataList = new ArrayList<PointData>();
+                                mRecord = "";
+                                LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空3");
+                                mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
+                            } else {
+                                mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+                            }
+
+                            if (DButtonApplication.mContactList.size() > 0) {
+                                for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+                                    String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+                                    String message = "我在经度" + location.getLongitude() + ".纬度" + location.getLatitude() +
+                                            "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
+                                            simpleDateFormat.format(new Date(endTimeLong));
+                                    sendSMS(phoneNumber, message);
+                                    if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+                                        //拨打电话
+                                        callPhone(phoneNumber);//同时背景播放音乐
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             return null;
@@ -1183,7 +1227,7 @@ public class DButtonApplication extends BleBaseApplication {
             }
             if (TextUtils.isEmpty(point)) {
                 BDLocation lastLocation = client.getLastKnownLocation();
-                if(lastLocation==null) lastLocation = bdLocation;
+                if (lastLocation == null) lastLocation = bdLocation;
                 if (lastLocation != null) {
                     Date date = new Date(System.currentTimeMillis());
                     String pointTime = simpleDateFormat.format(date);
@@ -1209,7 +1253,7 @@ public class DButtonApplication extends BleBaseApplication {
                 if (isOverUp) {
                     isAlarmUp = false;
                     Log.e(TAG, "onReceive() AlarmUpdateTask+++++++++++++++++++++++彻底结束警报流程");
-                }else {
+                } else {
                     mHandler.sendEmptyMessageDelayed(ALARM_UPDATE_SUCCESS, 30000);
                 }
             } else {
@@ -1375,7 +1419,7 @@ public class DButtonApplication extends BleBaseApplication {
                         //继续开始录音
                         start();
                     }
-                }else{
+                } else {
                     Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask2");
                     //执行单击的修改方法
                     mAlarmUpdateTask = new AlarmUpdateTask();

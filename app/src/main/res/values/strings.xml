@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DButton</string>
+    <string name="app_name">小D</string>
 
     <string name="receive_alarm_ing">有人向您求助</string>
     <string name="receive_alarm_ing_hint">按下查看键后您便可以在求助中心得到求助者的详细位置和现场声音</string>
