@@ -33,7 +33,7 @@
             android:textColor="@color/white"
             android:textSize="30dp"
             android:text="@string/look"
-            android:background="@mipmap/alarm_cancel" />
+            android:background="@mipmap/alarm_receive" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

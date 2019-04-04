@@ -341,7 +341,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         mTitleBack = (ImageView) findViewById(R.id.title_back_btn);
         mIvUpdate = (ImageView) findViewById(R.id.title_right_btn);
         mIvUpdate.setVisibility(View.VISIBLE);
-        mIvUpdate.setBackgroundResource(R.mipmap.img_update);
+        mIvUpdate.setBackgroundResource(R.drawable.update_btn_selector);
         mActivityTitle.setText(getResources().getString(R.string.detail));
         mTitleExtra.setVisibility(View.GONE);
         mTitleBack.setVisibility(View.VISIBLE);
