@@ -17,11 +17,16 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -39,8 +44,13 @@ import com.baidu.mapapi.model.LatLng;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
+import com.sfr.dbuttonapplication.activity.EditUserDataActivity;
+import com.sfr.dbuttonapplication.activity.adapter.ChooesListAdapter;
+import com.sfr.dbuttonapplication.activity.adapter.VoiceListAdapter;
+import com.sfr.dbuttonapplication.activity.widget.ChooesListDialog;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
 import com.sfr.dbuttonapplication.activity.widget.MapChooesDialog;
+import com.sfr.dbuttonapplication.activity.widget.VoiceListDialog;
 import com.sfr.dbuttonapplication.entity.AlarmData;
 import com.sfr.dbuttonapplication.entity.Music;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
@@ -74,12 +84,14 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     public static final String BROADCAST_NEXT_MUSIC = "com.music.nextmusic";
     private ImageView mIvStart, mIvGoMap, mIvHead;//iv_voice_start;
     private SeekBar mSeekBar;//sb_voice;
-    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation, mTvUserName, mTvCurMusic;
+    private TextView mTvBeginTime, mTvEndTime, mTvAddress, mTvLocation, mTvUserName;
+    private Button mBtnCurMusic;
     private MapView mMapView;
     private BaiduMap mBaiduMap;
     private static final int ALARM_DETAIL_SUCCESS = 3;
     private static final int ALARM_DETAIL_FALSE = 4;
-    List<Music> musicList = new ArrayList<Music>();
+    private static final int ALARM_VOICE_CHOOSE = 5;
+    ArrayList<Music> musicList = new ArrayList<Music>();
     boolean isFrist = true;
     boolean isPause = false;
     boolean isPhonePause = false;
@@ -193,6 +205,20 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     LoadingProgressDialog.Dissmiss();
                     ToastUtils.shortToast(AlarmDetailActivity.this, HttpAnalyJsonManager.lastError);
                     break;
+                case ALARM_VOICE_CHOOSE:
+                    int position = (Integer) msg.obj;
+                    mBtnCurMusic.setText(String.valueOf(position));
+                    mVoiceListDialog.dismiss();
+
+                    isFrist = false;
+                    isPause = true;
+                    mIvStart.setBackgroundResource(R.mipmap.img_voice_stop);
+                    Intent intent = new Intent(AlarmDetailActivity.this, MusicPlayer.class);
+                    intent.putExtra("state", PLAY_STATE_play);
+                    intent.putExtra("position", position-1);
+                    intent.putExtra("function", -1);
+                    startService(intent);
+                    break;
             }
         }
     };
@@ -302,7 +328,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setView() {
-        mTvCurMusic = (TextView) findViewById(R.id.tv_cur_music);
+        mBtnCurMusic = (Button) findViewById(R.id.btn_cur_music);
         mTvUserName = (TextView) findViewById(R.id.tv_user_name);
         mTvUserName.setText(mName);
         mIvHead = (ImageView) findViewById(R.id.iv_your_head);
@@ -330,6 +356,7 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
     private void setListener() {
         mIvStart.setOnClickListener(this);
         mIvGoMap.setOnClickListener(this);
+        mBtnCurMusic.setOnClickListener(this);
     }
 
     private TextView mActivityTitle, mTitleExtra;
@@ -433,6 +460,9 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             case R.id.iv_go_map:
                 showMapDialog();
                 break;
+            case R.id.btn_cur_music:
+                showListDialog(ALARM_VOICE_CHOOSE);
+                break;
         }
 
     }
@@ -520,14 +550,14 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(BROADCAST_REFRESH_PROGRESS)) {
                 curMusic = intent.getIntExtra("curMusic", 0);
-                mTvCurMusic.setText(String.valueOf(curMusic + 1));
+                mBtnCurMusic.setText(String.valueOf(curMusic + 1));
                 curPercent = intent.getIntExtra("curPercent", 0);
                 position = intent.getIntExtra("position", 0);
                 secondaryProgress = intent.getIntExtra("secondaryProgress", 0);
                 mHandler.sendEmptyMessage(1);
             } else if (intent.getAction().equals(BROADCAST_CHANGE_MUSIC)) {
                 curMusic = intent.getIntExtra("curMusic", 0);
-                mTvCurMusic.setText(String.valueOf(curMusic + 1));
+                mBtnCurMusic.setText(String.valueOf(curMusic + 1));
                 curPercent = intent.getIntExtra("curPercent", 0);
                 position = intent.getIntExtra("position", 0);
                 secondaryProgress = intent.getIntExtra("secondaryProgress", 0);
@@ -535,13 +565,53 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
             } else if (intent.getAction().equals(BROADCAST_NEXT_MUSIC)) {
                 Log.i("onStart", "------------BROADCAST_NEXT_MUSIC----------------");
                 curMusic = intent.getIntExtra("curMusic", 0);
-                mTvCurMusic.setText(String.valueOf(curMusic + 1));
+                mBtnCurMusic.setText(String.valueOf(curMusic + 1));
                 mHandler.sendEmptyMessage(3);
             }
         }
 
     }
 
+
+    private VoiceListDialog mVoiceListDialog;
+    private TextView mTvTitle;
+    private LinearLayout mLlCancel,mLlNew;
+    private ListView mLvChooes;
+
+    public void showListDialog(int what) {
+        mVoiceListDialog = new VoiceListDialog(AlarmDetailActivity.this,
+                R.style.share_dialog);
+        mVoiceListDialog.show();
+        Window window = mVoiceListDialog.getWindow();
+        //设置Dialog从窗体底部弹出
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 60;//设置Dialog距离底部的距离
+        lp.alpha = 1f;
+        window.setAttributes(lp);
+        mTvTitle = (TextView) window.findViewById(R.id.voice_list_title);
+        mTvTitle.setText(getResources().getString(R.string.choose_voice));
+        mLlCancel = (LinearLayout) window.findViewById(R.id.voice_list_cancel);
+        mLlCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mVoiceListDialog.dismiss();
+            }
+        });
+        mLlNew = (LinearLayout) window.findViewById(R.id.voice_list_new);
+        mLlNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message = new Message();
+                message.what = ALARM_VOICE_CHOOSE;
+                message.obj = musicList.size();
+                mHandler.sendMessage(message);
+            }
+        });
+        mLvChooes = (ListView) window.findViewById(R.id.lv_voice_list);
+        VoiceListAdapter mVoiceListAdapter = new VoiceListAdapter(AlarmDetailActivity.this,musicList,mHandler,what);
+        mLvChooes.setAdapter(mVoiceListAdapter);
+    }
 
     private void showMapDialog() {
         final Dialog dialog = new MapChooesDialog(AlarmDetailActivity.this,

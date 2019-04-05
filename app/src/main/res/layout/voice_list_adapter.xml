@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_mic"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:src="@mipmap/img_mic"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/iv_mic"
+            android:layout_marginBottom="13dp"
+            android:layout_marginLeft="15dp"
+            android:text="5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/contact_text" />
+        <CheckBox
+            android:id="@+id/cb_chooes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="@drawable/check_box_button" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="26dp"
+        android:background="@color/line_four" />
+</LinearLayout>

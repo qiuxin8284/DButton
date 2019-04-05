@@ -68,6 +68,7 @@
     <string name="learn_dbutton">了解小D</string>
     <string name="login">登录</string>
     <string name="logout_account">退出登录</string>
+    <string name="choose_voice">选择录音</string>
 
     <string name="new_user_register">注册新用户</string>
     <string name="go_next">下一步</string>
@@ -75,6 +76,7 @@
     <string name="common_accpet">同意</string>
     <string name="common_confirm">确定</string>
     <string name="common_cancel">取消</string>
+    <string name="common_new_voice">最新一段</string>
     <string name="register_hint">请慎重使用注册的电话号码，注册成功后号码将不可以修改</string>
     <string name="register_success">注册成功</string>
     <string name="user_data_input_hint">用户信息关键填写</string>
