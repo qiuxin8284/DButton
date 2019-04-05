@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.adapter.MyAlarmListAdapter;
+import com.sfr.dbuttonapplication.activity.fragment.AlarmFragment;
+import com.sfr.dbuttonapplication.activity.widget.LoadListView;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
 import com.sfr.dbuttonapplication.entity.AlarmListData;
 import com.sfr.dbuttonapplication.entity.AlarmResultData;
@@ -33,8 +35,8 @@ import com.sfr.dbuttonapplication.utils.ToastUtils;
 
 import java.util.ArrayList;
 
-public class MyAlarmListActivity extends AppCompatActivity implements View.OnClickListener {
-    private ListView mLvAlarm;
+public class MyAlarmListActivity extends AppCompatActivity implements View.OnClickListener,LoadListView.ILoadListener2 {
+    private LoadListView mLvAlarm;
     private MyAlarmListAdapter mAlarmListAdapter;
     private ArrayList<AlarmResultData> mAlarmList;
     private TextView mTvEmptyHint;
@@ -42,6 +44,7 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
     private static final int ALARM_LIST_FALSE = 2;
     private static final int ALARM_DEL_SUCCESS = 3;
     private static final int ALARM_DEL_FALSE = 4;
+    private static final int ALARM_LIST_UPDATE_SUCCESS = 5;
     private RelativeLayout mLlEditBottom;
     private LinearLayout mBtnChoice, mBtnDelete ,mBtnCancel;
     private TextView mTvChoice;
@@ -50,6 +53,26 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
+                case ALARM_LIST_UPDATE_SUCCESS:
+                    LoadingProgressDialog.Dissmiss();
+                    if (mAlarmListData != null) {
+                        //DButtonApplication.mAddAlarm = false;
+                        mAlarmList.addAll(mAlarmListData.getAlarmDataArrayList());
+                        if (mAlarmList.size() == 0) {
+                            mTvEmptyHint.setVisibility(View.VISIBLE);
+                        } else {
+                            mTvEmptyHint.setVisibility(View.GONE);
+                        }
+                        mAlarmListAdapter.setServiceList(mAlarmList);
+                    }
+                    /**
+                     * 设置默认显示为Listview最后一行
+                     */
+//                    mLvAlarm.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+//                    mLvAlarm.setStackFromBottom(true);
+                    //通知listView加载完毕，底部布局消失
+                    mLvAlarm.loadComplete();
+                    break;
                 case ALARM_LIST_SUCCESS:
                     LoadingProgressDialog.Dissmiss();
                     if (mAlarmListData != null) {
@@ -151,7 +174,8 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
         mBtnCancel = (LinearLayout) findViewById(R.id.btn_cancel);
         mTvChoice = (TextView) findViewById(R.id.tv_choice_all);
         mAlarmList = new ArrayList<AlarmResultData>();
-        mLvAlarm = (ListView) findViewById(R.id.lv_alarm);
+        mLvAlarm = (LoadListView) findViewById(R.id.lv_alarm);
+        mLvAlarm.setInterface(this);
         mAlarmListAdapter = new MyAlarmListAdapter(MyAlarmListActivity.this, mAlarmList);
         mLvAlarm.setAdapter(mAlarmListAdapter);
         mTvEmptyHint = (TextView) findViewById(R.id.tv_alarm_empty_hint);
@@ -210,6 +234,7 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
     }
 
     private AlarmListTask mAlarmListTask;
+    private UpdateAlarmListTask mUpdateAlarmListTask;
     private AlarmListData mAlarmListData;
 
     @Override
@@ -247,12 +272,35 @@ public class MyAlarmListActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
+    public void onLoad() {
+        pageNo = pageNo+1;
+        mUpdateAlarmListTask = new UpdateAlarmListTask();
+        mUpdateAlarmListTask.execute("");
+    }
+
+    private int pageNo = 1;
+    private int pageSize = 10;
+    private class UpdateAlarmListTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            mAlarmListData = HttpSendJsonManager.myGetAlarmList(MyAlarmListActivity.this,String.valueOf(pageNo),String.valueOf(pageSize));
+            if (mAlarmListData.isOK()) {
+                mHandler.sendEmptyMessage(ALARM_LIST_UPDATE_SUCCESS);
+            } else {
+                mHandler.sendEmptyMessage(ALARM_LIST_FALSE);
+            }
+            return null;
+        }
+    }
     private class AlarmListTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.mySendAlarmList(MyAlarmListActivity.this, "1", "1000");
-            if (mAlarmListData.isOK()) {
+            pageNo = 1;
+            mAlarmListData = HttpSendJsonManager.mySendAlarmList(MyAlarmListActivity.this,String.valueOf(pageNo),String.valueOf(pageSize));
+                if (mAlarmListData.isOK()) {
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);
             } else {
                 mHandler.sendEmptyMessage(ALARM_LIST_FALSE);
