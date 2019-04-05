@@ -52,6 +52,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.login.LoadingActivity"
+            android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
