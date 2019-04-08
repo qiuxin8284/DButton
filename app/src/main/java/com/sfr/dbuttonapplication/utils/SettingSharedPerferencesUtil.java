@@ -4,6 +4,21 @@ import android.content.Context;
 
 public class SettingSharedPerferencesUtil {
 
+    public static final String FRIST_START_PATH = "filepath_frist_start_";
+    private static final String FRIST_START_CONFIG = "config_frist_start_";
+    public static boolean SetFristStartValue(Context context, String friststart) {
+        return PrefsHelper.save(context, FRIST_START_CONFIG, friststart, FRIST_START_PATH);
+    }
+
+    public static String GetFristStartValueConfig(Context context) {
+        String friststart = "";
+        try {
+            friststart = PrefsHelper.read(context, FRIST_START_CONFIG, FRIST_START_PATH);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return friststart;
+    }
     public static final String CLICK_ITEM_CHOICE_POSITION_PATH = "filepath_click_item_choice_position_";
     private static final String CLICK_ITEM_CHOICE_POSITION_CONFIG = "config_click_item_choice_position_";
 

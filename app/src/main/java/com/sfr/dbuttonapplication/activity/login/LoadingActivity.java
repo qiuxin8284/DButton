@@ -74,16 +74,24 @@ public class LoadingActivity extends AppCompatActivity implements PermissionInte
     }
 
     private void login() {
-        String token = SettingSharedPerferencesUtil.GetLoginTokenValue(LoadingActivity.this);
-        if (TextUtils.isEmpty(token)) {
-            Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
+        if(SettingSharedPerferencesUtil.GetFristStartValueConfig(LoadingActivity.this).equals("")){
+            //开启引导页流程
+            SettingSharedPerferencesUtil.SetFristStartValue(LoadingActivity.this,"true");
+            Intent intent = new Intent(LoadingActivity.this, FirstLoadActivity.class);
             startActivity(intent);
             finish();
-        } else {
-            //尝试自动登陆
-            DButtonApplication.USER_TOKEN = token;
-            mLoginTask = new LoginTask();
-            mLoginTask.execute("");
+        }else {
+            String token = SettingSharedPerferencesUtil.GetLoginTokenValue(LoadingActivity.this);
+            if (TextUtils.isEmpty(token)) {
+                Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                //尝试自动登陆
+                DButtonApplication.USER_TOKEN = token;
+                mLoginTask = new LoginTask();
+                mLoginTask.execute("");
+            }
         }
     }
 
