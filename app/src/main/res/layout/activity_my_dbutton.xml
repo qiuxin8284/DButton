@@ -166,8 +166,7 @@
                             android:id="@+id/iv_battrty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:src="@mipmap/battrty_100" />
+                            android:layout_gravity="center_vertical" />
 
                         <TextView
                             android:id="@+id/tv_battrty"

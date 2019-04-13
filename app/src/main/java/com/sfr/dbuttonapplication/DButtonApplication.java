@@ -1106,8 +1106,10 @@ public class DButtonApplication extends BleBaseApplication {
                     if (DButtonApplication.mContactList.size() > 0) {
                         for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                             String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                            String message = "我在" + lastLocation.getAddress().address + "出事了,出事时间是" + simpleDateFormat.format(
-                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
+//                            String message = "我在" + lastLocation.getAddress().address + "出事了,出事时间是" + simpleDateFormat.format(
+//                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
+                            String message = getSmsText(lastLocation.getAddress().address,simpleDateFormat.format(
+                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
                             sendSMS(phoneNumber, message);
                             if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
                                 //拨打电话
@@ -1144,9 +1146,12 @@ public class DButtonApplication extends BleBaseApplication {
                         if (DButtonApplication.mContactList.size() > 0) {
                             for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                                 String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                                String message = "我在经度" + location.longitude + ".纬度" + location.latitude +
-                                        "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
-                                        simpleDateFormat.format(new Date(endTimeLong));
+//                                String message = "我在经度" + location.longitude + ".纬度" + location.latitude +
+//                                        "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
+//                                        simpleDateFormat.format(new Date(endTimeLong));
+                                String message = getSmsText("经度" + location.longitude + ".纬度" + location.latitude
+                                        ,simpleDateFormat.format(
+                                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
                                 sendSMS(phoneNumber, message);
                                 if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
                                     //拨打电话
@@ -1186,9 +1191,12 @@ public class DButtonApplication extends BleBaseApplication {
                             if (DButtonApplication.mContactList.size() > 0) {
                                 for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                                     String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                                    String message = "我在经度" + location.getLongitude() + ".纬度" + location.getLatitude() +
-                                            "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
-                                            simpleDateFormat.format(new Date(endTimeLong));
+//                                    String message = "我在经度" + location.getLongitude() + ".纬度" + location.getLatitude() +
+//                                            "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
+//                                            simpleDateFormat.format(new Date(endTimeLong));
+                                    String message = getSmsText("经度" + location.getLongitude() + ".纬度" + location.getLatitude()
+                                            ,simpleDateFormat.format(
+                                            new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
                                     sendSMS(phoneNumber, message);
                                     if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
                                         //拨打电话
@@ -1323,8 +1331,10 @@ public class DButtonApplication extends BleBaseApplication {
                 if (DButtonApplication.mContactList.size() > 0) {
                     for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
                         String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
-                        String message = "我在" + city + district + "出事了,出事时间是" + simpleDateFormat.format(
-                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
+//                        String message = "我在" + city + district + "出事了,出事时间是" + simpleDateFormat.format(
+//                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
+                        String message = getSmsText(city+district,simpleDateFormat.format(
+                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
                         sendSMS(phoneNumber, message);
                         if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
                             //拨打电话
@@ -1434,4 +1444,11 @@ public class DButtonApplication extends BleBaseApplication {
         }
     }
 
+    private String getSmsText(String address,String time){
+        String name = "我";
+        if(DButtonApplication.mUserData!=null)name = DButtonApplication.mUserData.getName();
+        String smsText = "您好！"+name+"现在遇到了非常紧急的情况需要您的帮助，" +
+                "TA现在的位置在"+address+"附近。详情请立即下载小D（APP下载链接），此条为系统发送勿回！";
+        return smsText;
+    }
 }

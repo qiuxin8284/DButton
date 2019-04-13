@@ -416,10 +416,13 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                 }
             } else if (action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
                 String battery = intent.getStringExtra("battery");
+                LogUtil.println("DButtonApplication::DButtonReceiver::battery1= " + battery);
                 if(!TextUtils.isEmpty(battery)&&battery.length()>0) {
                     battery = battery.substring(1, battery.length() - 1);
+                    LogUtil.println("DButtonApplication::DButtonReceiver::battery2= " + battery);
                     int batteryInt = Integer.parseInt(battery);
                     mTvBattery.setText(batteryInt + "%");
+                    LogUtil.println("DButtonApplication::DButtonReceiver::batteryInt= " + batteryInt);
                     if(batteryInt<10){
                         mIvBattery.setBackgroundResource(R.mipmap.battrty_0);
                     }else if(batteryInt<30){
