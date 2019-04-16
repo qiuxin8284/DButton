@@ -1121,12 +1121,15 @@ public class DButtonApplication extends BleBaseApplication {
                 } else {
                     Log.e(TAG, "onReceive() AlarmUpTask+++++++++++++++++++++++lastLocation == null");
                     if (mPointDataList.size() != 0) {
+                        Log.e(TAG, "onReceive() point------------------------1");
                         LatLng location = mPointDataList.get(mPointDataList.size() - 1).getLocation();
+                        Log.e(TAG, "onReceive() point11:" + point);
                         if (TextUtils.isEmpty(point)) {
                             Date date = new Date(System.currentTimeMillis());
                             long pointTime = date.getTime();
                             point = String.valueOf(location.longitude) + "|" + location.latitude
                                     + "|" + String.valueOf(pointTime);
+                            Log.e(TAG, "onReceive() point12:" + point);
                         }
 
                         alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
@@ -1162,17 +1165,20 @@ public class DButtonApplication extends BleBaseApplication {
                     }
                     //需要自动获取当前地址信息，组成一个location进行传输
                     else {
+                        Log.e(TAG, "onReceive() point------------------------2");
                         if (ActivityCompat.checkSelfPermission(DButtonApplication.this, Manifest.permission.ACCESS_FINE_LOCATION)
                                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(DButtonApplication.this,
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                         }else {
                             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            Log.e(TAG, "onReceive() point21:" + point);
                             if (TextUtils.isEmpty(point)) {
                                 Date date = new Date(System.currentTimeMillis());
                                 long pointTime = date.getTime();
                                 point = String.valueOf(location.getLongitude()) + "|" + location.getLatitude()
                                         + "|" + String.valueOf(pointTime);
+                                Log.e(TAG, "onReceive() point22:" + point);
                             }
                             alarmIDData = HttpSendJsonManager.alarmUp(DButtonApplication.this, contactIds, point,
                                     String.valueOf(nowTimeLong), String.valueOf(endTimeLong),

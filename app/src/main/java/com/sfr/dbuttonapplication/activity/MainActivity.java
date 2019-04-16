@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mLvDialog;
 
     public void showAlarmConfirmDialogDialog() {
-        if (mAlarmConfirmDialog == null) {
+//        if (mAlarmConfirmDialog == null) {
             mAlarmConfirmDialog = new AlarmConfirmDialog(MainActivity.this,
                     R.style.share_dialog);
             mAlarmConfirmDialog.show();
@@ -276,9 +276,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             mAlarmConfirmDialog.setCancelable(false);
-        } else {
-            mAlarmConfirmDialog.show();
-        }
+//        } else {
+//            mAlarmConfirmDialog.show();
+//        }
     }
 
     private ReceiveAlarmDialog mReceiveAlarmDialog;

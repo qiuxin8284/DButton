@@ -106,6 +106,10 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                     LoadingProgressDialog.Dissmiss();
                     ToastUtils.shortToast(MyDButtonActivity.this, HttpAnalyJsonManager.lastError);
                     break;
+                case 10:
+                    DButtonApplication.mInstance.readBatteryShow();
+                    break;
+
             }
         }
     };
@@ -413,6 +417,7 @@ public class MyDButtonActivity extends AppCompatActivity implements View.OnClick
                     mRLNoBind.setVisibility(View.GONE);
                     mRLHasBind.setVisibility(View.VISIBLE);
                     mRLNoConnect.setVisibility(View.GONE);
+                    mHandler.sendEmptyMessageDelayed(10,1000);
                 }
             } else if (action.equals(DButtonApplication.ACTION_DBUTTON_BATTERY)) {
                 String battery = intent.getStringExtra("battery");
