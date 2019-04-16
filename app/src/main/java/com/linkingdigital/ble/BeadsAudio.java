@@ -23,9 +23,8 @@ public class BeadsAudio {
 	 *   mp3 encoded data
 	 * */
 	public native static byte[] mp3_stop();
-	public native static void   mp3_start(int sr);
+	public native static void   mp3_init(int sr); // set sample rate, default sample rate is 8000
 	public native static byte[] adpcm_to_mp3(byte[] adpcm_data);
-	public native static byte[] g729_to_mp3(byte[] adpcm_data);
 
 	static {
 		System.loadLibrary("beads_jni");

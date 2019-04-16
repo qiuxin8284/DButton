@@ -140,6 +140,7 @@ public class DButtonApplication extends BleBaseApplication {
         SDKInitializer.initialize(this);
         client = new LocationClient(this);
         mFileUtils = new FileUtils(this);
+        BeadsAudio.mp3_init(4000);
         //client.registerLocationListener( myListener );    //注册监听函数
         initLocation();
         client.start();
@@ -990,7 +991,6 @@ public class DButtonApplication extends BleBaseApplication {
                         //如果后续考虑录音30S上传
                         //那么则是在这个地方不断的调用uploadTask方法而不是调用修改方法，通过isAlarmUp判断/不是用hasStart，然后分别执行不同的加载方法。
                         //修改接口轨迹上传、录音上传，通过ID修改-此处需要判断录音文件是否上传成功
-                        stop();
                         mUploadTask = new UploadTask();
                         mUploadTask.execute("");
                     }
@@ -1414,6 +1414,7 @@ public class DButtonApplication extends BleBaseApplication {
                         start();
                     }
                 } else {
+                    stop();
                     Log.e(TAG, "onReceive() UploadTask+++++++++++++++++++++++AlarmUpdateTask1");
                     //执行单击的修改方法
                     mAlarmUpdateTask = new AlarmUpdateTask();
@@ -1442,7 +1443,7 @@ public class DButtonApplication extends BleBaseApplication {
                     mAlarmUpdateTask.execute("");
                     if (!isOverUp) {
                         //继续开始录音
-                        start();
+                        //start();
                     }
                 }
             }
