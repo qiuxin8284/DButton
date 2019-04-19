@@ -157,7 +157,8 @@ public class AlarmFragment extends Fragment implements LoadListView.ILoadListene
         DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
                 getActivity(), DButtonApplication.mUserData.getPhone());
         LogUtil.println("DButtonApplication::Login::mNowMac= " + DButtonApplication.mNowMac);
-        DButtonApplication.mInstance.startScanDevice();
+        DButtonApplication.mInstance.connectToDevice();
+        //DButtonApplication.mInstance.startScanDevice();
     }
 
     public void setView(View view) {

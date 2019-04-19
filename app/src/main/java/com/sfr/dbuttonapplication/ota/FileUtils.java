@@ -96,6 +96,9 @@ public class FileUtils {
         mIsRecording = false;
     }
 
+    public static void writeLog(String tag, String string1) {
+    }
+
     public void beginWriteFile(String filePath,String wavFilePath) {
         this.file_path = Environment.getExternalStorageDirectory() + File.separator + filePath;
         this.wav_file_path = Environment.getExternalStorageDirectory() + File.separator + wavFilePath;

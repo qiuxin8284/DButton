@@ -230,6 +230,7 @@ public class HttpSendJsonManager {
 
 
     private static final String CHARSET = "utf-8"; //编码格式
+
     public static UploadData uploadMedia(Context context, int type, String name, String file, String time) {
         String filePath = Environment.getExternalStorageDirectory() + "/" + name;
         UploadData uploadData = new UploadData();
@@ -265,7 +266,7 @@ public class HttpSendJsonManager {
             sb.append(BOUNDARY);
             sb.append(LINE_END);
             sb.append("Content-Disposition: form-data; name=\"type\""
-                    + LINE_END+LINE_END);
+                    + LINE_END + LINE_END);
             sb.append("3" + LINE_END);
             sb.append(PREFIX);
             sb.append(BOUNDARY);
@@ -856,11 +857,12 @@ public class HttpSendJsonManager {
             mainJSONObject.put("endTime", endTime);
             mainJSONObject.put("address", address);
             mainJSONObject.put("record", record);
+            mainJSONObject.put("source", DButtonApplication.ALARM_TYPE_SOURCE);
             mainJSONObject.put("duration", duration);
 //            sendJSONObject.put("main", mainJSONObject);
 //            sendJSONObject.put("biz", getBiz());
             LogUtil.println("alarmUpdate alarmUp json" + mainJSONObject.toString());
-            LogUtil.println("alarmUpdate AlarmUpTask record = "+record);
+            LogUtil.println("alarmUpdate AlarmUpTask record = " + record);
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
             sendJSONObject.put("data", Base64.encode(request_proto.toByteArray()));
 
@@ -921,6 +923,7 @@ public class HttpSendJsonManager {
 
             mainJSONObject.put("pageNo", pageNo);
             mainJSONObject.put("pageSize", pageSize);
+            mainJSONObject.put("source", DButtonApplication.ALARM_TYPE_SOURCE);
 //            sendJSONObject.put("main", mainJSONObject);
 //            sendJSONObject.put("biz", getBiz());
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
@@ -952,6 +955,7 @@ public class HttpSendJsonManager {
 
             mainJSONObject.put("pageNo", pageNo);
             mainJSONObject.put("pageSize", pageSize);
+            mainJSONObject.put("source", DButtonApplication.ALARM_TYPE_SOURCE);
 //            sendJSONObject.put("main", mainJSONObject);
 //            sendJSONObject.put("biz", getBiz());
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);

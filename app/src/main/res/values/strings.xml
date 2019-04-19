@@ -9,6 +9,7 @@
     <string name="alarm_up_ing_hint">按下停止键后将中止对所有联系人的求助</string>
     <string name="dbutton_explain">了解小D</string>
     <string name="my_alarm_detail">我的警报详情</string>
+    <string name="help_map">求助地图</string>
     <string name="detail">详情</string>
     <string name="menu_alarm">求助</string>
     <string name="menu_contact">联系人</string>

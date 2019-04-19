@@ -76,8 +76,8 @@ public class LoadingActivity extends AppCompatActivity implements PermissionInte
         //设置系统UI元素的可见性
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         //隐藏标题栏
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
 
         //初始化并发起权限申请
         mPermissionHelper = new PermissionHelper(this, this);

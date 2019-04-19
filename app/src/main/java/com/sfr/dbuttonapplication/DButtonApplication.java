@@ -114,7 +114,7 @@ public class DButtonApplication extends BleBaseApplication {
     public static BDLocation bdLocation;
     public static double nowLatitude = 0;
     public static double nowLongitude = 0;
-    public static HashMap<String, DButtonData> mDButtonMap;
+    public static HashMap<String, DButtonData> mDButtonMap = new HashMap<String, DButtonData>();
     public static String mNowMac = "";
     private FileUtils mFileUtils;
     private boolean mFilterContent = false;
@@ -122,6 +122,7 @@ public class DButtonApplication extends BleBaseApplication {
      * 全局Context，原理是因为Application类是应用最先运行的，所以在我们的代码调用时，该值已经被赋值过了
      */
     public static DButtonApplication mInstance;
+    public static final String ALARM_TYPE_SOURCE = "1";//1.小D，2.老D
 
     @Override
     public void onCreate() {
@@ -590,6 +591,7 @@ public class DButtonApplication extends BleBaseApplication {
                 Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
                         + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:" + string1);
 
+                com.sfr.dbuttonapplication.utils.FileUtils.writeLog(TAG, string1);
                 PointData pointData = new PointData();
                 Date date = new Date(System.currentTimeMillis());
                 String pointTime = simpleDateFormat.format(date);
@@ -629,6 +631,7 @@ public class DButtonApplication extends BleBaseApplication {
                     isOverUp = false;
                     //初始化的时候赋值List
                     mPointDataList = new ArrayList<PointData>();
+                    hasCallPhone = false;
 
                     //Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++getManager().readBattery();"+getManager().readBattery());
 //                    getManager().readCharacteristic(UUIDCHAR_CTRL);
@@ -668,6 +671,7 @@ public class DButtonApplication extends BleBaseApplication {
                     Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++未触发警报");
                     //---------------------长按--------------------------
                     if (!hasStart) {
+                        hasCallPhone = false;
                         Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++尚未启动-直接长按");
                         hasStart = true;
                         isOverUp = false;
@@ -1012,6 +1016,7 @@ public class DButtonApplication extends BleBaseApplication {
     //private JSONArray pointJsonArray = new JSONArray();
     String point = "";
     private AlarmUpTask mAlarmUpTask;
+    private boolean hasCallPhone = false;
 
     private class AlarmUpTask extends AsyncTask<String, Void, Void> {
 
@@ -1100,20 +1105,23 @@ public class DButtonApplication extends BleBaseApplication {
                         LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空2");
                         mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                     } else {
-                        mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+                        mHandler.sendEmptyMessageDelayed(ALARM_UP_FALSE, 3000);
                     }
 
-                    if (DButtonApplication.mContactList.size() > 0) {
-                        for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
-                            String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+                    if (!hasCallPhone) {
+                        if (DButtonApplication.mContactList.size() > 0) {
+                            hasCallPhone = true;
+                            for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+                                String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
 //                            String message = "我在" + lastLocation.getAddress().address + "出事了,出事时间是" + simpleDateFormat.format(
 //                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
-                            String message = getSmsText(lastLocation.getAddress().address,simpleDateFormat.format(
-                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
-                            sendSMS(phoneNumber, message);
-                            if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
-                                //拨打电话
-                                callPhone(phoneNumber);//同时背景播放音乐
+                                String message = getSmsText(lastLocation.getAddress().address, simpleDateFormat.format(
+                                        new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
+                                sendSMS(phoneNumber, message);
+                                if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+                                    //拨打电话
+                                    callPhone(phoneNumber);//同时背景播放音乐
+                                }
                             }
                         }
                     }
@@ -1143,22 +1151,25 @@ public class DButtonApplication extends BleBaseApplication {
                             LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空3");
                             mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                         } else {
-                            mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+                            mHandler.sendEmptyMessageDelayed(ALARM_UP_FALSE, 3000);
                         }
 
-                        if (DButtonApplication.mContactList.size() > 0) {
-                            for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
-                                String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+                        if (!hasCallPhone) {
+                            if (DButtonApplication.mContactList.size() > 0) {
+                                hasCallPhone = true;
+                                for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+                                    String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
 //                                String message = "我在经度" + location.longitude + ".纬度" + location.latitude +
 //                                        "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
 //                                        simpleDateFormat.format(new Date(endTimeLong));
-                                String message = getSmsText("经度" + location.longitude + ".纬度" + location.latitude
-                                        ,simpleDateFormat.format(
-                                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
-                                sendSMS(phoneNumber, message);
-                                if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
-                                    //拨打电话
-                                    callPhone(phoneNumber);//同时背景播放音乐
+                                    String message = getSmsText("经度" + location.longitude + ".纬度" + location.latitude
+                                            , simpleDateFormat.format(
+                                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
+                                    sendSMS(phoneNumber, message);
+                                    if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+                                        //拨打电话
+                                        callPhone(phoneNumber);//同时背景播放音乐
+                                    }
                                 }
                             }
                         }
@@ -1170,7 +1181,7 @@ public class DButtonApplication extends BleBaseApplication {
                                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(DButtonApplication.this,
                                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                        }else {
+                        } else {
                             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             Log.e(TAG, "onReceive() point21:" + point);
                             if (TextUtils.isEmpty(point)) {
@@ -1191,28 +1202,33 @@ public class DButtonApplication extends BleBaseApplication {
                                 LogUtil.println("alarmUpdate UPLOAD_SUCCESS mRecord = 空3");
                                 mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                             } else {
-                                mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+                                mHandler.sendEmptyMessageDelayed(ALARM_UP_FALSE, 3000);
                             }
 
-                            if (DButtonApplication.mContactList.size() > 0) {
-                                for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
-                                    String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+                            if (!hasCallPhone) {
+                                if (DButtonApplication.mContactList.size() > 0) {
+                                    hasCallPhone = true;
+                                    for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+                                        String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
 //                                    String message = "我在经度" + location.getLongitude() + ".纬度" + location.getLatitude() +
 //                                            "出事了,出事时间是" + simpleDateFormat.format(new Date(nowTimeLong)) + "-" +
 //                                            simpleDateFormat.format(new Date(endTimeLong));
-                                    String message = getSmsText("经度" + location.getLongitude() + ".纬度" + location.getLatitude()
-                                            ,simpleDateFormat.format(
-                                            new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
-                                    sendSMS(phoneNumber, message);
-                                    if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
-                                        //拨打电话
-                                        callPhone(phoneNumber);//同时背景播放音乐
+                                        String message = getSmsText("经度" + location.getLongitude() + ".纬度" + location.getLatitude()
+                                                , simpleDateFormat.format(
+                                                        new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
+                                        sendSMS(phoneNumber, message);
+                                        if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+                                            //拨打电话
+                                            callPhone(phoneNumber);//同时背景播放音乐
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }else{
+                //mHandler.sendEmptyMessageDelayed(ALARM_UP_FALSE, 3000);
             }
             return null;
         }
@@ -1331,20 +1347,23 @@ public class DButtonApplication extends BleBaseApplication {
                 if (alarmIDData.isOK()) {
                     mHandler.sendEmptyMessage(ALARM_UP_SUCCESS);
                 } else {
-                    mHandler.sendEmptyMessage(ALARM_UP_FALSE);
+                    mHandler.sendEmptyMessageDelayed(ALARM_UP_FALSE, 3000);
                 }
 
-                if (DButtonApplication.mContactList.size() > 0) {
-                    for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
-                        String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
+                if (!hasCallPhone) {
+                    if (DButtonApplication.mContactList.size() > 0) {
+                        hasCallPhone = true;
+                        for (int i = 0; i < DButtonApplication.mContactList.size(); i++) {
+                            String phoneNumber = DButtonApplication.mContactList.get(i).getPhone();
 //                        String message = "我在" + city + district + "出事了,出事时间是" + simpleDateFormat.format(
 //                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong));
-                        String message = getSmsText(city+district,simpleDateFormat.format(
-                                new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
-                        sendSMS(phoneNumber, message);
-                        if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
-                            //拨打电话
-                            callPhone(phoneNumber);//同时背景播放音乐
+                            String message = getSmsText(city + district, simpleDateFormat.format(
+                                    new Date(nowTimeLong)) + "-" + simpleDateFormat.format(new Date(endTimeLong)));
+                            sendSMS(phoneNumber, message);
+                            if (DButtonApplication.mContactList.get(i).getIsUrgent().equals("1")) {
+                                //拨打电话
+                                callPhone(phoneNumber);//同时背景播放音乐
+                            }
                         }
                     }
                 }
@@ -1356,6 +1375,7 @@ public class DButtonApplication extends BleBaseApplication {
     }
 
     public void sendSMS(String phoneNumber, String message) {
+        LogUtil.println("sendSMSSS phoneNumber" + phoneNumber + "|message:" + message);
         // 获取短信管理器
         android.telephony.SmsManager smsManager = android.telephony.SmsManager
                 .getDefault();
@@ -1451,11 +1471,11 @@ public class DButtonApplication extends BleBaseApplication {
         }
     }
 
-    private String getSmsText(String address,String time){
+    private String getSmsText(String address, String time) {
         String name = "我";
-        if(DButtonApplication.mUserData!=null)name = DButtonApplication.mUserData.getName();
-        String smsText = "您好！"+name+"现在遇到了非常紧急的情况需要您的帮助，" +
-                "TA现在的位置在"+address+"附近。详情请立即下载小D（APP下载链接），此条为系统发送勿回！";
+        if (DButtonApplication.mUserData != null) name = DButtonApplication.mUserData.getName();
+        String smsText = "您好！" + name + "现在遇到了非常紧急的情况需要您的帮助，" +
+                "TA现在的位置在" + address + "附近。详情请立即下载小D（APP下载链接），此条为系统发送勿回！";
         return smsText;
     }
 }

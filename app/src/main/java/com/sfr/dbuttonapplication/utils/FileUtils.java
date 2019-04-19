@@ -207,9 +207,8 @@ public class FileUtils {
         }
 
     }
-    private static SimpleDateFormat simFor = new SimpleDateFormat("yyyyMMddhhmmss");
-    private static String LOG_FILE = Environment.getExternalStorageDirectory().getPath()+"/qiaodan/qiaodan_"+
-            simFor.format(new Date())+".log";
+    private static SimpleDateFormat simFor = new SimpleDateFormat("MM月ddh日 hh:mm:ss");
+    private static String LOG_FILE = Environment.getExternalStorageDirectory().getPath()+"/dbutton/dbutton.log";
     public static void writeLog(String tag, String log) {
         if (ISDEBUG) {
             File file = new File(LOG_FILE);

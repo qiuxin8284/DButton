@@ -33,7 +33,8 @@
         android:roundIcon="@mipmap/dbutton_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.login.FirstLoadActivity"></activity>
+        <activity android:name=".activity.NearMapActivity"></activity>
+        <activity android:name=".activity.login.FirstLoadActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
@@ -63,7 +64,8 @@
             android:name=".activity.login.RegisterSucessActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.icen.blelibrary.services.BleManagerService">
+        <service android:name="com.icen.blelibrary.services.BleManagerService"
+            android:process=":process">
             <intent-filter>
                 <action android:name="com.icen.blelibrary.START_BLE_SERVICE" />
 
