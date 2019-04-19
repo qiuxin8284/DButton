@@ -542,7 +542,7 @@ public class DButtonApplication extends BleBaseApplication {
 
     //========================================================Service移植过来代码====================================================
 
-    public String TAG = "DButtonControlService";
+    public String TAG = "DButton";
     private String nowTime = "";//后续删除掉
     private String endTime = "";//后续删除掉
     private long nowTimeLong;
@@ -552,6 +552,7 @@ public class DButtonApplication extends BleBaseApplication {
     private boolean isAlarmUp = false;
     private boolean isOverUp = false;
     private ArrayList<PointData> mPointDataList = new ArrayList<PointData>();
+    private String fileLogName = "dbutton.log";
     //public static String mAddress = "";
     public LocationListener locationListener = new LocationListener() {
         // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
@@ -591,7 +592,7 @@ public class DButtonApplication extends BleBaseApplication {
                 Log.e(TAG, "locationListener onLocationChanged() ++++++++++++++++++++++++++++++++++++++++++++"
                         + simpleDateFormat.format(new Date(System.currentTimeMillis())) + "|string1:" + string1);
 
-                com.sfr.dbuttonapplication.utils.FileUtils.writeLog(TAG, string1);
+                com.sfr.dbuttonapplication.utils.FileUtils.writeLogName(TAG, string1,fileLogName);
                 PointData pointData = new PointData();
                 Date date = new Date(System.currentTimeMillis());
                 String pointTime = simpleDateFormat.format(date);
@@ -627,6 +628,7 @@ public class DButtonApplication extends BleBaseApplication {
                 //才开始注册信息---如果双击没点击，那么直接轨迹只有当前的点和无录音文件，此时长按才开始录音，地址初始化
                 if (!hasStart) {
                     Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++尚未启动");
+                    fileLogName = "DButton_"+simpleDateFormat.format(new Date());
                     hasStart = true;
                     isOverUp = false;
                     //初始化的时候赋值List
@@ -671,6 +673,7 @@ public class DButtonApplication extends BleBaseApplication {
                     Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++未触发警报");
                     //---------------------长按--------------------------
                     if (!hasStart) {
+                        fileLogName = "DButton_"+simpleDateFormat.format(new Date());
                         hasCallPhone = false;
                         Log.e(TAG, "onReceive() ++++++++++++++++++++++++++++++++++++++++++尚未启动-直接长按");
                         hasStart = true;

@@ -247,6 +247,44 @@ public class FileUtils {
         }
     }
 
+    private static String LOG_FILE_PATH = Environment.getExternalStorageDirectory().getPath()+"/dbutton/";
+    public static void writeLogName(String tag, String log,String fileName) {
+        if (ISDEBUG) {
+            File file = new File(LOG_FILE_PATH+fileName+".log");
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            BufferedWriter out = null;
+            try {
+                // Create file
+                FileWriter fstream = new FileWriter(LOG_FILE, true);
+                out = new BufferedWriter(fstream);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm:ss SSS ");
+                String time = sdf.format(new Date(System.currentTimeMillis()));
+                out.append(time);
+                out.append(tag+"\t");
+                out.append(log);
+                out.append("\r\n\r\n");
+            } catch (Exception e) {// Catch exception if any
+                // System.err.println("Error: " + e.getMessage());
+            } finally {
+                try {
+                    if (out != null) {
+                        out.close();
+                    }
+                } catch (IOException e) {
+                    // e.printStackTrace();
+                }
+            }
+        }
+    }
     private static String LOG_VIP_FILE = Environment.getExternalStorageDirectory().getPath()+"/qiaodan/qiaodan_vipid"+
             simFor.format(new Date())+".txt";
     public static void writeVipidLog(String tag, String log) {
