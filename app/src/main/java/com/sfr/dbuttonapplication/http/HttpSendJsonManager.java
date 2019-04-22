@@ -901,7 +901,7 @@ public class HttpSendJsonManager {
             LogUtil.println("alarmUpdate" + json);
             String synchronousResult = DButtonApplication.httpManager.SyncHttpCommunicate(url, json);
 //            String result_json = HttpUtils.sendHttpRequest(CommunicateConfig.GetHttpClientAdress()+url, request_proto);
-            LogUtil.println("sendSMS synchronousResult1" + synchronousResult);
+            LogUtil.println("alarmUpdate synchronousResult1" + synchronousResult);
             return HttpAnalyJsonManager.alarmUpdate(synchronousResult, context);
         } catch (Exception e) {
             HttpAnalyJsonManager.lastError = context.getResources().getString(R.string.network_connection_failed);
@@ -1035,7 +1035,35 @@ public class HttpSendJsonManager {
         }
     }
 
+    public static AlarmListData getNearAlarmList(Context context,
+                                                String longitude, String latitude) {
+        AlarmListData alarmListData = new AlarmListData();
+        alarmListData.setOK(false);
+        String url = "v0/alarm/near.htm";
+        try {
+            JSONObject sendJSONObject = new JSONObject();
+            JSONObject mainJSONObject = new JSONObject();
 
+            mainJSONObject.put("longitude", longitude);
+            mainJSONObject.put("latitude", latitude);
+//            sendJSONObject.put("main", mainJSONObject);
+//            sendJSONObject.put("biz", getBiz());
+            RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
+            sendJSONObject.put("data", Base64.encode(request_proto.toByteArray()));
+
+            String json = sendJSONObject.toString();
+
+            LogUtil.println("getNearAlarmList" + json);
+            String synchronousResult = DButtonApplication.httpManager.SyncHttpCommunicate(url, json);
+//            String result_json = HttpUtils.sendHttpRequest(CommunicateConfig.GetHttpClientAdress()+url, request_proto);
+            LogUtil.println("getNearAlarmList synchronousResult1" + synchronousResult);
+            return HttpAnalyJsonManager.getNearAlarmList(synchronousResult, context);
+        } catch (Exception e) {
+            HttpAnalyJsonManager.lastError = context.getResources().getString(R.string.network_connection_failed);
+            e.printStackTrace();
+            return alarmListData;
+        }
+    }
 //
 //	/**
 //	 * 查看媒体文件

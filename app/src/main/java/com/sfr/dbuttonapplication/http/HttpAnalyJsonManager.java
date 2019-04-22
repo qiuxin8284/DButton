@@ -554,6 +554,44 @@ public class HttpAnalyJsonManager {
         return true;
     }
 
+
+    //附近的警报
+    public static AlarmListData getNearAlarmList(String json, Context context) throws JSONException {
+        AlarmListData alarmListData = new AlarmListData();
+        alarmListData.setOK(false);
+        if (!lastError.equals("")) return alarmListData;
+        JSONObject dataJson = new JSONObject(json);
+        JSONArray alarmDataListArray = dataJson.getJSONArray("alarms");
+        ArrayList<AlarmResultData> alarmDataList = new ArrayList<AlarmResultData>();
+        for (int i = 0; i < alarmDataListArray.length(); i++) {
+            try {
+                AlarmResultData alarmResultData = new AlarmResultData();
+                AlarmData alarmData = new AlarmData();
+                JSONObject alarmResultJSON = alarmDataListArray.getJSONObject(i);
+                alarmData.setId(alarmResultJSON.getString("id"));
+                alarmData.setVipImg(alarmResultJSON.getString("vipImg"));
+                alarmData.setVipName(alarmResultJSON.getString("vipName"));
+                alarmData.setPoint(alarmResultJSON.getString("point"));
+                alarmData.setBeginTime(alarmResultJSON.getString("beginTime"));
+                alarmData.setEndTime(alarmResultJSON.getString("endTime"));
+                alarmData.setAddress(alarmResultJSON.getString("address"));
+                alarmData.setRecord(alarmResultJSON.getString("record"));
+                alarmData.setDuration(alarmResultJSON.getString("duration"));
+                alarmData.setType(alarmResultJSON.getString("type"));
+                alarmData.setSource(alarmResultJSON.getString("source"));
+                alarmData.setLongitude(alarmResultJSON.getString("longitude"));
+                alarmData.setLatitude(alarmResultJSON.getString("latitude"));
+                alarmResultData.setAlarmData(alarmData);
+                alarmDataList.add(alarmResultData);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        alarmListData.setAlarmDataArrayList(alarmDataList);
+        alarmListData.setOK(true);
+        return alarmListData;
+    }
+
 //	/**
 //	 * 查看媒体文件
 //	 * @param json

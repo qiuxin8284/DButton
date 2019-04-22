@@ -91,6 +91,12 @@ public class ContactListAdapter extends BaseAdapter {
         }
         if(!TextUtils.isEmpty(mList.get(position).getImg())){
             ImageLoader.getInstance().displayImage(mList.get(position).getImg(),holder.ivHead,options);
+        }else{
+            if(mList.get(position).getGender().equals("1")) {
+                holder.ivHead.setImageResource(R.mipmap.img_default_head_man);
+            }else{
+                holder.ivHead.setImageResource(R.mipmap.img_default_head_woman);
+            }
         }
         return v;
     }

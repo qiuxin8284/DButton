@@ -14,6 +14,9 @@ public class AlarmData {
 	private String vipImg;
 	private String vipPhone;
 	private String session;
+	private String source;
+	private String longitude;
+	private String latitude;
 	private boolean isOK;
 
 	public String getId() {
@@ -129,6 +132,30 @@ public class AlarmData {
 		this.vipPhone = vipPhone;
 	}
 
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
 	@Override
 	public String toString() {
 		return "AlarmData{" +
@@ -145,6 +172,9 @@ public class AlarmData {
 				", vipImg='" + vipImg + '\'' +
 				", vipPhone='" + vipPhone + '\'' +
 				", session='" + session + '\'' +
+				", source='" + source + '\'' +
+				", longitude='" + longitude + '\'' +
+				", latitude='" + latitude + '\'' +
 				", isOK=" + isOK +
 				'}';
 	}
