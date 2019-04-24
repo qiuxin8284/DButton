@@ -33,6 +33,17 @@
                 android:textColor="@drawable/bottom_menu_color"
                 android:textSize="@dimen/bottom_menu_size" />
 
+            <RadioButton
+                android:id="@+id/menu_near_map"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/ripple_back_bottom"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/menu_near_map"
+                android:textColor="@drawable/bottom_menu_color"
+                android:textSize="@dimen/bottom_menu_size" />
 
             <RadioButton
                 android:id="@+id/menu_contact"

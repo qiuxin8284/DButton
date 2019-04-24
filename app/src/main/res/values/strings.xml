@@ -13,6 +13,7 @@
     <string name="detail">详情</string>
     <string name="menu_alarm">求助</string>
     <string name="menu_contact">联系人</string>
+    <string name="menu_near_map">周边</string>
     <string name="contact_data">联系人信息</string>
     <string name="urgent_contact">紧急联系人</string>
     <string name="address_list_contact">通讯录联系人</string>

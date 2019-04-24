@@ -107,14 +107,14 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 getActivity().finish();
                 break;
             case R.id.ll_contact_us:
-                //callPhone("0755-12345678");
-                intent = new Intent(getActivity(), NearMapActivity.class);
-                startActivity(intent);
+                callPhone("0755-12345678");
+//                intent = new Intent(getActivity(), NearMapActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.rl_about_us:
-                //callPhone("0755-12345678");
-                intent = new Intent(getActivity(), NearMapActivity.class);
-                startActivity(intent);
+                callPhone("0755-12345678");
+//                intent = new Intent(getActivity(), NearMapActivity.class);
+//                startActivity(intent);
                 break;
         }
 

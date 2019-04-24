@@ -36,6 +36,7 @@ import com.sfr.dbuttonapplication.activity.adapter.MainFragmentAdapter;
 import com.sfr.dbuttonapplication.activity.fragment.AlarmFragment;
 import com.sfr.dbuttonapplication.activity.fragment.ContactFragment;
 import com.sfr.dbuttonapplication.activity.fragment.MyFragment;
+import com.sfr.dbuttonapplication.activity.fragment.NearMapFragment;
 import com.sfr.dbuttonapplication.activity.widget.AlarmConfirmDialog;
 import com.sfr.dbuttonapplication.activity.widget.CustomViewPager;
 import com.sfr.dbuttonapplication.activity.widget.ReceiveAlarmDialog;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CustomViewPager mPager;
     private ArrayList<Fragment> fragmentList;
     private int imgs[] = new int[]{R.drawable.menu_alarm_btn,
-            R.drawable.menu_contact_btn, R.drawable.menu_my_btn};
+            R.drawable.menu_contact_btn, R.drawable.menu_contact_btn, R.drawable.menu_my_btn};
 
     private static final int ALARM_UP_SUCCESS = 1;
     private static final int ALARM_UP_FALSE = 2;
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPager = (CustomViewPager) findViewById(R.id.viewpager);
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(new AlarmFragment());
+        fragmentList.add(new NearMapFragment());
         fragmentList.add(new ContactFragment());
         fragmentList.add(new MyFragment());
         MainFragmentAdapter adapter = new MainFragmentAdapter(
@@ -144,9 +146,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPager.setAdapter(adapter);
         mMenuGroup.setOnCheckedChangeListener(this);
         mPager.setCurrentItem(currentItem);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setOffscreenPageLimit(4);
         ((RadioButton) mMenuGroup.getChildAt(currentItem)).setChecked(true);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             RadioButton rb = ((RadioButton) mMenuGroup.getChildAt(i));
             if (i == currentItem) {
                 rb.setChecked(true);
@@ -177,8 +179,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                sendBroadcast(intent);
                 break;
 
-            case R.id.menu_contact:
+            case R.id.menu_near_map:
                 currentItem = 1;
+                mPager.setCurrentItem(currentItem);
+//                intent = new Intent();
+//                intent.setAction(DButtonApplication.ACTION_DOUBLE_CLICK);
+//                sendBroadcast(intent);
+                break;
+            case R.id.menu_contact:
+                currentItem = 2;
                 mPager.setCurrentItem(currentItem);
 //                intent = new Intent();
 //                intent.setAction(DButtonApplication.ACTION_DOUBLE_CLICK);
@@ -186,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.menu_my:
-                currentItem = 2;
+                currentItem = 3;
                 mPager.setCurrentItem(currentItem);
 //                intent = new Intent();
 //                intent.setAction(DButtonApplication.ACTION_LONG_CLICK);
