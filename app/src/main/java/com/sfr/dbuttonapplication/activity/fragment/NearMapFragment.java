@@ -112,6 +112,7 @@ public class NearMapFragment extends Fragment {
         mIvUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
                 //刷新界面update
                 LoadingProgressDialog.show(getActivity(), false, true, 30000);
                 mAlarmListTask = new AlarmListTask();
@@ -129,7 +130,7 @@ public class NearMapFragment extends Fragment {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         mBaiduMap.setMyLocationEnabled(true);
         mMapView.showZoomControls(false);
-        MapViewUtil.goneMap(mMapView);
+        MapViewUtil.goneMap(mMapView,3);
         //如果已经有权限了直接初始化，否则再请求一次权限，并且成功的时候触发此方法
         BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
 
@@ -143,6 +144,7 @@ public class NearMapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
         //刷新界面update
         LoadingProgressDialog.show(getActivity(), false, true, 30000);
         mAlarmListTask = new AlarmListTask();
