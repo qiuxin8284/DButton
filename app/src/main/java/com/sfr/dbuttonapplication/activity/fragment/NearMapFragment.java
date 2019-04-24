@@ -16,8 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationData;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.NearMapActivity;
@@ -61,6 +66,7 @@ public class NearMapFragment extends Fragment {
             }
         }
     };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -71,8 +77,12 @@ public class NearMapFragment extends Fragment {
 
     @Override
     public void onDestroy() {
+        mBaiduMap.setMyLocationEnabled(false);
+        mMapView.onDestroy();
+        mMapView = null;
         super.onDestroy();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,15 +122,6 @@ public class NearMapFragment extends Fragment {
     }
 
 
-    private boolean mIsConnection = false;
-    private void startService(){
-        DButtonApplication.mNowMac = SettingSharedPerferencesUtil.GetBindDbuttonMACValue(
-                getActivity(), DButtonApplication.mUserData.getPhone());
-        LogUtil.println("DButtonApplication::Login::mNowMac= " + DButtonApplication.mNowMac);
-        DButtonApplication.mInstance.connectToDevice();
-        //DButtonApplication.mInstance.startScanDevice();
-    }
-
     public void setView(View view) {
         mMapView = (MapView) view.findViewById(R.id.near_map_view);
         mBaiduMap = mMapView.getMap();
@@ -130,8 +131,10 @@ public class NearMapFragment extends Fragment {
         mMapView.showZoomControls(false);
         MapViewUtil.goneMap(mMapView);
         //如果已经有权限了直接初始化，否则再请求一次权限，并且成功的时候触发此方法
-        BaiduLocationUtils.initLocation(getActivity());
+        BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+
     }
+
 
     private void setListener() {
     }
@@ -139,10 +142,17 @@ public class NearMapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        mMapView.onResume();
         //刷新界面update
         LoadingProgressDialog.show(getActivity(), false, true, 30000);
         mAlarmListTask = new AlarmListTask();
         mAlarmListTask.execute("");
+    }
+
+    @Override
+    public void onPause() {
+        mMapView.onPause();
+        super.onPause();
     }
 
     private AlarmListTask mAlarmListTask;
@@ -152,7 +162,7 @@ public class NearMapFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(),"100","100");
+            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), "100", "100");
             if (mAlarmListData.isOK()) {
                 DButtonApplication.mAddContact = false;
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);
