@@ -23,6 +23,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.NearMapActivity;
@@ -49,6 +50,7 @@ public class NearMapFragment extends Fragment {
     private BaiduMap mBaiduMap;
     private static final int ALARM_LIST_SUCCESS = 1;
     private static final int ALARM_LIST_FALSE = 2;
+    private LatLng mLatLng;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -112,7 +114,7 @@ public class NearMapFragment extends Fragment {
         mIvUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+                mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
                 //刷新界面update
                 LoadingProgressDialog.show(getActivity(), false, true, 30000);
                 mAlarmListTask = new AlarmListTask();
@@ -132,7 +134,7 @@ public class NearMapFragment extends Fragment {
         mMapView.showZoomControls(false);
         MapViewUtil.goneMap(mMapView,3);
         //如果已经有权限了直接初始化，否则再请求一次权限，并且成功的时候触发此方法
-        BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+        mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
 
     }
 
@@ -144,7 +146,7 @@ public class NearMapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+        mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
         //刷新界面update
         LoadingProgressDialog.show(getActivity(), false, true, 30000);
         mAlarmListTask = new AlarmListTask();
@@ -164,7 +166,8 @@ public class NearMapFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), "100", "100");
+            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), String.valueOf(mLatLng.longitude), String.valueOf(mLatLng.latitude));
+            LogUtil.println("getNearAlarmList mLatLng.longitude" + mLatLng.longitude+"|"+mLatLng.latitude);
             if (mAlarmListData.isOK()) {
                 DButtonApplication.mAddContact = false;
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);
