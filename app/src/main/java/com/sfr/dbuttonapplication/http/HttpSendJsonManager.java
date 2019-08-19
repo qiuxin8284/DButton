@@ -854,7 +854,8 @@ public class HttpSendJsonManager {
 //            mainJSONObject.put("latitude", latitude);
             mainJSONObject.put("point", point);
             mainJSONObject.put("beginTime", beginTime);
-            mainJSONObject.put("endTime", endTime);
+            mainJSONObject.put("endTime", "");
+            //mainJSONObject.put("endTime", endTime);
             mainJSONObject.put("address", address);
             mainJSONObject.put("record", record);
             mainJSONObject.put("source", DButtonApplication.ALARM_TYPE_SOURCE);
@@ -888,7 +889,7 @@ public class HttpSendJsonManager {
             JSONObject mainJSONObject = new JSONObject();
 
             mainJSONObject.put("id", id);
-            mainJSONObject.put("type", type);//类型(1:进行中 2:解除警报)
+            mainJSONObject.put("type", "1");//类型(1:进行中 2:解除警报)
             mainJSONObject.put("point", point);
             mainJSONObject.put("session", session);
 
@@ -1048,6 +1049,9 @@ public class HttpSendJsonManager {
             mainJSONObject.put("latitude", latitude);
 //            sendJSONObject.put("main", mainJSONObject);
 //            sendJSONObject.put("biz", getBiz());
+            LogUtil.println("getNearAlarmList longitude" + longitude);
+            LogUtil.println("getNearAlarmList latitude" + latitude);
+            LogUtil.println("getNearAlarmList json" + mainJSONObject.toString());
             RequestMessage.Request request_proto = CommonUtils.createRequest(context, mainJSONObject.toString(), DButtonApplication.USER_TOKEN, false);
             sendJSONObject.put("data", Base64.encode(request_proto.toByteArray()));
 

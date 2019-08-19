@@ -118,7 +118,7 @@ public class NearMapActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.getNearAlarmList(NearMapActivity.this,"100","100");
+            mAlarmListData = HttpSendJsonManager.getNearAlarmList(NearMapActivity.this,"114.11908400","22.59484800");
             if (mAlarmListData.isOK()) {
                 DButtonApplication.mAddContact = false;
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);

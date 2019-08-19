@@ -166,8 +166,9 @@ public class NearMapFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), String.valueOf(mLatLng.longitude), String.valueOf(mLatLng.latitude));
-            LogUtil.println("getNearAlarmList mLatLng.longitude" + mLatLng.longitude+"|"+mLatLng.latitude);
+            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(),"114.11908400","22.59484800");
+            //mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), String.valueOf(mLatLng.longitude)+"00", String.valueOf(mLatLng.latitude)+"00");
+            //LogUtil.println("getNearAlarmList mLatLng.longitude:" + mLatLng.longitude+"00"+"|latitude:"+mLatLng.latitude+"00");
             if (mAlarmListData.isOK()) {
                 DButtonApplication.mAddContact = false;
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);

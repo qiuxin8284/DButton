@@ -324,6 +324,7 @@ public class DButtonApplication extends BleBaseApplication {
                 " name= " + device_name + " mac= " + device_mac +
                 " class= " + device_class + " RSSI= " + device_rssi +
                 " content= " + Arrays.toString(broadcast_content));
+        com.sfr.dbuttonapplication.utils.FileUtils.writeLog(TAG,  "name= " + device_name + " mac= " + device_mac);
 
         if (!mDButtonMap.containsKey(device_mac) && !TextUtils.isEmpty(device_mac)) {
             if ("BEADS-1".equals(device_name)) {
@@ -520,6 +521,7 @@ public class DButtonApplication extends BleBaseApplication {
         }
         LogUtil.println("DButtonApplication::startScanDevice::");
         mDButtonMap = new HashMap<String, DButtonData>();
+        com.sfr.dbuttonapplication.utils.FileUtils.clearLog();
         getManager().startScanDevice();
     }
 

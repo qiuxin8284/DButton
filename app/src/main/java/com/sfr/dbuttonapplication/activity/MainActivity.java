@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CustomViewPager mPager;
     private ArrayList<Fragment> fragmentList;
     private int imgs[] = new int[]{R.drawable.menu_alarm_btn,
-            R.drawable.menu_contact_btn, R.drawable.menu_contact_btn, R.drawable.menu_my_btn};
+            R.drawable.menu_map_btn, R.drawable.menu_contact_btn, R.drawable.menu_my_btn};
 
     private static final int ALARM_UP_SUCCESS = 1;
     private static final int ALARM_UP_FALSE = 2;
