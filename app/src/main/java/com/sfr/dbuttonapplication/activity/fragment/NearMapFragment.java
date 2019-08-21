@@ -21,9 +21,15 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.sfr.dbuttonapplication.DButtonApplication;
 import com.sfr.dbuttonapplication.R;
 import com.sfr.dbuttonapplication.activity.NearMapActivity;
@@ -59,7 +65,46 @@ public class NearMapFragment extends Fragment {
             switch (msg.what) {
                 case ALARM_LIST_SUCCESS:
                     LoadingProgressDialog.Dissmiss();
+                    LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 1");
                     //刷新地图显示的点
+                    //定义Ground的显示地理范围
+//                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//                    for (int i = 0; i < mAlarmListData.getAlarmDataArrayList().size(); i++) {
+//                        AlarmResultData alarmResultData = mAlarmListData.getAlarmDataArrayList().get(i);
+//                        LatLng latLng = new LatLng(Double.valueOf(alarmResultData.getAlarmData().getLatitude())
+//                                , (Double.valueOf(alarmResultData.getAlarmData().getLongitude())));
+//                        builder.include(latLng);
+//                    }
+//                    LatLngBounds bounds = builder.build();
+//
+//                    //定义Ground显示的图片
+//                    BitmapDescriptor bdGround = BitmapDescriptorFactory.fromResource(R.mipmap.img_head);
+//                    //定义GroundOverlayOptions对象
+//                    OverlayOptions ooGround = new GroundOverlayOptions()
+//                            .positionFromBounds(bounds)
+//                            .image(bdGround)
+//                            .transparency(0.8f); //覆盖物透明度
+//
+//                    //在地图中添加Ground覆盖物
+//                    mBaiduMap.addOverlay(ooGround);
+
+                    LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 2");
+                    //定义Maker坐标点
+                    for (int i = 0; i < mAlarmListData.getAlarmDataArrayList().size(); i++) {
+                        AlarmResultData alarmResultData = mAlarmListData.getAlarmDataArrayList().get(i);
+                        LatLng latLng = new LatLng(Double.valueOf(alarmResultData.getAlarmData().getLatitude())
+                                , (Double.valueOf(alarmResultData.getAlarmData().getLongitude())));
+                        //构建Marker图标
+                        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                                .fromResource(R.mipmap.sex_man);
+                        //构建MarkerOption，用于在地图上添加Marker
+                        OverlayOptions option = new MarkerOptions()
+                                .position(latLng)
+                                .icon(bitmap);
+                        //在地图上添加Marker，并显示
+                        mBaiduMap.addOverlay(option);
+                    }
+                    LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 3");
                     break;
                 case ALARM_LIST_FALSE:
                     LoadingProgressDialog.Dissmiss();
@@ -114,7 +159,7 @@ public class NearMapFragment extends Fragment {
         mIvUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+                mLatLng = BaiduLocationUtils.locationMyself(getActivity(), mBaiduMap);
                 //刷新界面update
                 LoadingProgressDialog.show(getActivity(), false, true, 30000);
                 mAlarmListTask = new AlarmListTask();
@@ -132,9 +177,9 @@ public class NearMapFragment extends Fragment {
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         mBaiduMap.setMyLocationEnabled(true);
         mMapView.showZoomControls(false);
-        MapViewUtil.goneMap(mMapView,3);
+        MapViewUtil.goneMap(mMapView, 3);
         //如果已经有权限了直接初始化，否则再请求一次权限，并且成功的时候触发此方法
-        mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+        mLatLng = BaiduLocationUtils.locationMyself(getActivity(), mBaiduMap);
 
     }
 
@@ -146,7 +191,7 @@ public class NearMapFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-        mLatLng = BaiduLocationUtils.locationMyself(getActivity(),mBaiduMap);
+        mLatLng = BaiduLocationUtils.locationMyself(getActivity(), mBaiduMap);
         //刷新界面update
         LoadingProgressDialog.show(getActivity(), false, true, 30000);
         mAlarmListTask = new AlarmListTask();
@@ -166,11 +211,12 @@ public class NearMapFragment extends Fragment {
 
         @Override
         protected Void doInBackground(String... params) {
-            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(),"114.11908400","22.59484800");
+            mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), "114.11908400", "22.59484800");
             //mAlarmListData = HttpSendJsonManager.getNearAlarmList(getActivity(), String.valueOf(mLatLng.longitude)+"00", String.valueOf(mLatLng.latitude)+"00");
             //LogUtil.println("getNearAlarmList mLatLng.longitude:" + mLatLng.longitude+"00"+"|latitude:"+mLatLng.latitude+"00");
             if (mAlarmListData.isOK()) {
                 DButtonApplication.mAddContact = false;
+                LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS");
                 mHandler.sendEmptyMessage(ALARM_LIST_SUCCESS);
             } else {
                 mHandler.sendEmptyMessage(ALARM_LIST_FALSE);
