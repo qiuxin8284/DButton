@@ -201,9 +201,13 @@ public class AlarmDetailActivity extends AppCompatActivity implements View.OnCli
                     }
                     //报警开始时间 结束时间和地址
                     lastAddress = mAlarmData.getAddress();
-                    mTvBeginTime.setText("记录时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getBeginTime()))));
-                    //mTvEndTime.setText("报警时间：" + simpleDateFormat.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
-                    mTvEndTime.setText("求助时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
+                    try {
+                        mTvBeginTime.setText("记录时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getBeginTime()))));
+                        //mTvEndTime.setText("报警时间：" + simpleDateFormat.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
+                        mTvEndTime.setText("求助时间：" + simpleDateFormat2.format(new Date(Long.valueOf(mAlarmData.getEndTime()))));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     mTvAddress.setText(mAlarmData.getAddress());
                     //mTvLocation.setText("经度："+lastLo+"  ,  纬度："+lastLa);//后续清空后改成截取json的形式取最后一个点
                     initMusic();

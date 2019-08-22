@@ -1,6 +1,8 @@
 package com.sfr.dbuttonapplication.entity;
 
-public class AlarmResultData {
+import java.io.Serializable;
+
+public class AlarmResultData implements Serializable {
 	private String id;
 	private String alarmId ;
 	private AlarmData alarmData;

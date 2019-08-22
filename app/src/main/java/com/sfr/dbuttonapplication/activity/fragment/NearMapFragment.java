@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.GroundOverlayOptions;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -37,6 +40,7 @@ import com.sfr.dbuttonapplication.activity.adapter.AlarmListAdapter;
 import com.sfr.dbuttonapplication.activity.alarm.AlarmDetailActivity;
 import com.sfr.dbuttonapplication.activity.widget.LoadListView;
 import com.sfr.dbuttonapplication.activity.widget.LoadingProgressDialog;
+import com.sfr.dbuttonapplication.entity.AlarmData;
 import com.sfr.dbuttonapplication.entity.AlarmListData;
 import com.sfr.dbuttonapplication.entity.AlarmResultData;
 import com.sfr.dbuttonapplication.http.HttpAnalyJsonManager;
@@ -89,6 +93,7 @@ public class NearMapFragment extends Fragment {
 //                    mBaiduMap.addOverlay(ooGround);
 
                     LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 2");
+                    Marker marker;
                     //定义Maker坐标点
                     for (int i = 0; i < mAlarmListData.getAlarmDataArrayList().size(); i++) {
                         AlarmResultData alarmResultData = mAlarmListData.getAlarmDataArrayList().get(i);
@@ -101,10 +106,34 @@ public class NearMapFragment extends Fragment {
                         OverlayOptions option = new MarkerOptions()
                                 .position(latLng)
                                 .icon(bitmap);
-                        //在地图上添加Marker，并显示
-                        mBaiduMap.addOverlay(option);
+                        //添加marker
+                        marker = (Marker) mBaiduMap.addOverlay(option);
+                        //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
+                        Bundle bundle = new Bundle();
+                        //info必须实现序列化接口
+                        bundle.putSerializable("info", alarmResultData);
+                        marker.setExtraInfo(bundle);
                     }
                     LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 3");
+                    //添加marker点击事件的监听
+                    mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            LogUtil.println("getNearAlarmList onMarkerClick");
+                            //从marker中获取info信息
+                            Bundle bundle = marker.getExtraInfo();
+                            AlarmResultData alarmResultData = (AlarmResultData) bundle.getSerializable("info");
+                            Intent intent = new Intent(getActivity(), AlarmDetailActivity.class);
+                            intent.putExtra("id",alarmResultData.getAlarmData().getId());
+                            intent.putExtra("name",alarmResultData.getAlarmData().getVipName());
+                            intent.putExtra("image",alarmResultData.getAlarmData().getVipImg());
+                            startActivity(intent);
+                            LogUtil.println("getNearAlarmList onMarkerClick marker alarmResultData：" + alarmResultData.toString());
+                            return true;
+                        }
+                    });
+
+                    LogUtil.println("getNearAlarmList ALARM_LIST_SUCCESS 4");
                     break;
                 case ALARM_LIST_FALSE:
                     LoadingProgressDialog.Dissmiss();

@@ -997,7 +997,7 @@ public class HttpSendJsonManager {
             LogUtil.println("alarmDetail" + json);
             String synchronousResult = DButtonApplication.httpManager.SyncHttpCommunicate(url, json);
 //            String result_json = HttpUtils.sendHttpRequest(CommunicateConfig.GetHttpClientAdress()+url, request_proto);
-            LogUtil.println("sendSMS synchronousResult1" + synchronousResult);
+            LogUtil.println("alarmDetail synchronousResult1" + synchronousResult);
             return HttpAnalyJsonManager.alarmDetail(synchronousResult, context);
         } catch (Exception e) {
             HttpAnalyJsonManager.lastError = context.getResources().getString(R.string.network_connection_failed);

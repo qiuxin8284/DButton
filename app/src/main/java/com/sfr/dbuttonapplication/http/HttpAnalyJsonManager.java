@@ -568,6 +568,8 @@ public class HttpAnalyJsonManager {
                 AlarmResultData alarmResultData = new AlarmResultData();
                 AlarmData alarmData = new AlarmData();
                 JSONObject alarmResultJSON = alarmDataListArray.getJSONObject(i);
+                //alarmResultData.setId(alarmResultJSON.getString("id"));
+                //alarmResultData.setAlarmId(alarmResultJSON.getString("alarmId"));
                 alarmData.setId(alarmResultJSON.getString("id"));
                 alarmData.setVipImg(alarmResultJSON.getString("vipImg"));
                 alarmData.setVipName(alarmResultJSON.getString("vipName"));
